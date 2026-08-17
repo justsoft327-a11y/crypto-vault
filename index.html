@@ -1,4 +1,4 @@
-i<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,334 +11,247 @@ i<!DOCTYPE html>
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
+
         body {
-            background-color: #0b0e14;
-            color: #ffffff;
-            padding-bottom: 90px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding-bottom: 80px;
         }
-        .header {
+
+        /* Top Bar */
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 16px 20px;
+            background-color: #0d1117;
         }
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #ff007f, #7f00ff);
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 16px;
-            color: #ffffff;
+            color: white;
             cursor: pointer;
-            user-select: none;
+            overflow: hidden;
+            border: 2px solid #ec4899;
         }
-        .header-icons {
+
+        .top-icons {
             display: flex;
-            gap: 15px;
-            color: #a0aec0;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .top-icon-btn {
+            background: none;
+            border: none;
+            color: #8c96a5;
             font-size: 20px;
             cursor: pointer;
         }
+
+        /* Main Content Sections */
         .page-section {
             display: none;
+            padding: 0 20px;
         }
-        .page-section.active-page {
+
+        .active-page {
             display: block;
         }
-        .balance-section {
+
+        /* Balance Card */
+        .balance-container {
             text-align: center;
-            padding: 10px 20px 25px 20px;
+            padding: 24px 0;
         }
+
         .balance-title {
             color: #8c96a5;
             font-size: 14px;
             margin-bottom: 8px;
         }
+
         .balance-amount {
             font-size: 32px;
             font-weight: 700;
+            color: #ffffff;
             letter-spacing: 1px;
         }
+
+        /* Action Buttons */
         .action-buttons {
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 0 20px 25px 20px;
+            justify-content: space-around;
+            margin: 20px 0;
         }
-        .action-btn-container {
+
+        .action-btn-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            background: none;
+            border: none;
+            color: #c9d1d9;
             cursor: pointer;
         }
+
         .action-circle {
             width: 56px;
             height: 56px;
-            background-color: #1a202c;
             border-radius: 50%;
+            background-color: #161b22;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 22px;
             color: #ffffff;
+            border: 1px solid #30363d;
             transition: background 0.2s;
         }
-        .action-circle:active {
-            background-color: #2d3748;
+
+        .action-circle:hover {
+            background-color: #30363d;
         }
+
         .action-label {
             font-size: 13px;
-            color: #cbd5e0;
+            font-weight: 500;
         }
-        .container {
-            padding: 0 16px;
-        }
-        .card {
+
+        /* Cards & Lists */
+        .card-box {
             background-color: #161b22;
             border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 14px;
-            border: 1px solid #21262d;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #30363d;
         }
-        .card-title {
-            color: #8c96a5;
-            font-size: 13px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .currency-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .currency-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .flag-icon {
-            width: 32px;
-            height: 32px;
-            background-color: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 13px;
-            color: #34d399;
-        }
-        .currency-name {
-            font-weight: 600;
-            font-size: 16px;
-        }
-        .currency-sub {
-            font-size: 12px;
-            color: #8c96a5;
-        }
-        .promo-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .promo-text h3 {
-            font-size: 15px;
-            margin-bottom: 4px;
-        }
-        .promo-text p {
-            font-size: 12px;
-            color: #8c96a5;
-            line-height: 1.4;
-        }
-        .explore-btn {
-            background-color: #10b981;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        .savings-content p {
-            font-size: 13px;
-            color: #8c96a5;
-            margin-top: 4px;
-        }
-        /* Chart styling */
-        .chart-container {
-            height: 80px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding-top: 15px;
-            gap: 8px;
-        }
-        .chart-bar {
-            flex: 1;
-            background-color: #1f6feb;
-            border-radius: 4px 4px 0 0;
-            transition: height 0.3s;
-        }
-        /* Cards Page Specific Styling */
-        .virtual-card-ui {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #065f46, #10b981);
-            border-radius: 16px;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .virtual-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .virtual-card-badge {
-            background: rgba(0,0,0,0.3);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        .cards-promo-text {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .cards-promo-text h2 {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-        .cards-promo-text p {
-            color: #8c96a5;
-            font-size: 13px;
-            line-height: 1.4;
-            padding: 0 10px;
-        }
-        .kyc-item {
+
+        .asset-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 12px 0;
             border-bottom: 1px solid #21262d;
+            cursor: pointer;
         }
-        .kyc-item:last-child {
+
+        .asset-row:last-child {
             border-bottom: none;
         }
-        .kyc-left {
+
+        .asset-left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .kyc-icon {
-            width: 36px;
-            height: 36px;
-            background: #1f2937;
-            border-radius: 8px;
+
+        .crypto-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-weight: bold;
+            color: white;
         }
-        .kyc-text h4 {
-            font-size: 14px;
-            margin-bottom: 2px;
+
+        .btc-bg { background-color: #f7931a; }
+        .usdt-bg { background-color: #26a17b; }
+        .usdc-bg { background-color: #2775ca; }
+
+        .asset-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #ffffff;
         }
-        .kyc-text p {
-            font-size: 11px;
+
+        .asset-sub {
+            font-size: 12px;
             color: #8c96a5;
         }
-        .status-badge {
-            background-color: rgba(245, 158, 11, 0.15);
-            color: #f59e0b;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
+
+        .asset-right {
+            text-align: right;
         }
-        .continue-btn {
-            background-color: #10b981;
-            color: white;
-            border: none;
-            padding: 14px;
-            width: 100%;
-            border-radius: 24px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-        /* Bottom Navigation Bar */
+
+        /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #12161f;
+            background-color: #0d1117;
             border-top: 1px solid #21262d;
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
-            z-index: 1000;
+            z-index: 100;
         }
+
         .nav-item {
+            background: none;
+            border: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
             color: #8c96a5;
             font-size: 11px;
             cursor: pointer;
-            background: none;
-            border: none;
+            gap: 4px;
         }
+
         .nav-item.active {
-            color: #ffffff;
+            color: #10b981;
         }
+
         .nav-item svg {
             width: 22px;
             height: 22px;
             fill: currentColor;
         }
-        /* Modal Overlay Styles */
+
+        /* Modals */
         .modal-overlay {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
             justify-content: center;
             align-items: center;
-        }
-        .modal-content {
-            background: #161b22;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 16px;
+            z-index: 1000;
             padding: 20px;
-            border: 1px solid #30363d;
         }
+
+        .modal-content {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 360px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
+
         .modal-close {
             background: none;
             border: none;
@@ -346,265 +259,177 @@ i<!DOCTYPE html>
             font-size: 20px;
             cursor: pointer;
         }
+
         .modal-input {
             width: 100%;
             padding: 12px;
-            background: #0d1117;
+            background-color: #0d1117;
             border: 1px solid #30363d;
             border-radius: 8px;
             color: white;
-            font-size: 16px;
-            margin-bottom: 15px;
+            font-size: 15px;
+            margin-bottom: 16px;
         }
+
         .modal-btn {
+            width: 100%;
+            padding: 12px;
             background-color: #10b981;
             color: white;
             border: none;
-            padding: 12px;
-            width: 100%;
             border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
+        }
+
+        .modal-btn:hover {
+            background-color: #059669;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <div class="header">
-        <div class="profile-icon" id="profile-trigger" title="Profile / Triple tap for Admin">IO</div>
-        <div class="header-icons">
-            <span>🔍</span>
-            <span id="eye-toggle" style="cursor: pointer;">👁️</span>
-            <span>🔔</span>
+    <!-- Top Navigation Header -->
+    <div class="top-bar">
+        <div class="profile-avatar" id="profile-trigger" onclick="openProfileModal()">
+            <span id="profile-initials">IO</span>
+        </div>
+        <div class="top-icons">
+            <button class="top-icon-btn">🔍</button>
+            <button class="top-icon-btn" id="eye-toggle">👁️</button>
+            <button class="top-icon-btn">🔔</button>
         </div>
     </div>
 
-    <!-- ================= PAGE 1: HOME ================= -->
+    <!-- ================= HOME PAGE ================= -->
     <div id="page-home" class="page-section active-page">
-        <div class="balance-section">
+        <div class="balance-container">
             <div class="balance-title">Total Cash Balance</div>
             <div class="balance-amount" id="display-balance">$20,000.00</div>
         </div>
 
         <div class="action-buttons">
-            <div class="action-btn-container" onclick="openModal('deposit')">
+            <button class="action-btn-item" onclick="openModal('deposit')">
                 <div class="action-circle">↓</div>
-                <div class="action-label">Deposit</div>
-            </div>
-            <div class="action-btn-container" onclick="openModal('withdraw')">
+                <span class="action-label">Deposit</span>
+            </button>
+            <button class="action-btn-item" onclick="openModal('withdraw')">
                 <div class="action-circle">↑</div>
-                <div class="action-label">Withdraw</div>
-            </div>
-            <div class="action-btn-container" onclick="openModal('convert')">
-                <div class="action-circle">🔄</div>
-                <div class="action-label">Convert</div>
-            </div>
+                <span class="action-label">Withdraw</span>
+            </button>
+            <button class="action-btn-item" onclick="openModal('convert')">
+                <div class="action-circle">⇄</div>
+                <span class="action-label">Convert</span>
+            </button>
         </div>
 
-        <div class="container">
-            <div class="card">
-                <div class="card-title">Cash</div>
-                <div class="currency-row">
-                    <div class="currency-info">
-                        <div class="flag-icon">$</div>
-                        <div>
-                            <div class="currency-name">USD</div>
-                            <div class="currency-sub">US Dollar</div>
-                        </div>
-                    </div>
-                    <div style="font-weight: 600;" id="usd-sub-balance">$20,000.00</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">7-Day Cash Flow</div>
-                <div class="chart-container">
-                    <div class="chart-bar" style="height: 40%;"></div>
-                    <div class="chart-bar" style="height: 65%;"></div>
-                    <div class="chart-bar" style="height: 50%;"></div>
-                    <div class="chart-bar" style="height: 80%;"></div>
-                    <div class="chart-bar" style="height: 60%;"></div>
-                    <div class="chart-bar" style="height: 90%;"></div>
-                    <div class="chart-bar" style="height: 100%; background-color: #10b981;"></div>
-                </div>
-            </div>
-
-            <div class="card promo-card">
-                <div class="promo-text">
-                    <h3>Need instant cash?</h3>
-                    <p>Use your BTC or USDT as collateral and get cash instantly</p>
-                </div>
-                <button class="explore-btn" onclick="alert('Collateral loan service active.')">Explore</button>
-            </div>
-
-            <div class="card savings-content">
-                <div class="card-title">Savings</div>
-                <div style="font-weight: 600; font-size: 15px;">Your money. Working daily</div>
-                <p>Daily returns in USD. Flexible or fixed savings.</p>
+        <div class="card-box">
+            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">Quick Overview</div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600;">Available Liquidity</span>
+                <span id="usd-sub-balance" style="color: #10b981; font-weight: 600;">$20,000.00</span>
             </div>
         </div>
     </div>
 
-    <!-- ================= PAGE 2: CRYPTO / BITCOIN ================= -->
+    <!-- ================= CRYPTO PAGE ================= -->
     <div id="page-crypto" class="page-section">
-        <div class="container">
-            <div class="card" style="text-align: center; padding: 25px 15px;">
-                <div style="font-size: 40px; margin-bottom: 10px;">₿</div>
-                <h2 style="font-size: 22px; margin-bottom: 5px;">Bitcoin (BTC)</h2>
-                <div style="color: #10b981; font-size: 14px; font-weight: 600; margin-bottom: 20px;">$65,420.00 USD / BTC (+4.2%)</div>
-                <p style="color: #8c96a5; font-size: 13px; margin-bottom: 20px;">Buy Bitcoin instantly using your main USD balance.</p>
-                <button class="modal-btn" onclick="buyBitcoin()">Buy Bitcoin Now</button>
-            </div>
-            <div class="card">
-                <div class="card-title">Crypto Portfolio</div>
-                <div class="currency-row">
-                    <div class="currency-info">
-                        <div class="flag-icon" style="color: #f7931a;">₿</div>
-                        <div>
-                            <div class="currency-name">BTC Balance</div>
-                            <div class="currency-sub" id="btc-amount-held">0.00 BTC</div>
-                        </div>
+        <div class="balance-container">
+            <div class="balance-title">Total Crypto Balance</div>
+            <div class="balance-amount" id="crypto-total-display">$0.00</div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn-item" onclick="switchPage('home', event)">
+                <div class="action-circle">📈</div>
+                <span class="action-label">Trade</span>
+            </button>
+            <button class="action-btn-item" onclick="alert('Receive address copied!')">
+                <div class="action-circle">↓</div>
+                <span class="action-label">Receive</span>
+            </button>
+            <button class="action-btn-item" onclick="alert('Enter recipient address to send.')">
+                <div class="action-circle">↑</div>
+                <span class="action-label">Send</span>
+            </button>
+        </div>
+
+        <!-- Crypto Assets List -->
+        <div class="card-box">
+            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">My Cryptocurrencies</div>
+            
+            <div class="asset-row" onclick="buyBitcoin()">
+                <div class="asset-left">
+                    <div class="crypto-icon btc-bg">₿</div>
+                    <div>
+                        <div class="asset-name">Bitcoin</div>
+                        <div class="asset-sub">BTC</div>
                     </div>
-                    <div style="font-weight: 600;" id="btc-usd-val">$0.00</div>
+                </div>
+                <div class="asset-right">
+                    <div class="asset-name" id="btc-amount-held">0.000000 BTC</div>
+                    <div class="asset-sub" id="btc-usd-val">$0.00</div>
+                </div>
+            </div>
+
+            <div class="asset-row">
+                <div class="asset-left">
+                    <div class="crypto-icon usdt-bg">₮</div>
+                    <div>
+                        <div class="asset-name">Tether</div>
+                        <div class="asset-sub">USDT</div>
+                    </div>
+                </div>
+                <div class="asset-right">
+                    <div class="asset-name">0.00 USDT</div>
+                    <div class="asset-sub">$0.00</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ================= PAGE 3: PAY BILL ================= -->
+    <!-- ================= PAY BILL PAGE ================= -->
     <div id="page-bills" class="page-section">
-        <div class="container">
-            <div class="card-title" style="padding-left: 5px;">Bill Payments</div>
-            <div class="card" onclick="alert('Airtime recharge portal open.')" style="cursor: pointer;">
-                <div class="currency-row">
-                    <div class="currency-info">
-                        <div class="flag-icon">📱</div>
-                        <div>
-                            <div class="currency-name">Airtime & Data</div>
-                            <div class="currency-sub">Top up mobile lines</div>
-                        </div>
-                    </div>
-                    <span>➔</span>
-                </div>
-            </div>
-            <div class="card" onclick="alert('Electricity utility bill portal open.')" style="cursor: pointer;">
-                <div class="currency-row">
-                    <div class="currency-info">
-                        <div class="flag-icon">⚡</div>
-                        <div>
-                            <div class="currency-name">Electricity</div>
-                            <div class="currency-sub">Prepaid & postpaid tokens</div>
-                        </div>
-                    </div>
-                    <span>➔</span>
-                </div>
-            </div>
-            <div class="card" onclick="alert('Internet subscription portal open.')" style="cursor: pointer;">
-                <div class="currency-row">
-                    <div class="currency-info">
-                        <div class="flag-icon">🌐</div>
-                        <div>
-                            <div class="currency-name">Internet & Cable</div>
-                            <div class="currency-sub">Broadband, TV subscriptions</div>
-                        </div>
-                    </div>
-                    <span>➔</span>
-                </div>
-            </div>
+        <div class="balance-container">
+            <div class="balance-title">Bill Payments</div>
+            <div class="balance-amount">Pay & Top-up</div>
+        </div>
+        <div class="card-box">
+            <p style="color: #8c96a5; font-size: 14px; text-align: center; padding: 20px 0;">No active bills due. Select a provider to get started.</p>
         </div>
     </div>
 
-    <!-- ================= PAGE 4: CARDS ================= -->
+    <!-- ================= CARDS PAGE ================= -->
     <div id="page-cards" class="page-section">
-        <div class="container">
-            <!-- Virtual Card Graphic -->
-            <div class="virtual-card-ui">
-                <div class="virtual-card-top">
-                    <div style="font-weight: bold; font-size: 18px; letter-spacing: 1px;">crypto vault</div>
-                    <div class="virtual-card-badge">Virtual</div>
-                </div>
-                <div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 4px;">CARD BALANCE</div>
-                    <div style="font-size: 22px; font-weight: bold;" id="card-page-balance">$20,000.00</div>
-                </div>
+        <div class="balance-container">
+            <div class="balance-title">Virtual Card Balance</div>
+            <div class="balance-amount" id="card-page-balance">$20,000.00</div>
+        </div>
+        <div class="card-box" style="background: linear-gradient(135deg, #059669, #10b981); color: white;">
+            <div style="font-size: 14px; opacity: 0.8;">Crypto Vault Virtual</div>
+            <div style="font-size: 22px; font-weight: bold; margin: 20px 0;">**** **** **** 8832</div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                <span>Exp: 12/28</span>
+                <span>CVV: ***</span>
             </div>
-
-            <div class="cards-promo-text">
-                <h2>Spend anywhere in any currency</h2>
-                <p>Create cards and start spending on Claude, Netflix, Shein, Amazon, Zara and many others.</p>
-            </div>
-
-            <!-- KYC Document Upload Card -->
-            <div class="card" style="padding: 12px 16px;">
-                <div class="kyc-item">
-                    <div class="kyc-left">
-                        <div class="kyc-icon">🟢</div>
-                        <div class="kyc-text">
-                            <h4>Document Upload</h4>
-                            <p>You need to upload your Passport</p>
-                        </div>
-                    </div>
-                    <div class="status-badge">Pending</div>
-                </div>
-                <div class="kyc-item" style="border-bottom: none;">
-                    <div class="kyc-left">
-                        <div class="kyc-icon">🔴</div>
-                        <div class="kyc-text">
-                            <h4>Information Required</h4>
-                            <p>Employment status, source of funds and transaction frequency</p>
-                        </div>
-                    </div>
-                    <div class="status-badge">Pending</div>
-                </div>
-            </div>
-
-            <button class="continue-btn" onclick="alert('KYC Verification window launching...')">Continue</button>
         </div>
     </div>
 
-    <!-- ================= PROFILE MODAL ================= -->
+    <!-- ================= PROFILE MODAL (Fully Editable Name) ================= -->
     <div class="modal-overlay" id="profile-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 style="font-size: 16px;">Account Profile</h3>
+                <h3 style="font-size: 16px; color: #ffffff;">Account Profile</h3>
                 <button class="modal-close" onclick="closeModals()">×</button>
             </div>
-            <div style="text-align: center; margin-bottom: 15px;">
-                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #ff007f, #7f00ff); border-radius: 50%; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; color: white;">IO</div>
-                <h4 style="font-size: 16px;">Isaac Oche</h4>
-                <p style="color: #8c96a5; font-size: 12px;">Verified Vault Member</p>
-            </div>
-            <div style="background: #0d1117; padding: 12px; border-radius:
-<div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="color: #8c96a5;">Account Status:</span>
-                    <span style="color: #10b981; font-weight: 600;">Active</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: #8c96a5;">Base Currency:</span>
-                    <span>USD ($)</span>
-                </div>
-            </div>
-            <button class="modal-btn" onclick="closeModals()">Close Profile</button>
+            <p style="color: #8c96a5; font-size: 13px; margin-bottom: 12px;">Edit your profile name below:</p>
+            <input type="text" id="profile-name-input" class="modal-input" placeholder="Enter custom name">
+            <button class="modal-btn" onclick="saveProfileName()" style="margin-bottom: 10px;">Save Profile Name</button>
+            <button class="modal-btn" onclick="closeModals()" style="background: #21262d; color: #c9d1d9;">Close</button>
         </div>
     </div>
 
-    <!-- ================= ADMIN PANEL MODAL ================= -->
-    <div class="modal-overlay" id="admin-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="font-size: 16px; color: #10b981;">⚙️ Admin Panel</h3>
-                <button class="modal-close" onclick="closeModals()">×</button>
-            </div>
-            <p style="color: #8c96a5; font-size: 13px; margin-bottom: 15px;">Manage global user balance and system overrides:</p>
-            <input type="number" id="admin-balance-input" class="modal-input" placeholder="Set custom balance amount">
-            <button class="modal-btn" onclick="updateAdminBalance()" style="margin-bottom: 10px;">Update Balance</button>
-            <button class="modal-btn" onclick="closeModals()" style="background: #21262d; color: #c9d1d9;">Close Panel</button>
-        </div>
-    </div>
-
-    <!-- ================= ACTION MODAL (Deposit/Withdraw/Convert) ================= -->
+    <!-- ================= ACTION MODAL ================= -->
     <div class="modal-overlay" id="action-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -641,6 +466,35 @@ i<!DOCTYPE html>
         let currentBalance = 20000;
         let btcHeld = 0;
         let currentActionType = '';
+        let customProfileName = localStorage.getItem('cryptoVaultName') || '';
+
+        function updateProfileDisplay() {
+            const initialsEl = document.getElementById('profile-initials');
+            if (customProfileName.trim() === '') {
+                initialsEl.innerText = 'CV';
+            } else {
+                const parts = customProfileName.trim().split('es');
+                let initials = customProfileName.charAt(0).toUpperCase();
+                if (parts.length > 1) {
+                    initials += parts[1].charAt(0).toUpperCase();
+                }
+                initialsEl.innerText = initials;
+            }
+        }
+        updateProfileDisplay();
+
+        function openProfileModal() {
+            document.getElementById('profile-name-input').value = customProfileName;
+            document.getElementById('profile-modal').style.display = 'flex';
+        }
+
+        function saveProfileName() {
+            customProfileName = document.getElementById('profile-name-input').value;
+            localStorage.setItem('cryptoVaultName', customProfileName);
+            updateProfileDisplay();
+            closeModals();
+            alert('Profile name updated successfully!');
+        }
 
         function switchPage(pageName, evt) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
@@ -655,49 +509,18 @@ i<!DOCTYPE html>
             const display = document.getElementById('display-balance');
             const subDisplay = document.getElementById('usd-sub-balance');
             const cardBalance = document.getElementById('card-page-balance');
+            const cryptoTotal = document.getElementById('crypto-total-display');
             if (hidden) {
                 display.innerText = '********';
                 subDisplay.innerText = '********';
                 cardBalance.innerText = '********';
+                cryptoTotal.innerText = '********';
                 this.innerText = '👁️‍🗨️';
             } else {
                 updateUI();
                 this.innerText = '👁️';
             }
         });
-
-        let clickCount = 0;
-        let clickTimer = null;
-
-        document.getElementById('profile-trigger').addEventListener('click', function() {
-            clickCount++;
-            if (clickCount === 1) {
-                clickTimer = setTimeout(function() {
-                    if (clickCount === 1) {
-                        document.getElementById('profile-modal').style.display = 'flex';
-                    } else if (clickCount >= 3) {
-                        document.getElementById('admin-modal').style.display = 'flex';
-                    }
-                    clickCount = 0;
-                }, 400);
-            } else if (clickCount >= 3) {
-                clearTimeout(clickTimer);
-                document.getElementById('admin-modal').style.display = 'flex';
-                clickCount = 0;
-            }
-        });
-
-        function updateAdminBalance() {
-            const val = Number(document.getElementById('admin-balance-input').value);
-            if (isNaN(val) || val < 0) {
-                alert('Please enter a valid amount.');
-                return;
-            }
-            currentBalance = val;
-            updateUI();
-            closeModals();
-            alert('Admin override successful! Balance updated to $' + currentBalance.toLocaleString());
-        }
 
         function openModal(type) {
             currentActionType = type;
@@ -722,7 +545,6 @@ i<!DOCTYPE html>
 
         function closeModals() {
             document.getElementById('profile-modal').style.display = 'none';
-            document.getElementById('admin-modal').style.display = 'none';
             document.getElementById('action-modal').style.display = 'none';
         }
 
@@ -749,42 +571,4 @@ i<!DOCTYPE html>
                     return;
                 }
                 currentBalance -= val;
-                const converted = (val * 0.92).toFixed(2);
-                alert('Successfully converted $' + val.toLocaleString() + ' to ' + converted + ' EUR');
-            }
-
-            updateUI();
-            closeModals();
-        }
-
-        function buyBitcoin() {
-            const amountStr = prompt('Enter USD amount to spend on Bitcoin:', '100');
-            if(!amountStr) return;
-            const usdSpend = Number(amountStr);
-            
-            if(usdSpend <= 0 || usdSpend > currentBalance) {
-                alert('Invalid amount or insufficient USD balance.');
-                return;
-            }
-
-            currentBalance -= usdSpend;
-            const btcBought = usdSpend / 65420;
-            btcHeld += btcBought;
-
-            updateUI();
-            alert('Successfully purchased ' + btcBought.toFixed(6) + ' BTC!');
-        }
-
-        function updateUI() {
-            if (hidden) return;
-            const formatted = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2});
-            document.getElementById('display-balance').innerText = formatted;
-            document.getElementById('usd-sub-balance').innerText = formatted;
-            document.getElementById('card-page-balance').innerText = formatted;
-
-            document.getElementById('btc-amount-held').innerText = btcHeld.toFixed(6) + ' BTC';
-            document.getElementById('btc-usd-val').innerText = '$' + (btcHeld * 65420).toLocaleString('en-US', {minimumFractionDigits: 2});
-        }
-    </script>
-</body>
-</html>
+                const converted = 
