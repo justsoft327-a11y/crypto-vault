@@ -32,13 +32,9 @@
             justify-content: center;
             font-weight: bold;
             font-size: 16px;
+            color: #ffffff;
             cursor: pointer;
-            overflow: hidden;
-        }
-        .profile-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            user-select: none;
         }
         .header-icons {
             display: flex;
@@ -377,9 +373,7 @@
 
     <!-- Header -->
     <div class="header">
-        <div class="profile-icon" id="profile-trigger" title="Open Profile">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Profile">
-        </div>
+        <div class="profile-icon" id="profile-trigger" title="Profile / Triple tap for Admin">IO</div>
         <div class="header-icons">
             <span>🔍</span>
             <span id="eye-toggle" style="cursor: pointer;">👁️</span>
@@ -578,7 +572,8 @@
                 <button class="modal-close" onclick="closeModals()">×</button>
             </div>
             <div style="text-align: center; margin-bottom: 15px;">
-                <div style="width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 10px auto; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" style="width:100%; height:100%; object-fit:cover;" alt="User">
-                </div>
-                <h4 style="
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #ff007f, #7f00ff); border-radius: 50%; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; color: white;">IO</div>
+                <h4 style="font-size: 16px;">Isaac Oche</h4>
+                <p style="color: #8c96a5; font-size: 12px;">Verified Vault Member</p>
+            </div>
+            <div style="background: #0d1117; padding: 12px; border-radius:
