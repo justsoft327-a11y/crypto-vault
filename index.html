@@ -54,13 +54,13 @@
 </head>
 <body>
     <div class='top-bar'>
-        <div class='profile-avatar' id='profile-trigger' onclick='openProfileModal()'>
+        <div class='profile-avatar' id='profile-trigger'>
             <span id='profile-initials'>👤</span>
         </div>
         <div class='top-icons'>
-            <button class='top-icon-btn' onclick='alert("QR Scanner active!")'>📷</button>
+            <button class='top-icon-btn' id='cam-btn'>📷</button>
             <button class='top-icon-btn' id='eye-toggle'>👁️</button>
-            <button class='top-icon-btn' onclick='alert("No new notifications")'>🔔</button>
+            <button class='top-icon-btn' id='notif-btn'>🔔</button>
         </div>
     </div>
 
@@ -70,9 +70,9 @@
             <div class='balance-amount' id='display-balance'>$20,000.00</div>
         </div>
         <div class='action-buttons'>
-            <button class='action-btn-item' onclick='openModal("deposit")'><div class='action-circle'>↓</div><span class='action-label'>Deposit</span></button>
-            <button class='action-btn-item' onclick='openModal("withdraw")'><div class='action-circle'>↑</div><span class='action-label'>Withdraw</span></button>
-            <button class='action-btn-item' onclick='openModal("convert")'><div class='action-circle'>⇄</div><span class='action-label'>Convert</span></button>
+            <button class='action-btn-item action-trigger' data-type='deposit'><div class='action-circle'>↓</div><span class='action-label'>Deposit</span></button>
+            <button class='action-btn-item action-trigger' data-type='withdraw'><div class='action-circle'>↑</div><span class='action-label'>Withdraw</span></button>
+            <button class='action-btn-item action-trigger' data-type='convert'><div class='action-circle'>⇄</div><span class='action-label'>Convert</span></button>
         </div>
         <div class='card-box'>
             <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>Quick Overview</div>
@@ -84,7 +84,7 @@
         <div class='card-box'>
             <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px; display: flex; justify-content: space-between;'>
                 <span>Recent Transactions</span>
-                <span style='color: #3b82f6; cursor: pointer;' onclick='alert("Viewing full transaction history log.")'>View All</span>
+                <span style='color: #3b82f6; cursor: pointer;' id='view-all-tx'>View All</span>
             </div>
             <div id='transaction-feed'>
                 <div class='tx-item'>
@@ -104,13 +104,13 @@
             <div class='balance-amount' id='crypto-total-display'>$0.00</div>
         </div>
         <div class='action-buttons'>
-            <button class='action-btn-item' onclick='switchPage("home")'><div class='action-circle'>📈</div><span class='action-label'>Trade</span></button>
-            <button class='action-btn-item' onclick='alert("Scan QR code or copy address below to receive funds.")'><div class='action-circle'>⬇</div><span class='action-label'>Receive</span></button>
-            <button class='action-btn-item' onclick='alert("Scan recipient QR code or enter address to send.")'><div class='action-circle'>⬆</div><span class='action-label'>Send</span></button>
+            <button class='action-btn-item' id='trade-btn'><div class='action-circle'>📈</div><span class='action-label'>Trade</span></button>
+            <button class='action-btn-item' id='receive-btn'><div class='action-circle'>⬇</div><span class='action-label'>Receive</span></button>
+            <button class='action-btn-item' id='send-btn'><div class='action-circle'>⬆</div><span class='action-label'>Send</span></button>
         </div>
         <div class='card-box'>
             <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>My Cryptocurrencies (24h Trend)</div>
-            <div class='asset-row' onclick='buyBitcoin()'>
+            <div class='asset-row' id='btc-row'>
                 <div class='asset-left'>
                     <div class='crypto-icon btc-bg'>₿</div>
                     <div><div class='asset-name'>Bitcoin</div><div class='asset-sub'>BTC</div></div>
@@ -167,19 +167,19 @@
             <div style='display: flex; justify-content: space-between; font-size: 13px;'><span>Exp: 12/28</span><span id='card-cvv-display'>CVV: ***</span></div>
         </div>
         <div class='card-controls'>
-            <button class='card-ctrl-btn' onclick='toggleFreezeCard()'>
+            <button class='card-ctrl-btn' id='freeze-card-btn'>
                 <span style='font-size: 16px;' id='freeze-icon'>❄️</span>
                 <span id='freeze-text'>Freeze</span>
             </button>
-            <button class='card-ctrl-btn' onclick='toggleCardDetails()'>
+            <button class='card-ctrl-btn' id='details-card-btn'>
                 <span style='font-size: 16px;'>👁️</span>
                 <span>Details</span>
             </button>
-            <button class='card-ctrl-btn' onclick='openModal("deposit")'>
+            <button class='card-ctrl-btn action-trigger' data-type='deposit'>
                 <span style='font-size: 16px;'>➕</span>
                 <span>Top Up</span>
             </button>
-            <button class='card-ctrl-btn' onclick='setSpendingLimit()'>
+            <button class='card-ctrl-btn' id='limit-card-btn'>
                 <span style='font-size: 16px;'>⚙️</span>
                 <span>Limit</span>
             </button>
@@ -190,7 +190,7 @@
         <div class='modal-content'>
             <div class='modal-header'>
                 <h3 style='font-size: 16px;'>Account Profile</h3>
-                <button class='modal-close' onclick='closeModals()'>×</button>
+                <button class='modal-close' id='profile-close-btn'>×</button>
             </div>
             <div style='margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;'>
                 <span class='kyc-badge'>✓ KYC Verified</span>
@@ -202,32 +202,32 @@
                 <div style='font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 8px;'>Security & Biometrics</div>
                 <div class='setting-row'>
                     <span>Face ID / Fingerprint Login</span>
-                    <input type='checkbox' id='toggle-biometric' checked onchange='saveSettings()'>
+                    <input type='checkbox' id='toggle-biometric' checked>
                 </div>
                 <div class='setting-row'>
                     <span>Two-Factor Auth (2FA)</span>
-                    <input type='checkbox' id='toggle-2fa' checked onchange='saveSettings()'>
+                    <input type='checkbox' id='toggle-2fa' checked>
                 </div>
             </div>
-            <button class='modal-btn' onclick='saveProfileName()' style='margin-bottom: 8px;'>Save Profile</button>
-            <button class='modal-btn' onclick='closeModals()' style='background: #21262d;'>Close</button>
+            <button class='modal-btn' id='save-profile-btn' style='margin-bottom: 8px;'>Save Profile</button>
+            <button class='modal-btn' id='close-profile-secondary' style='background: #21262d;'>Close</button>
         </div>
     </div>
 
     <div class='modal-overlay' id='action-modal'>
         <div class='modal-content'>
-            <div class='modal-header'><h3 id='modal-title' style='font-size: 16px;'>Action</h3><button class='modal-close' onclick='closeModals()'>×</button></div>
+            <div class='modal-header'><h3 id='modal-title' style='font-size: 16px;'>Action</h3><button class='modal-close' id='action-close-btn'>×</button></div>
             <p id='modal-desc' style='color: #8c96a5; font-size: 13px; margin-bottom: 12px;'></p>
             <input type='number' id='modal-input-val' class='modal-input' placeholder='Enter amount'>
-            <button class='modal-btn' onclick='executeAction()'>Confirm</button>
+            <button class='modal-btn' id='execute-action-btn'>Confirm</button>
         </div>
     </div>
 
     <div class='bottom-nav'>
-        <button class='nav-item active' onclick='switchPage("home")'><svg viewBox='0 0 24 24'><path d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></svg>Home</button>
-        <button class='nav-item' onclick='switchPage("crypto")'><svg viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z'/></svg>Crypto</button>
-        <button class='nav-item' onclick='switchPage("bills")'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z'/></svg>Pay Bill</button>
-        <button class='nav-item' onclick='switchPage("cards")'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z'/></svg>Cards</button>
+        <button class='nav-item active' data-page='home'><svg viewBox='0 0 24 24'><path d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></svg>Home</button>
+        <button class='nav-item' data-page='crypto'><svg viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z'/></svg>Crypto</button>
+        <button class='nav-item' data-page='bills'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z'/></svg>Pay Bill</button>
+        <button class='nav-item' data-page='cards'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z'/></svg>Cards</button>
     </div>
 
     <script>
@@ -256,10 +256,6 @@
             updateProfileDisplay();
             closeModals();
             alert('Profile and security preferences updated successfully!');
-        }
-
-        function saveSettings() {
-            alert('Security settings updated.');
         }
 
         function switchPage(pageName) {
@@ -311,4 +307,14 @@
             newItem.className = 'tx-item';
             newItem.innerHTML = `
                 <div>
-              
+                    <div class='tx-title'>${title}</div>
+                    <div class='tx-time'>${timeStr}</div>
+                </div>
+                <div style='color: ${color}; font-weight: 600;'>${sign}$${amountStr}</div>
+            `;
+            feed.prepend(newItem);
+        }
+
+        function executeAction() {
+            const val = Number(document.getElementById('modal-input-val').value);
+            if(!val || val <= 0) { alert('Please enter a valid amoun
