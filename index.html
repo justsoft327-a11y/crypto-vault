@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Crypto Vault</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
@@ -30,236 +30,204 @@
         .asset-name { font-weight: 600; font-size: 14px; color: #ffffff; }
         .asset-sub { font-size: 11px; color: #8c96a5; }
         .asset-right { text-align: right; }
-        
-        /* Transaction Feed Styles */
         .tx-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
         .tx-item:last-child { border-bottom: none; }
         .tx-title { font-weight: 600; color: #fff; }
         .tx-time { font-size: 11px; color: #8c96a5; }
-        
-        /* Sparkline trend styles */
         .sparkline { width: 60px; height: 24px; }
-
-        /* Card quick controls grid */
         .card-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
         .card-ctrl-btn { background-color: #21262d; border: 1px solid #30363d; border-radius: 10px; color: #c9d1d9; padding: 10px 4px; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
-        .card-ctrl-btn:hover { background-color: #30363d; }
-
-        /* Settings Toggle Rows */
         .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; border-bottom: 1px solid #21262d; }
         .setting-row:last-child { border-bottom: none; }
-        
-        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0d1117; border-top: 1px solid #21262d; display: flex; justify-content: space-around; padding: 10px 0; z-index: 100; }
         .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; color: #8c96a5; font-size: 11px; cursor: pointer; gap: 4px; }
         .nav-item.active { color: #3b82f6; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
-
-        /* Modals */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .modal-content { background-color: #161b22; border: 1px solid #30363d; border-radius: 20px; width: 100%; max-width: 360px; padding: 22px; max-height: 90vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .modal-close { background: none; border: none; color: #8c96a5; font-size: 20px; cursor: pointer; }
         .modal-input { width: 100%; padding: 12px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; font-size: 15px; margin-bottom: 14px; }
         .modal-btn { width: 100%; padding: 12px; background-color: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
-        
         .kyc-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(38, 161, 123, 0.15); color: #26a17b; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(38, 161, 123, 0.3); }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="profile-avatar" id="profile-trigger" onclick="openProfileModal()">
-            <span id="profile-initials">👤</span>
+    <div class='top-bar'>
+        <div class='profile-avatar' id='profile-trigger' onclick='openProfileModal()'>
+            <span id='profile-initials'>👤</span>
         </div>
-        <div class="top-icons">
-            <button class="top-icon-btn" onclick="alert('QR Scanner active!')">📷</button>
-            <button class="top-icon-btn" id="eye-toggle">👁️</button>
-            <button class="top-icon-btn" onclick="alert('No new notifications')">🔔</button>
+        <div class='top-icons'>
+            <button class='top-icon-btn' onclick='alert("QR Scanner active!")'>📷</button>
+            <button class='top-icon-btn' id='eye-toggle'>👁️</button>
+            <button class='top-icon-btn' onclick='alert("No new notifications")'>🔔</button>
         </div>
     </div>
 
-    <!-- ================= HOME PAGE ================= -->
-    <div id="page-home" class="page-section active-page">
-        <div class="balance-container">
-            <div class="balance-title">Total Cash Balance</div>
-            <div class="balance-amount" id="display-balance">$20,000.00</div>
+    <div id='page-home' class='page-section active-page'>
+        <div class='balance-container'>
+            <div class='balance-title'>Total Cash Balance</div>
+            <div class='balance-amount' id='display-balance'>$20,000.00</div>
         </div>
-        <div class="action-buttons">
-            <button class="action-btn-item" onclick="openModal('deposit')"><div class="action-circle">↓</div><span class="action-label">Deposit</span></button>
-            <button class="action-btn-item" onclick="openModal('withdraw')"><div class="action-circle">↑</div><span class="action-label">Withdraw</span></button>
-            <button class="action-btn-item" onclick="openModal('convert')"><div class="action-circle">⇄</div><span class="action-label">Convert</span></button>
+        <div class='action-buttons'>
+            <button class='action-btn-item' onclick='openModal("deposit")'><div class='action-circle'>↓</div><span class='action-label'>Deposit</span></button>
+            <button class='action-btn-item' onclick='openModal("withdraw")'><div class='action-circle'>↑</div><span class='action-label'>Withdraw</span></button>
+            <button class='action-btn-item' onclick='openModal("convert")'><div class='action-circle'>⇄</div><span class='action-label'>Convert</span></button>
         </div>
-        <div class="card-box">
-            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">Quick Overview</div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-weight: 600;">Available Liquidity</span>
-                <span id="usd-sub-balance" style="color: #3b82f6; font-weight: 600;">$20,000.00</span>
+        <div class='card-box'>
+            <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>Quick Overview</div>
+            <div style='display: flex; justify-content: space-between; align-items: center;'>
+                <span style='font-weight: 600;'>Available Liquidity</span>
+                <span id='usd-sub-balance' style='color: #3b82f6; font-weight: 600;'>$20,000.00</span>
             </div>
         </div>
-
-        <!-- Recent Activity Feed -->
-        <div class="card-box">
-            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px; display: flex; justify-content: space-between;">
+        <div class='card-box'>
+            <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px; display: flex; justify-content: space-between;'>
                 <span>Recent Transactions</span>
-                <span style="color: #3b82f6; cursor: pointer;" onclick="alert('Viewing full transaction history log.')">View All</span>
+                <span style='color: #3b82f6; cursor: pointer;' onclick='alert("Viewing full transaction history log.")'>View All</span>
             </div>
-            <div id="transaction-feed">
-                <div class="tx-item">
+            <div id='transaction-feed'>
+                <div class='tx-item'>
                     <div>
-                        <div class="tx-title">Initial Deposit</div>
-                        <div class="tx-time">Today, 12:00 AM</div>
+                        <div class='tx-title'>Initial Deposit</div>
+                        <div class='tx-time'>Today, 12:00 AM</div>
                     </div>
-                    <div style="color: #26a17b; font-weight: 600;">+$20,000.00</div>
+                    <div style='color: #26a17b; font-weight: 600;'>+$20,000.00</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ================= CRYPTO PAGE ================= -->
-    <div id="page-crypto" class="page-section">
-        <div class="balance-container">
-            <div class="balance-title">Total Crypto Balance</div>
-            <div class="balance-amount" id="crypto-total-display">$0.00</div>
+    <div id='page-crypto' class='page-section'>
+        <div class='balance-container'>
+            <div class='balance-title'>Total Crypto Balance</div>
+            <div class='balance-amount' id='crypto-total-display'>$0.00</div>
         </div>
-        <div class="action-buttons">
-            <button class="action-btn-item" onclick="switchPage('home')"><div class="action-circle">📈</div><span class="action-label">Trade</span></button>
-            <button class="action-btn-item" onclick="alert('Scan QR code or copy address below to receive funds.')"><div class="action-circle">⬇</div><span class="action-label">Receive</span></button>
-            <button class="action-btn-item" onclick="alert('Scan recipient QR code or enter address to send.')"><div class="action-circle">⬆</div><span class="action-label">Send</span></button>
+        <div class='action-buttons'>
+            <button class='action-btn-item' onclick='switchPage("home")'><div class='action-circle'>📈</div><span class='action-label'>Trade</span></button>
+            <button class='action-btn-item' onclick='alert("Scan QR code or copy address below to receive funds.")'><div class='action-circle'>⬇</div><span class='action-label'>Receive</span></button>
+            <button class='action-btn-item' onclick='alert("Scan recipient QR code or enter address to send.")'><div class='action-circle'>⬆</div><span class='action-label'>Send</span></button>
         </div>
-        <div class="card-box">
-            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">My Cryptocurrencies (24h Trend)</div>
-            
-            <div class="asset-row" onclick="buyBitcoin()">
-                <div class="asset-left">
-                    <div class="crypto-icon btc-bg">₿</div>
-                    <div><div class="asset-name">Bitcoin</div><div class="asset-sub">BTC</div></div>
+        <div class='card-box'>
+            <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>My Cryptocurrencies (24h Trend)</div>
+            <div class='asset-row' onclick='buyBitcoin()'>
+                <div class='asset-left'>
+                    <div class='crypto-icon btc-bg'>₿</div>
+                    <div><div class='asset-name'>Bitcoin</div><div class='asset-sub'>BTC</div></div>
                 </div>
                 <div>
-                    <!-- Mini Sparkline Trend Chart (Upward green trend) -->
-                    <svg class="sparkline" viewBox="0 0 60 24">
-                        <path d="M 0 20 L 15 14 L 30 18 L 45 8 L 60 4" fill="none" stroke="#26a17b" stroke-width="2"/>
+                    <svg class='sparkline' viewBox='0 0 60 24'>
+                        <path d='M 0 20 L 15 14 L 30 18 L 45 8 L 60 4' fill='none' stroke='#26a17b' stroke-width='2'/>
                     </svg>
                 </div>
-                <div class="asset-right">
-                    <div class="asset-name" id="btc-amount-held">0.000000 BTC</div>
-                    <div class="asset-sub" id="btc-usd-val">$0.00</div>
+                <div class='asset-right'>
+                    <div class='asset-name' id='btc-amount-held'>0.000000 BTC</div>
+                    <div class='asset-sub' id='btc-usd-val'>$0.00</div>
                 </div>
             </div>
-
-            <div class="asset-row">
-                <div class="asset-left">
-                    <div class="crypto-icon usdt-bg">₮</div>
-                    <div><div class="asset-name">Tether</div><div class="asset-sub">USDT</div></div>
+            <div class='asset-row'>
+                <div class='asset-left'>
+                    <div class='crypto-icon usdt-bg'>₮</div>
+                    <div><div class='asset-name'>Tether</div><div class='asset-sub'>USDT</div></div>
                 </div>
                 <div>
-                    <!-- Mini Sparkline Trend Chart (Stable horizontal trend) -->
-                    <svg class="sparkline" viewBox="0 0 60 24">
-                        <path d="M 0 12 L 15 13 L 30 11 L 45 13 L 60 12" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                    <svg class='sparkline' viewBox='0 0 60 24'>
+                        <path d='M 0 12 L 15 13 L 30 11 L 45 13 L 60 12' fill='none' stroke='#3b82f6' stroke-width='2'/>
                     </svg>
                 </div>
-                <div class="asset-right">
-                    <div class="asset-name">0.00 USDT</div>
-                    <div class="asset-sub">$0.00</div>
+                <div class='asset-right'>
+                    <div class='asset-name'>0.00 USDT</div>
+                    <div class='asset-sub'>$0.00</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ================= PAY BILL PAGE ================= -->
-    <div id="page-bills" class="page-section">
-        <div class="balance-container">
-            <div class="balance-title">Bill Payments</div>
-            <div class="balance-amount">Pay & Top-up</div>
+    <div id='page-bills' class='page-section'>
+        <div class='balance-container'>
+            <div class='balance-title'>Bill Payments</div>
+            <div class='balance-amount'>Pay & Top-up</div>
         </div>
-        <div class="card-box">
-            <p style="color: #8c96a5; font-size: 14px; text-align: center; padding: 20px 0;">No active bills due.</p>
+        <div class='card-box'>
+            <p style='color: #8c96a5; font-size: 14px; text-align: center; padding: 20px 0;'>No active bills due.</p>
         </div>
     </div>
 
-    <!-- ================= CARDS PAGE ================= -->
-    <div id="page-cards" class="page-section">
-        <div class="balance-container">
-            <div class="balance-title">Virtual Card Balance</div>
-            <div class="balance-amount" id="card-page-balance">$20,000.00</div>
+    <div id='page-cards' class='page-section'>
+        <div class='balance-container'>
+            <div class='balance-title'>Virtual Card Balance</div>
+            <div class='balance-amount' id='card-page-balance'>$20,000.00</div>
         </div>
-        <div class="card-box" id="virtual-card-box" style="background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; transition: all 0.3s;">
-            <div style="font-size: 14px; opacity: 0.8; display: flex; justify-content: space-between;">
+        <div class='card-box' id='virtual-card-box' style='background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; transition: all 0.3s;'>
+            <div style='font-size: 14px; opacity: 0.8; display: flex; justify-content: space-between;'>
                 <span>Crypto Vault Virtual</span>
-                <span id="card-status-label" style="font-size: 11px; background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px;">Active</span>
+                <span id='card-status-label' style='font-size: 11px; background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px;'>Active</span>
             </div>
-            <div style="font-size: 22px; font-weight: bold; margin: 20px 0;" id="card-number-display">**** **** **** 8832</div>
-            <div style="display: flex; justify-content: space-between; font-size: 13px;"><span>Exp: 12/28</span><span id="card-cvv-display">CVV: ***</span></div>
+            <div style='font-size: 22px; font-weight: bold; margin: 20px 0;' id='card-number-display'>**** **** **** 8832</div>
+            <div style='display: flex; justify-content: space-between; font-size: 13px;'><span>Exp: 12/28</span><span id='card-cvv-display'>CVV: ***</span></div>
         </div>
-
-        <!-- Quick Card Controls -->
-        <div class="card-controls">
-            <button class="card-ctrl-btn" onclick="toggleFreezeCard()">
-                <span style="font-size: 16px;" id="freeze-icon">❄️</span>
-                <span id="freeze-text">Freeze</span>
+        <div class='card-controls'>
+            <button class='card-ctrl-btn' onclick='toggleFreezeCard()'>
+                <span style='font-size: 16px;' id='freeze-icon'>❄️</span>
+                <span id='freeze-text'>Freeze</span>
             </button>
-            <button class="card-ctrl-btn" onclick="toggleCardDetails()">
-                <span style="font-size: 16px;">👁️</span>
+            <button class='card-ctrl-btn' onclick='toggleCardDetails()'>
+                <span style='font-size: 16px;'>👁️</span>
                 <span>Details</span>
             </button>
-            <button class="card-ctrl-btn" onclick="openModal('deposit')">
-                <span style="font-size: 16px;">➕</span>
+            <button class='card-ctrl-btn' onclick='openModal("deposit")'>
+                <span style='font-size: 16px;'>➕</span>
                 <span>Top Up</span>
             </button>
-            <button class="card-ctrl-btn" onclick="setSpendingLimit()">
-                <span style="font-size: 16px;">⚙️</span>
+            <button class='card-ctrl-btn' onclick='setSpendingLimit()'>
+                <span style='font-size: 16px;'>⚙️</span>
                 <span>Limit</span>
             </button>
         </div>
     </div>
 
-    <!-- ================= PROFILE MODAL ================= -->
-    <div class="modal-overlay" id="profile-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="font-size: 16px;">Account Profile</h3>
-                <button class="modal-close" onclick="closeModals()">×</button>
+    <div class='modal-overlay' id='profile-modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h3 style='font-size: 16px;'>Account Profile</h3>
+                <button class='modal-close' onclick='closeModals()'>×</button>
             </div>
-            
-            <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
-                <span class="kyc-badge">✓ KYC Verified</span>
-                <span style="font-size: 11px; color: #8c96a5;">Tier 2 Account</span>
+            <div style='margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;'>
+                <span class='kyc-badge'>✓ KYC Verified</span>
+                <span style='font-size: 11px; color: #8c96a5;'>Tier 2 Account</span>
             </div>
-
-            <p style="color: #8c96a5; font-size: 12px; margin-bottom: 6px;">Profile Name / Tag:</p>
-            <input type="text" id="profile-name-input" class="modal-input" placeholder="Enter name">
-            
-            <div style="margin-top: 10px; margin-bottom: 16px;">
-                <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 8px;">Security & Biometrics</div>
-                <div class="setting-row">
+            <p style='color: #8c96a5; font-size: 12px; margin-bottom: 6px;'>Profile Name / Tag:</p>
+            <input type='text' id='profile-name-input' class='modal-input' placeholder='Enter name'>
+            <div style='margin-top: 10px; margin-bottom: 16px;'>
+                <div style='font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 8px;'>Security & Biometrics</div>
+                <div class='setting-row'>
                     <span>Face ID / Fingerprint Login</span>
-                    <input type="checkbox" id="toggle-biometric" checked onchange="saveSettings()">
+                    <input type='checkbox' id='toggle-biometric' checked onchange='saveSettings()'>
                 </div>
-                <div class="setting-row">
+                <div class='setting-row'>
                     <span>Two-Factor Auth (2FA)</span>
-                    <input type="checkbox" id="toggle-2fa" checked onchange="saveSettings()">
+                    <input type='checkbox' id='toggle-2fa' checked onchange='saveSettings()'>
                 </div>
             </div>
-
-            <button class="modal-btn" onclick="saveProfileName()" style="margin-bottom: 8px;">Save Profile</button>
-            <button class="modal-btn" onclick="closeModals()" style="background: #21262d;">Close</button>
+            <button class='modal-btn' onclick='saveProfileName()' style='margin-bottom: 8px;'>Save Profile</button>
+            <button class='modal-btn' onclick='closeModals()' style='background: #21262d;'>Close</button>
         </div>
     </div>
 
-    <!-- ================= ACTION MODAL ================= -->
-    <div class="modal-overlay" id="action-modal">
-        <div class="modal-content">
-            <div class="modal-header"><h3 id="modal-title" style="font-size: 16px;">Action</h3><button class="modal-close" onclick="closeModals()">×</button></div>
-            <p id="modal-desc" style="color: #8c96a5; font-size: 13px; margin-bottom: 12px;"></p>
-            <input type="number" id="modal-input-val" class="modal-input" placeholder="Enter amount">
-            <button class="modal-btn" onclick="executeAction()">Confirm</button>
+    <div class='modal-overlay' id='action-modal'>
+        <div class='modal-content'>
+            <div class='modal-header'><h3 id='modal-title' style='font-size: 16px;'>Action</h3><button class='modal-close' onclick='closeModals()'>×</button></div>
+            <p id='modal-desc' style='color: #8c96a5; font-size: 13px; margin-bottom: 12px;'></p>
+            <input type='number' id='modal-input-val' class='modal-input' placeholder='Enter amount'>
+            <button class='modal-btn' onclick='executeAction()'>Confirm</button>
         </div>
     </div>
 
-    <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchPage('home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
-        <button class="nav-item" onclick="switchPage('crypto')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z"/></svg>Crypto</button>
-        <button class="nav-item" onclick="switchPage('bills')"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z"/></svg>Pay Bill</button>
-        <button class="nav-item" onclick="switchPage('cards')"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>Cards</button>
+    <div class='bottom-nav'>
+        <button class='nav-item active' onclick='switchPage("home")'><svg viewBox='0 0 24 24'><path d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></svg>Home</button>
+        <button class='nav-item' onclick='switchPage("crypto")'><svg viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z'/></svg>Crypto</button>
+        <button class='nav-item' onclick='switchPage("bills")'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z'/></svg>Pay Bill</button>
+        <button class='nav-item' onclick='switchPage("cards")'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z'/></svg>Cards</button>
     </div>
 
     <script>
@@ -324,4 +292,23 @@
             modal.style.display = 'flex';
             document.getElementById('modal-input-val').value = '';
             if(type === 'deposit') { title.innerText = 'Deposit Funds'; desc.innerText = 'Enter amount in USD to add:'; }
-            else if(type === 'withd
+            else if(type === 'withdraw') { title.innerText = 'Withdraw Funds'; desc.innerText = 'Enter amount in USD to withdraw:'; }
+            else if(type === 'convert') { title.innerText = 'Convert Currency'; desc.innerText = 'Enter USD amount to convert to EUR (Rate: 1 USD = 0.92 EUR):'; }
+        }
+
+        function closeModals() {
+            document.getElementById('profile-modal').style.display = 'none';
+            document.getElementById('action-modal').style.display = 'none';
+        }
+
+        function logTransaction(title, amountStr, isPositive) {
+            const feed = document.getElementById('transaction-feed');
+            const timeStr = 'Just now';
+            const color = isPositive ? '#26a17b' : '#ff5c5c';
+            const sign = isPositive ? '+' : '-';
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'tx-item';
+            newItem.innerHTML = `
+                <div>
+              
