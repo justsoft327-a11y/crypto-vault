@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Vault</title>
+    <title>crypto vault</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,10 +12,10 @@
         <!-- Header -->
         <header class="app-header">
             <h1 class="logo">crypto vault</h1>
-            <div class="header-icons">
-                <i class="fa-solid fa-search" id="search-btn"></i>
+            <div class="header-right-icons">
+                <i class="fa-solid fa-camera" id="camera-btn" title="Snapshot"></i>
                 <i class="fa-solid fa-eye" id="blur-eye-btn" title="Tap 3 times for Admin"></i>
-                <i class="fa-solid fa-bell" id="notification-btn"></i>
+                <i class="fa-solid fa-bell" id="notification-btn" title="Notifications"></i>
             </div>
         </header>
 
@@ -23,9 +23,12 @@
         <main class="main-content">
             <!-- Home View -->
             <div id="home-view" class="view-content active">
-                <div class="profile-summary">
-                    <div class="avatar-container" id="open-settings">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=cryptovault" alt="Avatar" id="user-avatar">
+                <div class="top-row">
+                    <div class="avatar-small" id="open-settings">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="header-star">
+                        <i class="fa-solid fa-star" style="color: #4ade80;"></i>
                     </div>
                 </div>
 
@@ -47,6 +50,30 @@
                         <i class="fa-solid fa-rotate"></i>
                         <span>Convert</span>
                     </button>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span>Quick Overview</span>
+                    </div>
+                    <div class="info-card-body">
+                        <span>Available Liquidity</span>
+                        <span class="highlight-amount">$20,000.00</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span>Recent Transactions</span>
+                        <span class="view-all" id="view-all-tx">View All</span>
+                    </div>
+                    <div class="tx-item">
+                        <div>
+                            <strong>Initial Deposit</strong>
+                            <p class="tx-date">Today, 12:00 AM</p>
+                        </div>
+                        <span class="tx-amount">+$20,000.00</span>
+                    </div>
                 </div>
             </div>
 
@@ -76,7 +103,7 @@
             <!-- Pay Bill View -->
             <div id="paybill-view" class="view-content">
                 <h2>Pay Bills</h2>
-                <p>Utility and service payments coming soon.</p>
+                <p class="section-sub">Utility and service payments coming soon.</p>
             </div>
 
             <!-- Cards View -->
@@ -88,6 +115,24 @@
                 </div>
             </div>
         </main>
+
+        <!-- Custom Dark Modal (Replaces browser prompt/alert) -->
+        <div id="custom-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Action</h3>
+                    <i class="fa-solid fa-xmark" id="close-custom-modal"></i>
+                </div>
+                <p id="modal-desc" class="modal-desc"></p>
+                <div id="modal-input-container">
+                    <input type="text" id="modal-input" placeholder="Enter value...">
+                </div>
+                <div class="modal-buttons">
+                    <button id="modal-cancel-btn" class="modal-btn cancel">Cancel</button>
+                    <button id="modal-confirm-btn" class="modal-btn confirm">Confirm</button>
+                </div>
+            </div>
+        </div>
 
         <!-- Settings Modal / Overlay -->
         <div id="settings-modal" class="modal">
