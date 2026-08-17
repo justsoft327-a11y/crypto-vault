@@ -51,16 +51,9 @@ body {
     display: block;
 }
 
-.top-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 .avatar-small {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     background: linear-gradient(135deg, #ec4899, #8b5cf6);
     border-radius: 50%;
     display: flex;
@@ -68,12 +61,12 @@ body {
     justify-content: center;
     cursor: pointer;
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .balance-card {
     text-align: center;
-    margin: 20px 0 25px 0;
+    margin: 15px 0 20px 0;
 }
 
 .balance-title {
@@ -91,7 +84,7 @@ body {
     display: flex;
     gap: 12px;
     justify-content: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .action-btn {
@@ -99,7 +92,7 @@ body {
     border: 1px solid #30363d;
     color: #f3f4f6;
     padding: 14px 10px;
-    border-radius: 12px;
+    border-radius: 14px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -107,17 +100,144 @@ body {
     gap: 6px;
     cursor: pointer;
     font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.action-btn:hover {
+    background: #21262d;
 }
 
 .action-btn i {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    color: #58a6ff;
+}
+
+/* Asset Cards (Busha Style) */
+.asset-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.asset-card:hover {
+    background: #1c2128;
+}
+
+.asset-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.currency-flag, .crypto-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.usd-flag {
+    background: #21262d;
+}
+
+.btc-icon {
+    background: rgba(247, 147, 26, 0.15);
+    color: #f7931a;
+}
+
+.usdt-icon {
+    background: rgba(38, 161, 123, 0.15);
+    color: #26a17b;
+    font-weight: bold;
+}
+
+.asset-left strong {
+    font-size: 1rem;
+    display: block;
+}
+
+.asset-sub, .asset-sub-amt {
+    font-size: 0.75rem;
+    color: #8b949e;
+    margin: 2px 0 0 0;
+}
+
+.asset-right {
+    text-align: right;
+}
+
+.asset-amount {
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+/* Promo Cards */
+.promo-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.promo-card.savings-card {
+    background: linear-gradient(135deg, #161b22, #1f242c);
+}
+
+.promo-text strong {
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.promo-text p {
+    font-size: 0.78rem;
+    color: #8b949e;
+    margin: 0;
+    max-width: 230px;
+}
+
+.promo-btn {
+    background: #238636;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.savings-icon {
+    font-size: 1.4rem;
+    color: #3fb950;
+    background: rgba(63, 185, 80, 0.15);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .info-card {
     background: #161b22;
     border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 15px;
+    border-radius: 14px;
+    padding: 16px;
     margin-bottom: 15px;
 }
 
@@ -127,19 +247,7 @@ body {
     align-items: center;
     color: #8b949e;
     font-size: 0.8rem;
-    margin-bottom: 10px;
-}
-
-.info-card-body {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.95rem;
-}
-
-.highlight-amount {
-    color: #58a6ff;
-    font-weight: bold;
+    margin-bottom: 12px;
 }
 
 .view-all {
@@ -151,15 +259,33 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 5px;
+}
+
+.tx-left-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tx-icon-bullet {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(247, 147, 26, 0.15);
+    color: #f7931a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
 }
 
 .tx-item strong {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    display: block;
 }
 
 .tx-date {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: #8b949e;
     margin: 2px 0 0 0;
 }
@@ -167,34 +293,7 @@ body {
 .tx-amount {
     color: #3fb950;
     font-weight: bold;
-    font-size: 0.95rem;
-}
-
-.crypto-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.crypto-card h3 {
-    margin: 0 0 10px 0;
-    color: #8b949e;
     font-size: 0.9rem;
-}
-
-#btc-held-display {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 5px 0;
-}
-
-#btc-usd-display {
-    color: #8b949e;
-    font-size: 0.9rem;
-    margin: 0;
 }
 
 /* Bottom Nav */
@@ -233,7 +332,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* Custom Modals */
+/* Modals */
 .modal {
     display: none;
     position: fixed;
@@ -241,7 +340,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -261,6 +360,8 @@ body {
     border-radius: 16px;
     padding: 20px;
     box-sizing: border-box;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 .modal-header {
@@ -287,15 +388,17 @@ body {
     margin-bottom: 15px;
 }
 
-#modal-input-container input,
-.profile-edit-section input {
+.modal-input-group,
+.profile-edit-section input,
+.sub-modal-body input,
+.sub-modal-body select {
     width: 100%;
     padding: 12px;
     background: #0d1117;
     border: 1px solid #30363d;
     border-radius: 8px;
     color: #fff;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     box-sizing: border-box;
     font-size: 0.95rem;
 }
@@ -303,6 +406,7 @@ body {
 .modal-buttons {
     display: flex;
     gap: 10px;
+    margin-top: 15px;
 }
 
 .modal-btn {
@@ -343,6 +447,10 @@ body {
     font-size: 0.9rem;
 }
 
+.setting-item:hover {
+    background: #1f242c;
+}
+
 .logout-btn {
     width: 100%;
     background: rgba(248, 81, 73, 0.15);
@@ -358,23 +466,57 @@ body {
 .virtual-card {
     background: linear-gradient(135deg, #238636, #2ea043);
     padding: 25px;
-    border-radius: 15px;
+    border-radius: 16px;
     margin-top: 20px;
     color: white;
 }
 
+.card-type {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.card-number-display {
+    margin-top: 25px;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-family: monospace;
+}
+
 .card-holder-name {
-    margin-top: 30px;
-    font-size: 1.1rem;
+    margin-top: 20px;
+    font-size: 1rem;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
 .card-balance {
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 0.9rem;
 }
 
 .section-sub {
+    color: #8b949e;
+}
+
+.sub-option-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.sub-option-card strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.sub-option-card p {
+    margin: 0;
+    font-size: 0.78rem;
     color: #8b949e;
 }
