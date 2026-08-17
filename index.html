@@ -197,14 +197,14 @@
         </div>
     </div>
 
-    <!-- CRYPTO PAGE -->
+        <!-- CRYPTO PAGE -->
     <div id='page-crypto' class='page-section'>
         <div class='balance-container'>
             <div class='balance-title'>Total Crypto Balance</div>
             <div class='balance-amount' id='crypto-total-display'>$0.00</div>
         </div>
         <div class='action-buttons'>
-            <button class='action-btn-item' id='trade-btn'><div class='action-circle'>📈</div><span class='action-label'>Trade</span></button>
+            <button class='action-btn-item' id='buy-crypto-btn'><div class='action-circle'>🛒</div><span class='action-label'>Buy</span></button>
             <button class='action-btn-item' id='receive-btn'><div class='action-circle'>⬇</div><span class='action-label'>Receive</span></button>
             <button class='action-btn-item' id='send-btn'><div class='action-circle'>⬆</div><span class='action-label'>Send</span></button>
         </div>
@@ -241,8 +241,102 @@
                 </div>
             </div>
         </div>
+        <div class='card-box'>
+            <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>Crypto Transaction History</div>
+            <div id='crypto-transaction-feed'>
+                <div class='tx-item'>
+                    <div>
+                        <div class='tx-title'>Wallet Initialized</div>
+                        <div class='tx-time'>Today, 12:00 AM</div>
+                    </div>
+                    <div style='color: #8c96a5; font-weight: 600;'>0 BTC</div>
+                </div>
+            </div>
+        </div>
     </div>
+        <!-- RECEIVE MODAL -->
+    <div class='modal-overlay' id='receive-modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h3 style='font-size: 16px;'>Receive Bitcoin</h3>
+                <button class='modal-close' id='receive-close-btn'>×</button>
+            </div>
+            <p style='color: #8c96a5; font-size: 13px; margin-bottom: 12px;'>Send only Bitcoin (BTC) to this address:</p>
+            <div style='background-color: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid #30363d; word-break: break-all; font-family: monospace; font-size: 13px; color: #fff; margin-bottom: 14px;' id='wallet-address-text'>
+                bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+            </div>
+            <button class='primary-btn' id='copy-address-btn' style='margin-bottom: 8px;'>Copy Wallet Address</button>
+            <button class='secondary-btn' id='close-receive-secondary'>Close</button>
+        </div>
+    </div>
+            function logCryptoTransaction(title, amountStr, isPositive) {
+            const feed = document.getElementById('crypto-transaction-feed');
+            if(!feed) return;
+            const timeStr = 'Just now';
+            const color = isPositive ? '#26a17b' : '#ff5c5c';
+            const sign = isPositive ? '+' : '-';
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'tx-item';
+            newItem.innerHTML = `
+                <div>
+                    <div class='tx-title'>${title}</div>
+                    <div class='tx-time'>${timeStr}</div>
+                </div>
+                <div style='color: ${color}; font-weight: 600;'>${sign}${amountStr}</div>
+            `;
+            feed.prepend(newItem);
+        }
 
+        // Buy Bitcoin from Cash Balance
+        document.getElementById('buy-crypto-btn').addEventListener('click', () => {
+            const amountStr = prompt('Enter USD amount from your cash balance to buy Bitcoin:', '100');
+            if(!amountStr) return;
+            const usdSpend = Number(amountStr);
+            if(usdSpend <= 0 || usdSpend > currentBalance) { alert('Invalid amount or insufficient cash balance.'); return; }
+            currentBalance -= usdSpend;
+            const btcBought = usdSpend / 65420;
+            btcHeld += btcBought;
+            updateUI();
+            alert('Successfully purchased ' + btcBought.toFixed(6) + ' BTC!');
+            logTransaction('Bitcoin Purchase', usdSpend.toLocaleString(), false);
+            logCryptoTransaction('Bought BTC', btcBought.toFixed(6) + ' BTC', true);
+        });
+
+        // Receive Modal Handlers
+        document.getElementById('receive-btn').addEventListener('click', () => {
+            document.getElementById('receive-modal').style.display = 'flex';
+        });
+        document.getElementById('receive-close-btn').addEventListener('click', () => {
+            document.getElementById('receive-modal').style.display = 'none';
+        });
+        document.getElementById('close-receive-secondary').addEventListener('click', () => {
+            document.getElementById('receive-modal').style.display = 'none';
+        });
+        document.getElementById('copy-address-btn').addEventListener('click', () => {
+            const addr = document.getElementById('wallet-address-text').innerText.trim();
+            navigator.clipboard.writeText(addr).then(() => {
+                alert('Wallet address copied to clipboard!');
+            }).catch(() => {
+                alert('Address: ' + addr);
+            });
+        });
+
+        // Send Crypto to Outer Wallet
+        document.getElementById('send-btn').addEventListener('click', () => {
+            const recipientAddr = prompt('Enter recipient Bitcoin wallet address:');
+            if(!recipientAddr) return;
+            const btcAmountStr = prompt('Enter BTC amount to send (You hold ' + btcHeld.toFixed(6) + ' BTC):');
+            if(!btcAmountStr) return;
+            const btcToSend = Number(btcAmountStr);
+            if(btcToSend <= 0 || btcToSend > btcHeld) { alert('Invalid amount or insufficient BTC balance.'); return; }
+            
+            btcHeld -= btcToSend;
+            updateUI();
+            alert('Successfully sent ' + btcToSend.toFixed(6) + ' BTC to ' + recipientAddr.substring(0, 8) + '...');
+            logCryptoTransaction('Sent BTC', btcToSend.toFixed(6) + ' BTC', false);
+        });
+                
     <!-- BILLS PAGE -->
     <div id='page-bills' class='page-section'>
         <div class='balance-container'>
