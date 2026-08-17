@@ -4,376 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Vault</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Link to Separate CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="min-h-screen flex flex-col justify-between pb-20">
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="logo">crypto vault</h1>
+            <div class="header-icons">
+                <i class="fa-solid fa-search" id="search-btn"></i>
+                <i class="fa-solid fa-eye" id="blur-eye-btn" title="Tap 3 times for Admin"></i>
+                <i class="fa-solid fa-bell" id="notification-btn"></i>
+            </div>
+        </header>
 
-    <!-- Main Container -->
-    <main class="max-w-md mx-auto w-full p-4 flex-1">
-        
-        <!-- ================= HOME VIEW ================= -->
-        <div id="home-view" class="view-content active">
-            <div class="flex justify-between items-center mb-6">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center cursor-pointer shadow-md overflow-hidden" onclick="openProfile()">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Isaac" alt="Avatar" class="w-full h-full object-cover">
+        <!-- Main Views Container -->
+        <main class="main-content">
+            <!-- Home View -->
+            <div id="home-view" class="view-content active">
+                <div class="profile-summary">
+                    <div class="avatar-container" id="open-settings">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=cryptovault" alt="Avatar" id="user-avatar">
+                    </div>
                 </div>
-                <div class="flex items-center space-x-4 text-gray-300">
-                    <i class="fas fa-search cursor-pointer hover:text-white transition"></i>
-                    <i class="fas fa-eye cursor-pointer hover:text-white transition" id="balance-toggle" onclick="toggleBalance()"></i>
-                    <i class="fas fa-bell cursor-pointer hover:text-white transition" onclick="alert('No new notifications')"></i>
+
+                <div class="balance-card">
+                    <p class="balance-title">Total Cash Balance</p>
+                    <h2 id="total-cash-display">$20,000.00</h2>
                 </div>
-            </div>
 
-            <div class="text-center my-6">
-                <p class="text-gray-400 text-sm font-medium">Total Cash Balance</p>
-                <h1 class="text-3xl font-bold text-white mt-1" id="total-cash-display">$1.00</h1>
-            </div>
-
-            <div class="grid grid-cols-3 gap-3 mb-6">
-                <button onclick="handleAction('Deposit')" class="flex flex-col items-center p-3.5 bg-[#161b22] rounded-2xl border border-gray-800 hover:border-gray-700 transition">
-                    <div class="w-10 h-10 rounded-full bg-[#21262d] flex items-center justify-center text-white mb-2 shadow">
-                        <i class="fas fa-arrow-down text-emerald-400"></i>
-                    </div>
-                    <span class="text-xs text-gray-200 font-medium">Deposit</span>
-                </button>
-                <button onclick="handleAction('Withdraw')" class="flex flex-col items-center p-3.5 bg-[#161b22] rounded-2xl border border-gray-800 hover:border-gray-700 transition">
-                    <div class="w-10 h-10 rounded-full bg-[#21262d] flex items-center justify-center text-white mb-2 shadow">
-                        <i class="fas fa-arrow-up text-red-400"></i>
-                    </div>
-                    <span class="text-xs text-gray-200 font-medium">Withdraw</span>
-                </button>
-                <button onclick="handleAction('Convert')" class="flex flex-col items-center p-3.5 bg-[#161b22] rounded-2xl border border-gray-800 hover:border-gray-700 transition">
-                    <div class="w-10 h-10 rounded-full bg-[#21262d] flex items-center justify-center text-white mb-2 shadow">
-                        <i class="fas fa-sync-alt text-blue-400"></i>
-                    </div>
-                    <span class="text-xs text-gray-200 font-medium">Convert</span>
-                </button>
-            </div>
-
-            <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 mb-4 shadow-sm">
-                <p class="text-xs text-gray-400 mb-3 font-medium">Cash</p>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow">🇺🇸</div>
-                        <div>
-                            <h4 class="text-white font-semibold text-sm">USD</h4>
-                            <p class="text-gray-400 text-xs">US Dollar</p>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-white font-semibold text-sm" id="usd-balance-text">$1.00</p>
-                        <p class="text-gray-400 text-xs">USD</p>
-                    </div>
+                <div class="action-buttons">
+                    <button class="action-btn" id="deposit-btn">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        <span>Deposit</span>
+                    </button>
+                    <button class="action-btn" id="withdraw-btn">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <span>Withdraw</span>
+                    </button>
+                    <button class="action-btn" id="convert-btn">
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>Convert</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 mb-4 flex items-center justify-between shadow-sm">
-                <div class="flex items-center space-x-3 pr-2">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 flex-shrink-0">
-                        <i class="fas fa-bolt text-lg"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-semibold text-sm">Need instant cash?</h4>
-                        <p class="text-gray-400 text-xs leading-relaxed mt-0.5">Use your BTC or USDT as collateral and get cash instantly</p>
-                    </div>
+            <!-- Crypto View -->
+            <div id="crypto-view" class="view-content">
+                <div class="crypto-card">
+                    <h3>My Bitcoin Wallet</h3>
+                    <p id="btc-held-display">0.000000 BTC</p>
+                    <p id="btc-usd-display">($0.00)</p>
                 </div>
-                <button onclick="alert('Instant cash collateral feature initialized!')" class="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xs px-3.5 py-2 rounded-xl transition flex-shrink-0">Explore</button>
-            </div>
-
-            <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 mb-6 shadow-sm">
-                <p class="text-xs text-gray-400 mb-2 font-medium">Savings</p>
-                <div class="flex items-center space-x-3">
-                    <div class="w-9 h-9 rounded-xl bg-[#21262d] flex items-center justify-center text-emerald-400">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-semibold text-sm">Your money. Working daily.</h4>
-                        <p class="text-gray-400 text-xs mt-0.5">Daily returns in NGN or USD. Flexible or fixed savings</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= CRYPTO VIEW ================= -->
-        <div id="crypto-view" class="view-content">
-            <div class="flex justify-between items-center mb-6">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center cursor-pointer shadow-md overflow-hidden" onclick="openProfile()">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Isaac" alt="Avatar" class="w-full h-full object-cover">
-                </div>
-                <div class="flex items-center space-x-4 text-gray-300">
-                    <i class="fas fa-search cursor-pointer hover:text-white transition"></i>
-                    <i class="fas fa-eye cursor-pointer hover:text-white transition" onclick="toggleBalance()"></i>
-                    <i class="fas fa-bell cursor-pointer hover:text-white transition"></i>
+                <div class="action-buttons">
+                    <button class="action-btn" id="buy-btc-btn">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Buy BTC</span>
+                    </button>
+                    <button class="action-btn" id="receive-btn">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        <span>Receive</span>
+                    </button>
+                    <button class="action-btn" id="send-btn">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <span>Send</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="text-center my-6">
-                <p class="text-gray-400 text-sm font-medium">Total Crypto Balance</p>
-                <h1 class="text-3xl font-bold text-white mt-1" id="total-crypto-balance">$1.00</h1>
+            <!-- Pay Bill View -->
+            <div id="paybill-view" class="view-content">
+                <h2>Pay Bills</h2>
+                <p>Utility and service payments coming soon.</p>
             </div>
 
-            <div class="grid grid-cols-3 gap-3 mb-6">
-                <button id="trade-btn" class="flex flex-col items-center p-3.5 bg-[#161b22] rounded-2xl border border-gray-800 hover:border-gray-700 transition">
-                    <div class="w-10 h-10 rounded-full bg-[#21262d] flex items-center justify-center text-white mb-2 shadow">
-                        <i class="fas fa-chart-line text-emerald-400"></i>
-                    </div>
-                    <span class="text-xs text-gray-200 font-medium">Trade</span>
-                </button>
-                <button id="receive-btn" class="flex flex-col items-center p-3.5 bg-[#161b22] rounded-2xl border border-gray-800 hover:border-gray-700 transition">
-                    <div class="w-10 h-10 rounded-full bg-[#21262d] flex items-center justify-center text-white mb-2 shadow">
-                        <i class="fas fa-arrow-down text-blue-400"></i>
-                    </div>
-                    <span class="text-xs text-gray-200 font-medium">Receive</span>
-                </button>
-                <button id="send-btn" class="flex flex-col items-center p-3.5 bg-[#161b22] rounded-2xl border border-gray-800 hover:border-gray-700 transition">
-                    <div class="w-10 h-10 rounded-full bg-[#21262d] flex items-center justify-center text-white mb-2 shadow">
-                        <i class="fas fa-arrow-up text-amber-400"></i>
-                    </div>
-                    <span class="text-xs text-gray-200 font-medium">Send</span>
-                </button>
-            </div>
-
-            <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 mb-4 shadow-sm">
-                <p class="text-xs text-gray-400 mb-3 font-medium">My Cryptocurrencies</p>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-sm shadow">₿</div>
-                            <div>
-                                <h4 class="text-white font-semibold text-sm">BTC</h4>
-                                <p class="text-gray-400 text-xs">Bitcoin</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-white font-semibold text-sm" id="btc-held-display">0.000000 BTC</p>
-                            <p class="text-gray-400 text-xs" id="btc-usd-display">$0.00</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-gray-800">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm shadow">₮</div>
-                            <div>
-                                <h4 class="text-white font-semibold text-sm">USDT</h4>
-                                <p class="text-gray-400 text-xs">Tether</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-white font-semibold text-sm">0.00 USDT</p>
-                            <p class="text-gray-400 text-xs">$0.00</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-gray-800">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm shadow">S</div>
-                            <div>
-                                <h4 class="text-white font-semibold text-sm">USDC</h4>
-                                <p class="text-gray-400 text-xs">USD Coin</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-white font-semibold text-sm">1.004 USDC</p>
-                            <p class="text-gray-400 text-xs">$1.00</p>
-                        </div>
-                    </div>
+            <!-- Cards View -->
+            <div id="cards-view" class="view-content">
+                <div class="virtual-card">
+                    <span class="card-type">Virtual</span>
+                    <div class="card-holder-name" id="card-holder-display">YOUR NAME</div>
+                    <div class="card-balance">Balance: <span id="card-balance-display">$20,000.00</span></div>
                 </div>
             </div>
+        </main>
 
-            <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 mb-4 flex items-center justify-between shadow-sm">
-                <div>
-                    <h4 class="text-white font-semibold text-sm">Start auto buy</h4>
-                    <p class="text-gray-400 text-xs mt-0.5">Grow your portfolio on a recurring schedule.</p>
+        <!-- Settings Modal / Overlay -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Settings & Profile</h3>
+                    <i class="fa-solid fa-xmark" id="close-settings"></i>
                 </div>
-                <button id="explore-auto-buy" class="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xs px-4 py-2 rounded-xl transition">Explore</button>
-            </div>
-
-            <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 mb-6 shadow-sm">
-                <p class="text-xs text-emerald-400 mb-3 font-medium">Transactions</p>
-                <div class="flex justify-between items-center text-sm">
-                    <div>
-                        <p class="text-white font-medium">Wallet Initialized</p>
-                        <p class="text-gray-500 text-xs">Today, 12:00 AM</p>
+                <div class="profile-edit-section">
+                    <input type="text" id="username-input" placeholder="Enter your name">
+                </div>
+                <div class="settings-list">
+                    <div class="setting-item" id="set-account">
+                        <span>Account Settings</span>
+                        <i class="fa-solid fa-chevron-right"></i>
                     </div>
-                    <span class="text-gray-300 text-xs">0 BTC</span>
+                    <div class="setting-item" id="set-recipients">
+                        <span>Recipients</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-item" id="set-security">
+                        <span>Security & 2FA Authentication</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-item" id="set-preferences">
+                        <span>Preferences</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-item" id="set-about">
+                        <span>About Us</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
                 </div>
+                <button class="logout-btn" id="logout-btn">Log Out</button>
             </div>
         </div>
 
-        <!-- ================= PAY BILL VIEW ================= -->
-        <div id="paybill-view" class="view-content">
-            <div class="flex justify-between items-center mb-6">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center cursor-pointer shadow-md overflow-hidden" onclick="openProfile()">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Isaac" alt="Avatar" class="w-full h-full object-cover">
-                </div>
-                <h2 class="text-white font-bold text-base">Pay Bills & Airtime</h2>
-                <div class="w-10"></div>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div onclick="alert('Airtime service selected')" class="bg-[#161b22] p-4 rounded-2xl border border-gray-800 text-center cursor-pointer hover:border-emerald-500 transition">
-                    <i class="fas fa-mobile-alt text-2xl text-emerald-400 mb-2"></i>
-                    <h4 class="text-white font-semibold text-sm">Airtime</h4>
-                    <p class="text-gray-400 text-xs mt-1">Top up mobile lines</p>
-                </div>
-                <div onclick="alert('Data service selected')" class="bg-[#161b22] p-4 rounded-2xl border border-gray-800 text-center cursor-pointer hover:border-emerald-500 transition">
-                    <i class="fas fa-wifi text-2xl text-blue-400 mb-2"></i>
-                    <h4 class="text-white font-semibold text-sm">Mobile Data</h4>
-                    <p class="text-gray-400 text-xs mt-1">Internet bundles</p>
-                </div>
-                <div onclick="alert('Electricity bill selected')" class="bg-[#161b22] p-4 rounded-2xl border border-gray-800 text-center cursor-pointer hover:border-emerald-500 transition">
-                    <i class="fas fa-lightbulb text-2xl text-yellow-400 mb-2"></i>
-                    <h4 class="text-white font-semibold text-sm">Electricity</h4>
-                    <p class="text-gray-400 text-xs mt-1">Token & postpaid</p>
-                </div>
-                <div onclick="alert('Cable TV service selected')" class="bg-[#161b22] p-4 rounded-2xl border border-gray-800 text-center cursor-pointer hover:border-emerald-500 transition">
-                    <i class="fas fa-tv text-2xl text-purple-400 mb-2"></i>
-                    <h4 class="text-white font-semibold text-sm">Cable TV</h4>
-                    <p class="text-gray-400 text-xs mt-1">DSTV, GOTV & more</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= CARDS VIEW ================= -->
-        <div id="cards-view" class="view-content">
-            <div class="flex justify-between items-center mb-6">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center cursor-pointer shadow-md overflow-hidden" onclick="openProfile()">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Isaac" alt="Avatar" class="w-full h-full object-cover">
-                </div>
-                <div class="flex items-center space-x-4 text-gray-300">
-                    <i class="fas fa-search cursor-pointer hover:text-white transition"></i>
-                    <i class="fas fa-bell cursor-pointer hover:text-white transition"></i>
-                </div>
-            </div>
-
-            <div class="relative w-full h-48 mb-6 flex justify-center items-center">
-                <div class="absolute w-[90%] h-36 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl opacity-40 transform -translate-y-4 scale-95"></div>
-                <div class="absolute w-[95%] h-40 bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl opacity-70 transform -translate-y-2 scale-98"></div>
-                <div class="relative w-full h-44 bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-800 rounded-2xl p-5 flex flex-col justify-between shadow-xl border border-emerald-400/30">
-                    <div class="flex justify-between items-start">
-                        <div class="text-white font-bold text-lg tracking-wider">🌿</div>
-                        <span class="bg-black/30 text-emerald-300 text-[10px] px-2.5 py-1 rounded-full font-medium tracking-wide">Virtual</span>
-                    </div>
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <p class="text-[10px] text-emerald-200 uppercase tracking-widest font-medium">Card Holder</p>
-                            <p class="text-white font-semibold text-sm tracking-wide">ISAAC VICTOR</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-[10px] text-emerald-200 uppercase tracking-widest font-medium">Balance</p>
-                            <p class="text-white font-bold text-sm">$1.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mb-6">
-                <h2 class="text-xl font-bold text-white mb-2">Spend anywhere in any currency</h2>
-                <p class="text-gray-400 text-xs px-2 leading-relaxed">Create cards and start spending on Claude, Netflix, Shein, Amazon, Zara and many others.</p>
-            </div>
-
-            <div class="space-y-3 mb-6">
-                <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 flex items-center justify-between shadow-sm">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-base">🛂</div>
-                        <div>
-                            <h4 class="text-white font-semibold text-sm">Document Upload</h4>
-                            <p class="text-gray-400 text-xs mt-0.5">You need to upload your Passport</p>
-                        </div>
-                    </div>
-                    <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full">Pending</span>
-                </div>
-
-                <div class="bg-[#161b22] rounded-2xl p-4 border border-gray-800 flex items-center justify-between shadow-sm">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-base">📋</div>
-                        <div>
-                            <h4 class="text-white font-semibold text-sm">Information Required</h4>
-                            <p class="text-gray-400 text-xs mt-0.5">Employment status, source of funds and transaction frequency</p>
-                        </div>
-                    </div>
-                    <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full">Pending</span>
-                </div>
-            </div>
-
-            <button onclick="alert('Redirecting to KYC verification workflow...')" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold py-3.5 rounded-2xl transition shadow-lg shadow-emerald-500/20">
-                Continue
+        <!-- Navigation Bar -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-target="home-view">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
             </button>
-        </div>
-
-    </main>
-
-    <!-- ================= BOTTOM NAVIGATION BAR ================= -->
-    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#0b0e14]/95 backdrop-blur-md border-t border-gray-800 px-6 py-3 flex justify-between items-center z-40">
-        <button onclick="switchTab('home')" class="nav-item flex flex-col items-center text-emerald-400 transition" data-target="home">
-            <i class="fas fa-home text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Home</span>
-        </button>
-        <button onclick="switchTab('crypto')" class="nav-item flex flex-col items-center text-gray-400 hover:text-gray-200 transition" data-target="crypto">
-            <i class="fas fa-coins text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Crypto</span>
-        </button>
-        <button onclick="switchTab('paybill')" class="nav-item flex flex-col items-center text-gray-400 hover:text-gray-200 transition" data-target="paybill">
-            <i class="fas fa-lightbulb text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Pay Bill</span>
-        </button>
-        <button onclick="switchTab('cards')" class="nav-item flex flex-col items-center text-gray-400 hover:text-gray-200 transition" data-target="cards">
-            <i class="fas fa-credit-card text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Cards</span>
-        </button>
-    </nav>
-
-    <!-- ================= PROFILE MODAL ================= -->
-    <div id="profile-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex flex-col justify-end">
-        <div class="bg-[#161b22] rounded-t-3xl p-6 border-t border-gray-800 max-h-[85vh] overflow-y-auto w-full max-w-md mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-white font-bold text-lg">Settings & Profile</h3>
-                <button onclick="closeProfile()" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-gray-800">
-                <div class="w-20 h-20 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center mb-3 shadow-lg overflow-hidden">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Isaac" alt="Avatar" class="w-full h-full object-cover">
-                </div>
-                <h4 class="text-white font-bold text-base">Isaac Victor</h4>
-                <p class="text-gray-400 text-xs">@vicsworld</p>
-            </div>
-
-            <div class="space-y-2 mb-6">
-                <div onclick="alert('Account settings: Personal details, invite friends, account limits.')" class="p-3.5 bg-[#0b0e14] rounded-2xl flex items-center justify-between cursor-pointer hover:bg-gray-800 transition">
-                    <span class="text-gray-200 text-sm font-medium">Account Settings</span>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-                <div onclick="alert('Recipients: Manage bank accounts and mobile money.')" class="p-3.5 bg-[#0b0e14] rounded-2xl flex items-center justify-between cursor-pointer hover:bg-gray-800 transition">
-                    <span class="text-gray-200 text-sm font-medium">Recipients</span>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-                <div onclick="alert('Security Center: 2FA Authentication is Active, App lock, Biometrics & Passcode configured.')" class="p-3.5 bg-[#0b0e14] rounded-2xl flex items-center justify-between cursor-pointer hover:bg-gray-800 transition">
-                    <span class="text-gray-200 text-sm font-medium">Security & 2FA Authentication</span>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-                <div onclick="alert('Preferences: Notifications, display currency & themes.')" class="p-3.5 bg-[#0b0e14] rounded-2xl flex items-center justify-between cursor-pointer hover:bg-gray-800 transition">
-                    <span class="text-gray-200 text-sm font-medium">Preferences</span>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-                <div onclick="alert('About us: FAQs, privacy policy, blog & contact.')" class="p-3.5 bg-[#0b0e14] rounded-2xl flex items-center justify-between cursor-pointer hover:bg-gray-800 transition">
-                    <span class="text-gray-200 text-sm font-medium">About Us</span>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-            </div>
-
-            <button onclick="alert('Logged out successfully'); closeProfile();" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold py-3.5 rounded-2xl transition border border-red-500/20">
-                Log Out
+            <button class="nav-item" data-target="crypto-view">
+                <i class="fa-solid fa-coins"></i>
+                <span>Crypto</span>
             </button>
-        </div>
+            <button class="nav-item" data-target="paybill-view">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Pay Bill</span>
+            </button>
+            <button class="nav-item" data-target="cards-view">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Cards</span>
+            </button>
+        </nav>
     </div>
 
-    <!-- Link to Separate JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
