@@ -11,27 +11,23 @@
     <div class="app-container">
         <!-- Header -->
         <header class="app-header">
+            <div class="header-left">
+                <div class="avatar-small" id="open-settings">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </div>
             <h1 class="logo">crypto vault</h1>
             <div class="header-right-icons">
-                <i class="fa-solid fa-camera" id="camera-btn" title="Snapshot"></i>
-                <i class="fa-solid fa-eye" id="blur-eye-btn" title="Tap 3 times for Admin"></i>
+                <i class="fa-solid fa-magnifying-glass" id="search-btn" title="Search"></i>
+                <i class="fa-solid fa-eye" id="blur-eye-btn" title="Toggle Balance"></i>
                 <i class="fa-solid fa-bell" id="notification-btn" title="Notifications"></i>
             </div>
         </header>
 
         <!-- Main Views Container -->
         <main class="main-content">
-            <!-- Home View -->
+            <!-- Home View (Busha Style - USD) -->
             <div id="home-view" class="view-content active">
-                <div class="top-row">
-                    <div class="avatar-small" id="open-settings">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="header-star">
-                        <i class="fa-solid fa-star" style="color: #4ade80;"></i>
-                    </div>
-                </div>
-
                 <div class="balance-card">
                     <p class="balance-title">Total Cash Balance</p>
                     <h2 id="total-cash-display">$20,000.00</h2>
@@ -52,42 +48,51 @@
                     </button>
                 </div>
 
-                <div class="info-card">
-                    <div class="info-card-header">
-                        <span>Quick Overview</span>
+                <!-- Cash Asset Card -->
+                <div class="asset-card" id="cash-asset-card">
+                    <div class="asset-left">
+                        <div class="currency-flag usd-flag">🇺🇸</div>
+                        <div>
+                            <strong>USD</strong>
+                            <p class="asset-sub">US Dollar</p>
+                        </div>
                     </div>
-                    <div class="info-card-body">
-                        <span>Available Liquidity</span>
-                        <span class="highlight-amount">$20,000.00</span>
+                    <div class="asset-right">
+                        <span class="asset-amount" id="cash-asset-amt">$20,000.00</span>
+                        <p class="asset-sub-amt">USD</p>
                     </div>
                 </div>
 
-                <div class="info-card">
-                    <div class="info-card-header">
-                        <span>Recent Transactions</span>
-                        <span class="view-all" id="view-all-tx">View All</span>
+                <!-- Need Instant Cash Banner -->
+                <div class="promo-card">
+                    <div class="promo-text">
+                        <strong>Need instant cash?</strong>
+                        <p>Use your BTC or USDT as collateral and get cash instantly.</p>
                     </div>
-                    <div class="tx-item">
-                        <div>
-                            <strong>Initial Deposit</strong>
-                            <p class="tx-date">Today, 12:00 AM</p>
-                        </div>
-                        <span class="tx-amount">+$20,000.00</span>
+                    <button class="promo-btn" id="explore-collateral-btn">Explore</button>
+                </div>
+
+                <!-- Savings Banner -->
+                <div class="promo-card savings-card">
+                    <div class="promo-text">
+                        <strong>Your money. Working daily</strong>
+                        <p>Daily returns in USD or crypto. Flexible or fixed savings.</p>
                     </div>
+                    <div class="savings-icon"><i class="fa-solid fa-chart-line"></i></div>
                 </div>
             </div>
 
-            <!-- Crypto View -->
+            <!-- Crypto View (Busha Style) -->
             <div id="crypto-view" class="view-content">
-                <div class="crypto-card">
-                    <h3>My Bitcoin Wallet</h3>
-                    <p id="btc-held-display">0.000000 BTC</p>
-                    <p id="btc-usd-display">($0.00)</p>
+                <div class="balance-card">
+                    <p class="balance-title">Total Crypto Balance</p>
+                    <h2 id="total-crypto-display">$0.00</h2>
                 </div>
+
                 <div class="action-buttons">
-                    <button class="action-btn" id="buy-btc-btn">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span>Buy BTC</span>
+                    <button class="action-btn" id="trade-btn">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Trade</span>
                     </button>
                     <button class="action-btn" id="receive-btn">
                         <i class="fa-solid fa-arrow-down"></i>
@@ -98,34 +103,93 @@
                         <span>Send</span>
                     </button>
                 </div>
+
+                <!-- BTC & USDT Asset Cards -->
+                <div class="asset-card" id="btc-card-click">
+                    <div class="asset-left">
+                        <div class="crypto-icon btc-icon"><i class="fa-brands fa-bitcoin"></i></div>
+                        <div>
+                            <strong>BTC</strong>
+                            <p class="asset-sub">Bitcoin</p>
+                        </div>
+                    </div>
+                    <div class="asset-right">
+                        <span class="asset-amount" id="btc-held-amt">0.000000 BTC</span>
+                        <p class="asset-sub-amt" id="btc-usd-val">$0.00</p>
+                    </div>
+                </div>
+
+                <div class="asset-card" id="usdt-card-click">
+                    <div class="asset-left">
+                        <div class="crypto-icon usdt-icon">₮</div>
+                        <div>
+                            <strong>USDT</strong>
+                            <p class="asset-sub">Tether</p>
+                        </div>
+                    </div>
+                    <div class="asset-right">
+                        <span class="asset-amount" id="usdt-held-amt">0.00 USDT</span>
+                        <p class="asset-sub-amt" id="usdt-usd-val">$0.00</p>
+                    </div>
+                </div>
+
+                <!-- Start Auto Buy -->
+                <div class="promo-card">
+                    <div class="promo-text">
+                        <strong>Start auto buy</strong>
+                        <p>Grow your portfolio on a recurring schedule.</p>
+                    </div>
+                    <button class="promo-btn" id="auto-buy-explore">Explore</button>
+                </div>
+
+                <!-- Transactions Section -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span>Transactions</span>
+                        <span class="view-all" id="view-all-crypto-tx">View All</span>
+                    </div>
+                    <div class="tx-item">
+                        <div class="tx-left-info">
+                            <div class="tx-icon-bullet btc-bullet"><i class="fa-brands fa-bitcoin"></i></div>
+                            <div>
+                                <strong>Initial Deposit</strong>
+                                <p class="tx-date">Today, 12:00 AM</p>
+                            </div>
+                        </div>
+                        <span class="tx-amount">+$20,000.00</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Pay Bill View -->
             <div id="paybill-view" class="view-content">
                 <h2>Pay Bills</h2>
-                <p class="section-sub">Utility and service payments coming soon.</p>
+                <p class="section-sub">Utility, airtime, and data purchases.</p>
             </div>
 
             <!-- Cards View -->
             <div id="cards-view" class="view-content">
                 <div class="virtual-card">
-                    <span class="card-type">Virtual</span>
+                    <span class="card-type">Virtual USD Card</span>
+                    <div class="card-number-display">**** **** **** 8824</div>
                     <div class="card-holder-name" id="card-holder-display">YOUR NAME</div>
                     <div class="card-balance">Balance: <span id="card-balance-display">$20,000.00</span></div>
                 </div>
             </div>
         </main>
 
-        <!-- Custom Dark Modal (Replaces browser prompt/alert) -->
+        <!-- Dynamic Action Modal (Deposit, Withdraw, Convert, Crypto Trades) -->
         <div id="custom-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 id="modal-title">Action</h3>
                     <i class="fa-solid fa-xmark" id="close-custom-modal"></i>
                 </div>
-                <p id="modal-desc" class="modal-desc"></p>
-                <div id="modal-input-container">
-                    <input type="text" id="modal-input" placeholder="Enter value...">
+                <div id="modal-body-content">
+                    <p id="modal-desc" class="modal-desc"></p>
+                    <div id="modal-input-container">
+                        <input type="text" id="modal-input" placeholder="Enter value...">
+                    </div>
                 </div>
                 <div class="modal-buttons">
                     <button id="modal-cancel-btn" class="modal-btn cancel">Cancel</button>
@@ -134,7 +198,7 @@
             </div>
         </div>
 
-        <!-- Settings Modal / Overlay -->
+        <!-- Settings & Profile Modal -->
         <div id="settings-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -167,6 +231,19 @@
                     </div>
                 </div>
                 <button class="logout-btn" id="logout-btn">Log Out</button>
+            </div>
+        </div>
+
+        <!-- Sub-Folder Modal for Settings Options -->
+        <div id="sub-settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="sub-modal-title">Sub Menu</h3>
+                    <i class="fa-solid fa-xmark" id="close-sub-modal"></i>
+                </div>
+                <div id="sub-modal-body" class="sub-modal-body">
+                    <!-- Dynamic sub-content injected here -->
+                </div>
             </div>
         </div>
 
