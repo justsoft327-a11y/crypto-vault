@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Dashboard</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <h2>Crypto Vault</h2>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="status">Live</span>
+        <button onclick="toggleAdmin()" class="gear-btn">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Main Balance -->
+    <section class="card balance-card">
+      <p class="label">Total Portfolio Value</p>
+      <h1 id="user-balance">$10,000.00</h1>
+      <p class="profit" id="user-yield">+ $250.00 (2.5% Today)</p>
+    </section>
+
+    <!-- Cash Flow Chart -->
+    <section class="card chart-card">
+      <h3>7-Day Cash Flow</h3>
+      <div style="margin-top: 15px;">
+        <canvas id="cashFlowChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Recent Transactions -->
+    <section class="card tx-card">
+      <h3>Recent Transactions</h3>
+      <div class="tx-list" id="tx-list">
+        <div class="tx-item">
+          <div>
+            <p class="tx-title">Daily Yield Credit</p>
+            <p class="tx-date">Today, 08:00 AM</p>
+          </div>
+          <p class="tx-amount positive">+$250.00</p>
+        </div>
+        <div class="tx-item">
+          <div>
+            <p class="tx-title">Deposit (USDT)</p>
+            <p class="tx-date">Yesterday, 02:15 PM</p>
+          </div>
+          <p class="tx-amount positive">+$1,200.00</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section class="card admin-card" id="admin-panel">
+      <h3>Admin Control Panel</h3>
+      <p class="admin-desc">Tweak balance in real-time:</p>
+      
+      <label for="balance-input">Set Balance ($):</label>
+      <input type="number" id="balance-input" value="10000">
+
+      <label for="yield-input">Set Daily Yield ($):</label>
+      <input type="number" id="yield-input" value="250">
+
+      <button onclick="updateDashboard()">Update Dashboard</button>
+    </section>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
