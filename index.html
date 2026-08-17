@@ -37,8 +37,6 @@
         .sparkline { width: 60px; height: 24px; }
         .card-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
         .card-ctrl-btn { background-color: #21262d; border: 1px solid #30363d; border-radius: 10px; color: #c9d1d9; padding: 10px 4px; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
-        .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; border-bottom: 1px solid #21262d; }
-        .setting-row:last-child { border-bottom: none; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0d1117; border-top: 1px solid #21262d; display: flex; justify-content: space-around; padding: 10px 0; z-index: 100; }
         .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; color: #8c96a5; font-size: 11px; cursor: pointer; gap: 4px; }
         .nav-item.active { color: #3b82f6; }
@@ -47,9 +45,13 @@
         .modal-content { background-color: #161b22; border: 1px solid #30363d; border-radius: 20px; width: 100%; max-width: 360px; padding: 22px; max-height: 90vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .modal-close { background: none; border: none; color: #8c96a5; font-size: 20px; cursor: pointer; }
-        .modal-input { width: 100%; padding: 12px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; font-size: 15px; margin-bottom: 14px; }
-        .modal-btn { width: 100%; padding: 12px; background-color: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .form-input { width: 100%; padding: 12px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; font-size: 15px; margin-bottom: 14px; }
+        .primary-btn { width: 100%; padding: 12px; background-color: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .secondary-btn { width: 100%; padding: 12px; background-color: #21262d; color: white; border: 1px solid #30363d; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+        .option-card { background-color: #21262d; border: 1px solid #30363d; border-radius: 12px; padding: 14px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+        .option-card:hover { border-color: #3b82f6; }
         .kyc-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(38, 161, 123, 0.15); color: #26a17b; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(38, 161, 123, 0.3); }
+        .back-link { background: none; border: none; color: #3b82f6; font-size: 14px; cursor: pointer; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 6px; }
     </style>
 </head>
 <body>
@@ -64,15 +66,16 @@
         </div>
     </div>
 
+    <!-- HOME PAGE -->
     <div id='page-home' class='page-section active-page'>
         <div class='balance-container'>
             <div class='balance-title'>Total Cash Balance</div>
             <div class='balance-amount' id='display-balance'>$20,000.00</div>
         </div>
         <div class='action-buttons'>
-            <button class='action-btn-item action-trigger' data-type='deposit'><div class='action-circle'>↓</div><span class='action-label'>Deposit</span></button>
-            <button class='action-btn-item action-trigger' data-type='withdraw'><div class='action-circle'>↑</div><span class='action-label'>Withdraw</span></button>
-            <button class='action-btn-item action-trigger' data-type='convert'><div class='action-circle'>⇄</div><span class='action-label'>Convert</span></button>
+            <button class='action-btn-item' id='go-deposit-btn'><div class='action-circle'>↓</div><span class='action-label'>Deposit</span></button>
+            <button class='action-btn-item' id='go-withdraw-btn'><div class='action-circle'>↑</div><span class='action-label'>Withdraw</span></button>
+            <button class='action-btn-item' id='go-convert-btn'><div class='action-circle'>⇄</div><span class='action-label'>Convert</span></button>
         </div>
         <div class='card-box'>
             <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>Quick Overview</div>
@@ -98,6 +101,103 @@
         </div>
     </div>
 
+    <!-- DEPOSIT: CHOOSE FUNDING SOURCE PAGE -->
+    <div id='page-deposit-source' class='page-section'>
+        <button class='back-link' data-page='home'>← Back to Home</button>
+        <div class='balance-container' style='padding-top: 0;'>
+            <div class='balance-title'>Add Funds</div>
+            <div class='balance-amount' style='font-size: 22px;'>Select Funding Source</div>
+        </div>
+        <div class='option-card' id='select-add-bank-deposit'>
+            <div>
+                <div style='font-weight: 600; color: #fff;'>🏦 Link Bank Account</div>
+                <div style='font-size: 12px; color: #8c96a5;'>Deposit directly via ACH or wire transfer</div>
+            </div>
+            <span style='color: #8c96a5;'>›</span>
+        </div>
+        <div class='option-card' id='select-add-card-deposit'>
+            <div>
+                <div style='font-weight: 600; color: #fff;'>💳 Add Debit / Credit Card</div>
+                <div style='font-size: 12px; color: #8c96a5;'>Instant deposit using card details</div>
+            </div>
+            <span style='color: #8c96a5;'>›</span>
+        </div>
+    </div>
+
+    <!-- ADD BANK FORM SUB-PAGE (Deposit) -->
+    <div id='page-add-bank' class='page-section'>
+        <button class='back-link' id='back-to-deposit-source'>← Back</button>
+        <div class='card-box'>
+            <h3 style='font-size: 16px; margin-bottom: 14px;'>Link Bank Account</h3>
+            <label style='font-size: 12px; color: #8c96a5;'>Select Bank Name</label>
+            <select id='bank-select-name' class='form-input'>
+                <option value='Chase Bank'>Chase Bank</option>
+                <option value='Bank of America'>Bank of America</option>
+                <option value='Wells Fargo'>Wells Fargo</option>
+                <option value='First Bank'>First Bank</option>
+                <option value='Access Bank'>Access Bank</option>
+                <option value='Other Bank'>Other Bank</option>
+            </select>
+            <label style='font-size: 12px; color: #8c96a5;'>Account Number</label>
+            <input type='text' id='bank-acc-num' class='form-input' placeholder='Enter 10-digit account number'>
+            <label style='font-size: 12px; color: #8c96a5;'>Deposit Amount (USD)</label>
+            <input type='number' id='bank-dep-amount' class='form-input' placeholder='Enter amount e.g. 500'>
+            <button class='primary-btn' id='confirm-bank-deposit'>Verify & Deposit Funds</button>
+        </div>
+    </div>
+
+    <!-- ADD CARD FORM SUB-PAGE (Deposit) -->
+    <div id='page-add-card' class='page-section'>
+        <button class='back-link' id='back-to-deposit-source-2'>← Back</button>
+        <div class='card-box'>
+            <h3 style='font-size: 16px; margin-bottom: 14px;'>Add Debit or Credit Card</h3>
+            <label style='font-size: 12px; color: #8c96a5;'>Card Number</label>
+            <input type='text' class='form-input' placeholder='4532 •••• •••• ••••'>
+            <div style='display: flex; gap: 10px;'>
+                <div>
+                    <label style='font-size: 12px; color: #8c96a5;'>Exp Date</label>
+                    <input type='text' class='form-input' placeholder='MM/YY'>
+                </div>
+                <div>
+                    <label style='font-size: 12px; color: #8c96a5;'>CVV</label>
+                    <input type='password' class='form-input' placeholder='123' maxlength='4'>
+                </div>
+            </div>
+            <label style='font-size: 12px; color: #8c96a5;'>Deposit Amount (USD)</label>
+            <input type='number' id='card-dep-amount' class='form-input' placeholder='Enter amount e.g. 200'>
+            <button class='primary-btn' id='confirm-card-deposit'>Process Card Deposit</button>
+        </div>
+    </div>
+
+    <!-- WITHDRAW: SELECT BANK PAGE -->
+    <div id='page-withdraw-bank' class='page-section'>
+        <button class='back-link' data-page='home'>← Back to Home</button>
+        <div class='balance-container' style='padding-top: 0;'>
+            <div class='balance-title'>Withdraw Funds</div>
+            <div class='balance-amount' style='font-size: 22px;'>Select Destination Bank</div>
+        </div>
+        <div class='option-card' id='select-chase-withdraw'>
+            <div>
+                <div style='font-weight: 600; color: #fff;'>🏦 Chase Bank (*8832)</div>
+                <div style='font-size: 12px; color: #26a17b;'>Verified & Primary</div>
+            </div>
+            <span style='color: #3b82f6; font-size: 13px; font-weight: 600;'>Select ›</span>
+        </div>
+        <div class='option-card' id='trigger-add-new-withdraw-bank'>
+            <div>
+                <div style='font-weight: 600; color: #fff;'>➕ Add New Bank Account</div>
+                <div style='font-size: 12px; color: #8c96a5;'>Link a different bank for payouts</div>
+            </div>
+            <span style='color: #8c96a5;'>›</span>
+        </div>
+        <div class='card-box' style='margin-top: 16px;'>
+            <label style='font-size: 12px; color: #8c96a5;'>Withdrawal Amount (USD)</label>
+            <input type='number' id='withdraw-amount-input' class='form-input' placeholder='Enter amount to withdraw'>
+            <button class='primary-btn' id='confirm-withdraw-btn'>Confirm Withdrawal</button>
+        </div>
+    </div>
+
+    <!-- CRYPTO PAGE -->
     <div id='page-crypto' class='page-section'>
         <div class='balance-container'>
             <div class='balance-title'>Total Crypto Balance</div>
@@ -143,6 +243,7 @@
         </div>
     </div>
 
+    <!-- BILLS PAGE -->
     <div id='page-bills' class='page-section'>
         <div class='balance-container'>
             <div class='balance-title'>Bill Payments</div>
@@ -153,6 +254,7 @@
         </div>
     </div>
 
+    <!-- CARDS PAGE -->
     <div id='page-cards' class='page-section'>
         <div class='balance-container'>
             <div class='balance-title'>Virtual Card Balance</div>
@@ -175,7 +277,7 @@
                 <span style='font-size: 16px;'>👁️</span>
                 <span>Details</span>
             </button>
-            <button class='card-ctrl-btn action-trigger' data-type='deposit'>
+            <button class='card-ctrl-btn' id='card-topup-btn'>
                 <span style='font-size: 16px;'>➕</span>
                 <span>Top Up</span>
             </button>
@@ -186,6 +288,7 @@
         </div>
     </div>
 
+    <!-- PROFILE MODAL -->
     <div class='modal-overlay' id='profile-modal'>
         <div class='modal-content'>
             <div class='modal-header'>
@@ -197,43 +300,32 @@
                 <span style='font-size: 11px; color: #8c96a5;'>Tier 2 Account</span>
             </div>
             <p style='color: #8c96a5; font-size: 12px; margin-bottom: 6px;'>Profile Name / Tag:</p>
-            <input type='text' id='profile-name-input' class='modal-input' placeholder='Enter name'>
-            <div style='margin-top: 10px; margin-bottom: 16px;'>
-                <div style='font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 8px;'>Security & Biometrics</div>
-                <div class='setting-row'>
-                    <span>Face ID / Fingerprint Login</span>
-                    <input type='checkbox' id='toggle-biometric' checked>
-                </div>
-                <div class='setting-row'>
-                    <span>Two-Factor Auth (2FA)</span>
-                    <input type='checkbox' id='toggle-2fa' checked>
-                </div>
-            </div>
-            <button class='modal-btn' id='save-profile-btn' style='margin-bottom: 8px;'>Save Profile</button>
-            <button class='modal-btn' id='close-profile-secondary' style='background: #21262d;'>Close</button>
+            <input type='text' id='profile-name-input' class='form-input' placeholder='Enter name'>
+            <button class='primary-btn' id='save-profile-btn' style='margin-bottom: 8px;'>Save Profile</button>
+            <button class='secondary-btn' id='close-profile-secondary'>Close</button>
         </div>
     </div>
 
-    <div class='modal-overlay' id='action-modal'>
+    <!-- CONVERT MODAL -->
+    <div class='modal-overlay' id='convert-modal'>
         <div class='modal-content'>
-            <div class='modal-header'><h3 id='modal-title' style='font-size: 16px;'>Action</h3><button class='modal-close' id='action-close-btn'>×</button></div>
-            <p id='modal-desc' style='color: #8c96a5; font-size: 13px; margin-bottom: 12px;'></p>
-            <input type='number' id='modal-input-val' class='modal-input' placeholder='Enter amount'>
-            <button class='modal-btn' id='execute-action-btn'>Confirm</button>
+            <div class='modal-header'><h3 style='font-size: 16px;'>Convert Currency</h3><button class='modal-close' id='convert-close-btn'>×</button></div>
+            <p style='color: #8c96a5; font-size: 13px; margin-bottom: 12px;'>Enter USD amount to convert to EUR (Rate: 1 USD = 0.92 EUR):</p>
+            <input type='number' id='convert-input-val' class='form-input' placeholder='Enter amount'>
+            <button class='primary-btn' id='execute-convert-btn'>Confirm Conversion</button>
         </div>
     </div>
 
+    <!-- BOTTOM NAV -->
     <div class='bottom-nav'>
         <button class='nav-item active' data-page='home'><svg viewBox='0 0 24 24'><path d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></svg>Home</button>
         <button class='nav-item' data-page='crypto'><svg viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z'/></svg>Crypto</button>
         <button class='nav-item' data-page='bills'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z'/></svg>Pay Bill</button>
         <button class='nav-item' data-page='cards'><svg viewBox='0 0 24 24'><path d='M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z'/></svg>Cards</button>
     </div>
-
-    <script>
+            <script>
         let currentBalance = 20000;
         let btcHeld = 0;
-        let currentActionType = '';
         let customProfileName = localStorage.getItem('cryptoVaultName') || '';
         let cardFrozen = false;
         let cardDetailsShown = false;
@@ -245,28 +337,14 @@
         }
         updateProfileDisplay();
 
-        function openProfileModal() {
-            document.getElementById('profile-name-input').value = customProfileName;
-            document.getElementById('profile-modal').style.display = 'flex';
-        }
-
-        function saveProfileName() {
-            customProfileName = document.getElementById('profile-name-input').value;
-            localStorage.setItem('cryptoVaultName', customProfileName);
-            updateProfileDisplay();
-            closeModals();
-            alert('Profile and security preferences updated successfully!');
-        }
-
         function switchPage(pageName) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
             document.getElementById('page-' + pageName).classList.add('active-page');
-            const navItems = document.querySelectorAll('.nav-item');
-            if (pageName === 'home') navItems[0].classList.add('active');
-            if (pageName === 'crypto') navItems[1].classList.add('active');
-            if (pageName === 'bills') navItems[2].classList.add('active');
-            if (pageName === 'cards') navItems[3].classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                if(nav.getAttribute('data-page') === pageName) nav.classList.add('active');
+            });
         }
 
         let hidden = false;
@@ -281,21 +359,6 @@
                 this.innerText = '👁️';
             }
         });
-
-        function openModal(type) {
-            currentActionType = type;
-            const modal = document.getElementById('action-modal'), title = document.getElementById('modal-title'), desc = document.getElementById('modal-desc');
-            modal.style.display = 'flex';
-            document.getElementById('modal-input-val').value = '';
-            if(type === 'deposit') { title.innerText = 'Deposit Funds'; desc.innerText = 'Enter amount in USD to add:'; }
-            else if(type === 'withdraw') { title.innerText = 'Withdraw Funds'; desc.innerText = 'Enter amount in USD to withdraw:'; }
-            else if(type === 'convert') { title.innerText = 'Convert Currency'; desc.innerText = 'Enter USD amount to convert to EUR (Rate: 1 USD = 0.92 EUR):'; }
-        }
-
-        function closeModals() {
-            document.getElementById('profile-modal').style.display = 'none';
-            document.getElementById('action-modal').style.display = 'none';
-        }
 
         function logTransaction(title, amountStr, isPositive) {
             const feed = document.getElementById('transaction-feed');
@@ -315,6 +378,169 @@
             feed.prepend(newItem);
         }
 
-        function executeAction() {
-            const val = Number(document.getElementById('modal-input-val').value);
-            if(!val || val <= 0) { alert('Please enter a valid amoun
+        document.getElementById('profile-trigger').addEventListener('click', () => {
+            document.getElementById('profile-name-input').value = customProfileName;
+            document.getElementById('profile-modal').style.display = 'flex';
+        });
+
+        document.getElementById('profile-close-btn').addEventListener('click', () => document.getElementById('profile-modal').style.display = 'none');
+        document.getElementById('close-profile-secondary').addEventListener('click', () => document.getElementById('profile-modal').style.display = 'none');
+        
+        document.getElementById('save-profile-btn').addEventListener('click', () => {
+            customProfileName = document.getElementById('profile-name-input').value;
+            localStorage.setItem('cryptoVaultName', customProfileName);
+            updateProfileDisplay();
+            document.getElementById('profile-modal').style.display = 'none';
+            alert('Profile updated successfully!');
+        });
+
+        document.getElementById('go-deposit-btn').addEventListener('click', () => switchPage('deposit-source'));
+        document.getElementById('go-withdraw-btn').addEventListener('click', () => switchPage('withdraw-bank'));
+        document.getElementById('card-topup-btn').addEventListener('click', () => switchPage('deposit-source'));
+
+        document.getElementById('select-add-bank-deposit').addEventListener('click', () => switchPage('add-bank'));
+        document.getElementById('select-add-card-deposit').addEventListener('click', () => switchPage('add-card'));
+        document.getElementById('trigger-add-new-withdraw-bank').addEventListener('click', () => switchPage('add-bank'));
+        document.getElementById('select-chase-withdraw').addEventListener('click', () => alert('Selected Chase Bank ending in 8832 for withdrawal.'));
+
+        document.querySelectorAll('.back-link').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-page') || 'home';
+                switchPage(target);
+            });
+        });
+        document.getElementById('back-to-deposit-source').addEventListener('click', () => switchPage('deposit-source'));
+        document.getElementById('back-to-deposit-source-2').addEventListener('click', () => switchPage('deposit-source'));
+
+        document.getElementById('confirm-bank-deposit').addEventListener('click', () => {
+            const amt = Number(document.getElementById('bank-dep-amount').value);
+            const bankName = document.getElementById('bank-select-name').value;
+            if(!amt || amt <= 0) { alert('Please enter a valid amount.'); return; }
+            currentBalance += amt;
+            updateUI();
+            logTransaction('Deposit via ' + bankName, amt.toLocaleString(), true);
+            alert('Successfully deposited $' + amt.toLocaleString() + ' from ' + bankName);
+            switchPage('home');
+        });
+
+        document.getElementById('confirm-card-deposit').addEventListener('click', () => {
+            const amt = Number(document.getElementById('card-dep-amount').value);
+            if(!amt || amt <= 0) { alert('Please enter a valid amount.'); return; }
+            currentBalance += amt;
+            updateUI();
+            logTransaction('Card Deposit', amt.toLocaleString(), true);
+            alert('Successfully deposited $' + amt.toLocaleString() + ' via Debit Card');
+            switchPage('home');
+        });
+
+        document.getElementById('confirm-withdraw-btn').addEventListener('click', () => {
+            const amt = Number(document.getElementById('withdraw-amount-input').value);
+            if(!amt || amt <= 0) { alert('Please enter a valid amount.'); return; }
+            if(amt > currentBalance) { alert('Insufficient funds.'); return; }
+            currentBalance -= amt;
+            updateUI();
+            logTransaction('Bank Withdrawal', amt.toLocaleString(), false);
+            alert('Successfully withdrew $' + amt.toLocaleString() + ' to your selected bank.');
+            switchPage('home');
+        });
+
+        document.getElementById('go-convert-btn').addEventListener('click', () => {
+            document.getElementById('convert-modal').style.display = 'flex';
+        });
+        document.getElementById('convert-close-btn').addEventListener('click', () => {
+            document.getElementById('convert-modal').style.display = 'none';
+        });
+        document.getElementById('execute-convert-btn').addEventListener('click', () => {
+            const val = Number(document.getElementById('convert-input-val').value);
+            if(!val || val <= 0) { alert('Please enter a valid amount.'); return; }
+            if(val > currentBalance) { alert('Insufficient funds.'); return; }
+            currentBalance -= val;
+            updateUI();
+            logTransaction('Currency Conversion', val.toLocaleString(), false);
+            alert('Converted $' + val.toLocaleString() + ' to ' + (val * 0.92).toFixed(2) + ' EUR');
+            document.getElementById('convert-modal').style.display = 'none';
+        });
+
+        document.querySelectorAll('.nav-item').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const page = btn.getAttribute('data-page');
+                if(page) switchPage(page);
+            });
+        });
+
+        document.getElementById('trade-btn').addEventListener('click', () => switchPage('home'));
+        document.getElementById('receive-btn').addEventListener('click', () => alert('Scan QR code or copy address below to receive funds.'));
+        document.getElementById('send-btn').addEventListener('click', () => alert('Scan recipient QR code or enter address to send.'));
+        document.getElementById('cam-btn').addEventListener('click', () => alert('QR Scanner active!'));
+        document.getElementById('notif-btn').addEventListener('click', () => alert('No new notifications'));
+        document.getElementById('view-all-tx').addEventListener('click', () => alert('Viewing full transaction history log.'));
+
+        document.getElementById('btc-row').addEventListener('click', () => {
+            const amountStr = prompt('Enter USD amount to spend on Bitcoin:', '100');
+            if(!amountStr) return;
+            const usdSpend = Number(amountStr);
+            if(usdSpend <= 0 || usdSpend > currentBalance) { alert('Invalid amount or balance.'); return; }
+            currentBalance -= usdSpend;
+            btcHeld += usdSpend / 65420;
+            updateUI();
+            alert('Successfully purchased Bitcoin!');
+            logTransaction('Bitcoin Purchase', usdSpend.toLocaleString(), false);
+        });
+
+        document.getElementById('freeze-card-btn').addEventListener('click', () => {
+            cardFrozen = !cardFrozen;
+            const box = document.getElementById('virtual-card-box');
+            const icon = document.getElementById('freeze-icon');
+            const text = document.getElementById('freeze-text');
+            const label = document.getElementById('card-status-label');
+            if(cardFrozen) {
+                box.style.opacity = '0.5';
+                icon.innerText = '🔥';
+                text.innerText = 'Unfreeze';
+                label.innerText = 'Frozen';
+                alert('Virtual card has been frozen.');
+            } else {
+                box.style.opacity = '1';
+                icon.innerText = '❄️';
+                text.innerText = 'Freeze';
+                label.innerText = 'Active';
+                alert('Virtual card is now active.');
+            }
+        });
+
+        document.getElementById('details-card-btn').addEventListener('click', () => {
+            cardDetailsShown = !cardDetailsShown;
+            const numDisp = document.getElementById('card-number-display');
+            const cvvDisp = document.getElementById('card-cvv-display');
+            if(cardDetailsShown) {
+                numDisp.innerText = '4532 7810 9234 8832';
+                cvvDisp.innerText = 'CVV: 492';
+            } else {
+                numDisp.innerText = '**** **** **** 8832';
+                cvvDisp.innerText = 'CVV: ***';
+            }
+        });
+
+        document.getElementById('limit-card-btn').addEventListener('click', () => {
+            const newLimit = prompt('Enter new monthly spending limit (USD):', spendingLimit);
+            if(newLimit) {
+                spendingLimit = newLimit;
+                localStorage.setItem('cryptoVaultLimit', spendingLimit);
+                alert('Spending limit updated to $' + spendingLimit);
+            }
+        });
+
+        function updateUI() {
+            if (hidden) return;
+            const formatted = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2});
+            document.getElementById('display-balance').innerText = formatted;
+            document.getElementById('usd-sub-balance').innerText = formatted;
+            document.getElementById('card-page-balance').innerText = formatted;
+            const btcVal = btcHeld * 65420;
+            document.getElementById('crypto-total-display').innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2});
+            document.getElementById('btc-amount-held').innerText = btcHeld.toFixed(6) + ' BTC';
+            document.getElementById('btc-usd-val').innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2});
+        }
+    </script>
+</body>
+</html>
