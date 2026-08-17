@@ -40,78 +40,78 @@
 <body>
 
     <!-- CRYPTO PAGE -->
-    <div id='page-crypto' class='page-section'>
-        <div class='balance-container'>
-            <div class='balance-title'>Total Crypto Balance</div>
-            <div class='balance-amount' id='crypto-total-display'>$0.00</div>
+    <div id="page-crypto" class="page-section">
+        <div class="balance-container">
+            <div class="balance-title">Total Crypto Balance</div>
+            <div class="balance-amount" id="crypto-total-display">$0.00</div>
         </div>
-        <div class='action-buttons'>
-            <button class='action-btn-item' id='buy-crypto-btn'><div class='action-circle'>🛒</div><span class='action-label'>Buy</span></button>
-            <button class='action-btn-item' id='receive-btn'><div class='action-circle'>⬇</div><span class='action-label'>Receive</span></button>
-            <button class='action-btn-item' id='send-btn'><div class='action-circle'>⬆</div><span class='action-label'>Send</span></button>
+        <div class="action-buttons">
+            <button class="action-btn-item" id="buy-crypto-btn"><div class="action-circle">🛒</div><span class="action-label">Buy</span></button>
+            <button class="action-btn-item" id="receive-btn"><div class="action-circle">⬇</div><span class="action-label">Receive</span></button>
+            <button class="action-btn-item" id="send-btn"><div class="action-circle">⬆</div><span class="action-label">Send</span></button>
         </div>
-        <div class='card-box'>
-            <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>My Cryptocurrencies (24h Trend)</div>
-            <div class='asset-row' id='btc-row'>
-                <div class='asset-left'>
-                    <div class='crypto-icon btc-bg'>₿</div>
-                    <div><div class='asset-name'>Bitcoin</div><div class='asset-sub'>BTC</div></div>
+        <div class="card-box">
+            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">My Cryptocurrencies (24h Trend)</div>
+            <div class="asset-row" id="btc-row">
+                <div class="asset-left">
+                    <div class="crypto-icon btc-bg">₿</div>
+                    <div><div class="asset-name">Bitcoin</div><div class="asset-sub">BTC</div></div>
                 </div>
                 <div>
-                    <svg class='sparkline' viewBox='0 0 60 24'>
-                        <path d='M 0 20 L 15 14 L 30 18 L 45 8 L 60 4' fill='none' stroke='#26a17b' stroke-width='2'/>
+                    <svg class="sparkline" viewBox="0 0 60 24">
+                        <path d="M 0 20 L 15 14 L 30 18 L 45 8 L 60 4" fill="none" stroke="#26a17b" stroke-width="2"/>
                     </svg>
                 </div>
-                <div class='asset-right'>
-                    <div class='asset-name' id='btc-amount-held'>0.000000 BTC</div>
-                    <div class='asset-sub' id='btc-usd-val'>$0.00</div>
+                <div class="asset-right">
+                    <div class="asset-name" id="btc-amount-held">0.000000 BTC</div>
+                    <div class="asset-sub" id="btc-usd-val">$0.00</div>
                 </div>
             </div>
-            <div class='asset-row'>
-                <div class='asset-left'>
-                    <div class='crypto-icon usdt-bg'>₮</div>
-                    <div><div class='asset-name'>Tether</div><div class='asset-sub'>USDT</div></div>
+            <div class="asset-row">
+                <div class="asset-left">
+                    <div class="crypto-icon usdt-bg">₮</div>
+                    <div><div class="asset-name">Tether</div><div class="asset-sub">USDT</div></div>
                 </div>
                 <div>
-                    <svg class='sparkline' viewBox='0 0 60 24'>
-                        <path d='M 0 12 L 15 13 L 30 11 L 45 13 L 60 12' fill='none' stroke='#3b82f6' stroke-width='2'/>
+                    <svg class="sparkline" viewBox="0 0 60 24">
+                        <path d="M 0 12 L 15 13 L 30 11 L 45 13 L 60 12" fill="none" stroke="#3b82f6" stroke-width="2"/>
                     </svg>
                 </div>
-                <div class='asset-right'>
-                    <div class='asset-name'>0.00 USDT</div>
-                    <div class='asset-sub'>$0.00</div>
+                <div class="asset-right">
+                    <div class="asset-name">0.00 USDT</div>
+                    <div class="asset-sub">$0.00</div>
                 </div>
             </div>
         </div>
-        <div class='card-box'>
-            <div style='font-size: 13px; color: #8c96a5; margin-bottom: 10px;'>Crypto Transaction History</div>
-            <div id='crypto-transaction-feed'>
-                <div class='tx-item'>
+        <div class="card-box">
+            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">Crypto Transaction History</div>
+            <div id="crypto-transaction-feed">
+                <div class="tx-item">
                     <div>
-                        <div class='tx-title'>Wallet Initialized</div>
-                        <div class='tx-time'>Today, 12:00 AM</div>
+                        <div class="tx-title">Wallet Initialized</div>
+                        <div class="tx-time">Today, 12:00 AM</div>
                     </div>
-                    <div style='color: #8c96a5; font-weight: 600;'>0 BTC</div>
+                    <div style="color: #8c96a5; font-weight: 600;">0 BTC</div>
                 </div>
             </div>
-        </div>
-    </div>
-        <!-- RECEIVE MODAL -->
-    <div class='modal-overlay' id='receive-modal'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <h3 style='font-size: 16px; margin: 0;'>Receive Bitcoin</h3>
-                <button class='modal-close' id='receive-close-btn'>×</button>
-            </div>
-            <p style='color: #8c96a5; font-size: 13px; margin-bottom: 12px;'>Send only Bitcoin (BTC) to this address:</p>
-            <div style='background-color: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid #30363d; word-break: break-all; font-family: monospace; font-size: 13px; color: #fff; margin-bottom: 14px;' id='wallet-address-text'>
-                bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
-            </div>
-            <button class='primary-btn' id='copy-address-btn' style='margin-bottom: 8px;'>Copy Wallet Address</button>
-            <button class='secondary-btn' id='close-receive-secondary'>Close</button>
         </div>
     </div>
 
+    <!-- RECEIVE MODAL -->
+    <div class="modal-overlay" id="receive-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 16px; margin: 0;">Receive Bitcoin</h3>
+                <button class="modal-close" id="receive-close-btn">×</button>
+            </div>
+            <p style="color: #8c96a5; font-size: 13px; margin-bottom: 12px;">Send only Bitcoin (BTC) to this address:</p>
+            <div style="background-color: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid #30363d; word-break: break-all; font-family: monospace; font-size: 13px; color: #fff; margin-bottom: 14px;" id="wallet-address-text">
+                bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+            </div>
+            <button class="primary-btn" id="copy-address-btn" style="margin-bottom: 8px;">Copy Wallet Address</button>
+            <button class="secondary-btn" id="close-receive-secondary">Close</button>
+        </div>
+    </div>
     <script>
         let currentBalance = 20000;
         let btcHeld = 0;
@@ -146,7 +146,7 @@
             `;
             feed.prepend(newItem);
         }
-                // Buy Bitcoin from Cash Balance
+
         document.getElementById('buy-crypto-btn').addEventListener('click', () => {
             const amountStr = prompt('Enter USD amount from your cash balance to buy Bitcoin:', '100');
             if(!amountStr) return;
@@ -160,7 +160,6 @@
             logCryptoTransaction('Bought BTC', btcBought.toFixed(6) + ' BTC', true);
         });
 
-        // Receive Modal Handlers
         document.getElementById('receive-btn').addEventListener('click', () => {
             document.getElementById('receive-modal').style.display = 'flex';
         });
@@ -179,7 +178,6 @@
             });
         });
 
-        // Send Crypto to Outer Wallet
         document.getElementById('send-btn').addEventListener('click', () => {
             const recipientAddr = prompt('Enter recipient Bitcoin wallet address:');
             if(!recipientAddr) return;
