@@ -31,8 +31,14 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
+            overflow: hidden;
+        }
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .header-icons {
             display: flex;
@@ -40,6 +46,12 @@
             color: #a0aec0;
             font-size: 20px;
             cursor: pointer;
+        }
+        .page-section {
+            display: none;
+        }
+        .page-section.active-page {
+            display: block;
         }
         .balance-section {
             text-align: center;
@@ -179,6 +191,99 @@
             border-radius: 4px 4px 0 0;
             transition: height 0.3s;
         }
+        /* Cards Page Specific Styling */
+        .virtual-card-ui {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #065f46, #10b981);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .virtual-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .virtual-card-badge {
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .cards-promo-text {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .cards-promo-text h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .cards-promo-text p {
+            color: #8c96a5;
+            font-size: 13px;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        .kyc-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #21262d;
+        }
+        .kyc-item:last-child {
+            border-bottom: none;
+        }
+        .kyc-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .kyc-icon {
+            width: 36px;
+            height: 36px;
+            background: #1f2937;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .kyc-text h4 {
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        .kyc-text p {
+            font-size: 11px;
+            color: #8c96a5;
+        }
+        .status-badge {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .continue-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 24px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
         /* Bottom Navigation Bar */
         .bottom-nav {
             position: fixed;
@@ -211,25 +316,51 @@
             height: 22px;
             fill: currentColor;
         }
-        /* Hidden Admin Panel Style */
-        #admin-panel {
+        /* Modal Overlay Styles */
+        .modal-overlay {
             display: none;
-            margin: 20px 0;
-            border: 1px dashed #10b981;
-            background-color: #0d1117;
-        }
-        .admin-input {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px;
-            margin-top: 8px;
-            margin-bottom: 12px;
-            background-color: #161b22;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #161b22;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #30363d;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: #8c96a5;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            background: #0d1117;
             border: 1px solid #30363d;
             border-radius: 8px;
             color: white;
-            font-size: 14px;
+            font-size: 16px;
+            margin-bottom: 15px;
         }
-        .update-btn {
+        .modal-btn {
             background-color: #10b981;
             color: white;
             border: none;
@@ -237,6 +368,7 @@
             width: 100%;
             border-radius: 8px;
             font-weight: bold;
+            font-size: 14px;
             cursor: pointer;
         }
     </style>
@@ -245,7 +377,9 @@
 
     <!-- Header -->
     <div class="header">
-        <div class="profile-icon" id="secret-trigger" title="Tap 3 times for Admin">IO</div>
+        <div class="profile-icon" id="profile-trigger" title="Open Profile">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Profile">
+        </div>
         <div class="header-icons">
             <span>🔍</span>
             <span id="eye-toggle" style="cursor: pointer;">👁️</span>
@@ -253,156 +387,198 @@
         </div>
     </div>
 
-    <!-- Total Balance -->
-    <div class="balance-section">
-        <div class="balance-title">Total Cash Balance</div>
-        <div class="balance-amount" id="display-balance">$10,000.00</div>
-    </div>
+    <!-- ================= PAGE 1: HOME ================= -->
+    <div id="page-home" class="page-section active-page">
+        <div class="balance-section">
+            <div class="balance-title">Total Cash Balance</div>
+            <div class="balance-amount" id="display-balance">$20,000.00</div>
+        </div>
 
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-        <div class="action-btn-container" onclick="alert('Deposit gateway initializing...')">
-            <div class="action-circle">↓</div>
-            <div class="action-label">Deposit</div>
+        <div class="action-buttons">
+            <div class="action-btn-container" onclick="openModal('deposit')">
+                <div class="action-circle">↓</div>
+                <div class="action-label">Deposit</div>
+            </div>
+            <div class="action-btn-container" onclick="openModal('withdraw')">
+                <div class="action-circle">↑</div>
+                <div class="action-label">Withdraw</div>
+            </div>
+            <div class="action-btn-container" onclick="openModal('convert')">
+                <div class="action-circle">🔄</div>
+                <div class="action-label">Convert</div>
+            </div>
         </div>
-        <div class="action-btn-container" onclick="alert('Withdrawal portal opening...')">
-            <div class="action-circle">↑</div>
-            <div class="action-label">Withdraw</div>
-        </div>
-        <div class="action-btn-container" onclick="alert('Currency converter ready.')">
-            <div class="action-circle">🔄</div>
-            <div class="action-label">Convert</div>
-        </div>
-    </div>
 
-    <!-- Main Content Cards -->
-    <div class="container">
-        <!-- Cash Card -->
-        <div class="card">
-            <div class="card-title">Cash</div>
-            <div class="currency-row">
-                <div class="currency-info">
-                    <div class="flag-icon">$</div>
-                    <div>
-                        <div class="currency-name">USD</div>
-                        <div class="currency-sub">US Dollar</div>
+        <div class="container">
+            <div class="card">
+                <div class="card-title">Cash</div>
+                <div class="currency-row">
+                    <div class="currency-info">
+                        <div class="flag-icon">$</div>
+                        <div>
+                            <div class="currency-name">USD</div>
+                            <div class="currency-sub">US Dollar</div>
+                        </div>
                     </div>
+                    <div style="font-weight: 600;" id="usd-sub-balance">$20,000.00</div>
                 </div>
-                <div style="font-weight: 600;" id="usd-sub-balance">$10,000.00</div>
             </div>
-        </div>
 
-        <!-- 7-Day Cash Flow Chart Card -->
-        <div class="card">
-            <div class="card-title">7-Day Cash Flow</div>
-            <div class="chart-container">
-                <div class="chart-bar" style="height: 40%;"></div>
-                <div class="chart-bar" style="height: 65%;"></div>
-                <div class="chart-bar" style="height: 50%;"></div>
-                <div class="chart-bar" style="height: 80%;"></div>
-                <div class="chart-bar" style="height: 60%;"></div>
-                <div class="chart-bar" style="height: 90%;"></div>
-                <div class="chart-bar" style="height: 100%; background-color: #10b981;"></div>
+            <div class="card">
+                <div class="card-title">7-Day Cash Flow</div>
+                <div class="chart-container">
+                    <div class="chart-bar" style="height: 40%;"></div>
+                    <div class="chart-bar" style="height: 65%;"></div>
+                    <div class="chart-bar" style="height: 50%;"></div>
+                    <div class="chart-bar" style="height: 80%;"></div>
+                    <div class="chart-bar" style="height: 60%;"></div>
+                    <div class="chart-bar" style="height: 90%;"></div>
+                    <div class="chart-bar" style="height: 100%; background-color: #10b981;"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Instant Cash Promo Card -->
-        <div class="card promo-card">
-            <div class="promo-text">
-                <h3>Need instant cash?</h3>
-                <p>Use your BTC or USDT as collateral and get cash instantly</p>
+            <div class="card promo-card">
+                <div class="promo-text">
+                    <h3>Need instant cash?</h3>
+                    <p>Use your BTC or USDT as collateral and get cash instantly</p>
+                </div>
+                <button class="explore-btn" onclick="alert('Collateral loan service active.')">Explore</button>
             </div>
-            <button class="explore-btn" onclick="alert('Collateral loan service coming soon!')">Explore</button>
-        </div>
 
-        <!-- Savings Card -->
-        <div class="card savings-content">
-            <div class="card-title">Savings</div>
-            <div style="font-weight: 600; font-size: 15px;">Your money. Working daily</div>
-            <p>Daily returns in USD. Flexible or fixed savings.</p>
-        </div>
-
-        <!-- Hidden Admin Control Panel (Tapped via Profile Icon 3 times) -->
-        <div class="card" id="admin-panel">
-            <div class="card-title" style="color: #10b981;">Admin Control Panel</div>
-            <label style="font-size: 12px; color: #8c96a5;">Set Total Balance ($):</label>
-            <input type="number" id="input-balance" class="admin-input" value="10000">
-            <button class="update-btn" onclick="updateBalance()">Update App Balance</button>
+            <div class="card savings-content">
+                <div class="card-title">Savings</div>
+                <div style="font-weight: 600; font-size: 15px;">Your money. Working daily</div>
+                <p>Daily returns in USD. Flexible or fixed savings.</p>
+            </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home', event)">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            Home
-        </button>
-        <button class="nav-item" onclick="switchTab('crypto', event)">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z"/></svg>
-            Crypto
-        </button>
-        <button class="nav-item" onclick="switchTab('bills', event)">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z"/></svg>
-            Pay Bill
-        </button>
-        <button class="nav-item" onclick="switchTab('cards', event)">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
-            Cards
-        </button>
+    <!-- ================= PAGE 2: CRYPTO / BITCOIN ================= -->
+    <div id="page-crypto" class="page-section">
+        <div class="container">
+            <div class="card" style="text-align: center; padding: 25px 15px;">
+                <div style="font-size: 40px; margin-bottom: 10px;">₿</div>
+                <h2 style="font-size: 22px; margin-bottom: 5px;">Bitcoin (BTC)</h2>
+                <div style="color: #10b981; font-size: 14px; font-weight: 600; margin-bottom: 20px;">$65,420.00 USD / BTC (+4.2%)</div>
+                <p style="color: #8c96a5; font-size: 13px; margin-bottom: 20px;">Buy Bitcoin instantly using your main USD balance.</p>
+                <button class="modal-btn" onclick="buyBitcoin()">Buy Bitcoin Now</button>
+            </div>
+            <div class="card">
+                <div class="card-title">Crypto Portfolio</div>
+                <div class="currency-row">
+                    <div class="currency-info">
+                        <div class="flag-icon" style="color: #f7931a;">₿</div>
+                        <div>
+                            <div class="currency-name">BTC Balance</div>
+                            <div class="currency-sub" id="btc-amount-held">0.00 BTC</div>
+                        </div>
+                    </div>
+                    <div style="font-weight: 600;" id="btc-usd-val">$0.00</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Secret Admin Panel Toggle (Tap profile icon 3 times quickly)
-        let tapCount = 0;
-        document.getElementById('secret-trigger').addEventListener('click', function() {
-            tapCount++;
-            if (tapCount >= 3) {
-                const panel = document.getElementById('admin-panel');
-                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-                tapCount = 0;
-            }
-            setTimeout(() => { tapCount = 0; }, 800);
-        });
+    <!-- ================= PAGE 3: PAY BILL ================= -->
+    <div id="page-bills" class="page-section">
+        <div class="container">
+            <div class="card-title" style="padding-left: 5px;">Bill Payments</div>
+            <div class="card" onclick="alert('Airtime recharge portal open.')" style="cursor: pointer;">
+                <div class="currency-row">
+                    <div class="currency-info">
+                        <div class="flag-icon">📱</div>
+                        <div>
+                            <div class="currency-name">Airtime & Data</div>
+                            <div class="currency-sub">Top up mobile lines</div>
+                        </div>
+                    </div>
+                    <span>➔</span>
+                </div>
+            </div>
+            <div class="card" onclick="alert('Electricity utility bill portal open.')" style="cursor: pointer;">
+                <div class="currency-row">
+                    <div class="currency-info">
+                        <div class="flag-icon">⚡</div>
+                        <div>
+                            <div class="currency-name">Electricity</div>
+                            <div class="currency-sub">Prepaid & postpaid tokens</div>
+                        </div>
+                    </div>
+                    <span>➔</span>
+                </div>
+            </div>
+            <div class="card" onclick="alert('Internet subscription portal open.')" style="cursor: pointer;">
+                <div class="currency-row">
+                    <div class="currency-info">
+                        <div class="flag-icon">🌐</div>
+                        <div>
+                            <div class="currency-name">Internet & Cable</div>
+                            <div class="currency-sub">Broadband, TV subscriptions</div>
+                        </div>
+                    </div>
+                    <span>➔</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        // Balance Visibility Toggle (Eye icon)
-        let hidden = false;
-        document.getElementById('eye-toggle').addEventListener('click', function() {
-            hidden = !hidden;
-            const display = document.getElementById('display-balance');
-            const subDisplay = document.getElementById('usd-sub-balance');
-            if (hidden) {
-                display.innerText = '********';
-                subDisplay.innerText = '********';
-                this.innerText = '👁️‍🗨️';
-            } else {
-                updateBalanceUI();
-                this.innerText = '👁️';
-            }
-        });
+    <!-- ================= PAGE 4: CARDS ================= -->
+    <div id="page-cards" class="page-section">
+        <div class="container">
+            <!-- Virtual Card Graphic -->
+            <div class="virtual-card-ui">
+                <div class="virtual-card-top">
+                    <div style="font-weight: bold; font-size: 18px; letter-spacing: 1px;">crypto vault</div>
+                    <div class="virtual-card-badge">Virtual</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 4px;">CARD BALANCE</div>
+                    <div style="font-size: 22px; font-weight: bold;" id="card-page-balance">$20,000.00</div>
+                </div>
+            </div>
 
-        let currentVal = 10000;
-        function updateBalance() {
-            const val = document.getElementById('input-balance').value;
-            if(val) {
-                currentVal = Number(val);
-                updateBalanceUI();
-                document.getElementById('admin-panel').style.display = 'none';
-            }
-        }
+            <div class="cards-promo-text">
+                <h2>Spend anywhere in any currency</h2>
+                <p>Create cards and start spending on Claude, Netflix, Shein, Amazon, Zara and many others.</p>
+            </div>
 
-        function updateBalanceUI() {
-            const formatted = '$' + currentVal.toLocaleString('en-US', {minimumFractionDigits: 2});
-            document.getElementById('display-balance').innerText = formatted;
-            document.getElementById('usd-sub-balance').innerText = formatted;
-        }
+            <!-- KYC Document Upload Card -->
+            <div class="card" style="padding: 12px 16px;">
+                <div class="kyc-item">
+                    <div class="kyc-left">
+                        <div class="kyc-icon">🟢</div>
+                        <div class="kyc-text">
+                            <h4>Document Upload</h4>
+                            <p>You need to upload your Passport</p>
+                        </div>
+                    </div>
+                    <div class="status-badge">Pending</div>
+                </div>
+                <div class="kyc-item" style="border-bottom: none;">
+                    <div class="kyc-left">
+                        <div class="kyc-icon">🔴</div>
+                        <div class="kyc-text">
+                            <h4>Information Required</h4>
+                            <p>Employment status, source of funds and transaction frequency</p>
+                        </div>
+                    </div>
+                    <div class="status-badge">Pending</div>
+                </div>
+            </div>
 
-        function switchTab(tab, evt) {
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            evt.currentTarget.classList.add('active');
-            if(tab !== 'home') {
-                alert(tab.toUpperCase() + ' section coming soon!');
-            }
-        }
-    </script>
-</body>
-</html>
+            <button class="continue-btn" onclick="alert('KYC Verification window launching...')">Continue</button>
+        </div>
+    </div>
+
+    <!-- ================= PROFILE MODAL ================= -->
+    <div class="modal-overlay" id="profile-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 16px;">Account Profile</h3>
+                <button class="modal-close" onclick="closeModals()">×</button>
+            </div>
+            <div style="text-align: center; margin-bottom: 15px;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 10px auto; overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" style="width:100%; height:100%; object-fit:cover;" alt="User">
+                </div>
+                <h4 style="
