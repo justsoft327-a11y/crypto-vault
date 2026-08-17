@@ -1,522 +1,59 @@
-body {
-    background-color: #0b0e14;
-    color: #f3f4f6;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    user-select: none;
-    margin: 0;
-    padding: 0;
-}
-
-.app-container {
-    max-width: 480px;
-    margin: 0 auto;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding-bottom: 70px;
-}
-
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-}
-
-.logo {
-    font-size: 1.25rem;
-    font-style: italic;
-    font-weight: bold;
-    margin: 0;
-}
-
-.header-right-icons i {
-    margin-left: 15px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    color: #9ca3af;
-}
-
-.main-content {
-    flex: 1;
-    padding: 10px 20px 20px 20px;
-}
-
-.view-content {
-    display: none;
-}
-
-.view-content.active {
-    display: block;
-}
-
-.avatar-small {
-    width: 38px;
-    height: 38px;
-    background: linear-gradient(135deg, #ec4899, #8b5cf6);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: white;
-    font-size: 0.95rem;
-}
-
-.balance-card {
-    text-align: center;
-    margin: 15px 0 20px 0;
-}
-
-.balance-title {
-    color: #9ca3af;
-    font-size: 0.85rem;
-    margin: 0;
-}
-
-.balance-card h2 {
-    font-size: 2.2rem;
-    margin: 5px 0 0 0;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.action-btn {
-    background: #161b22;
-    border: 1px solid #30363d;
-    color: #f3f4f6;
-    padding: 14px 10px;
-    border-radius: 14px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background 0.2s;
-}
-
-.action-btn:hover {
-    background: #21262d;
-}
-
-.action-btn i {
-    font-size: 1.15rem;
-    color: #58a6ff;
-}
-
-/* Asset Cards (Busha Style) */
-.asset-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.asset-card:hover {
-    background: #1c2128;
-}
-
-.asset-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.currency-flag, .crypto-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-
-.usd-flag {
-    background: #21262d;
-}
-
-.btc-icon {
-    background: rgba(247, 147, 26, 0.15);
-    color: #f7931a;
-}
-
-.usdt-icon {
-    background: rgba(38, 161, 123, 0.15);
-    color: #26a17b;
-    font-weight: bold;
-}
-
-.asset-left strong {
-    font-size: 1rem;
-    display: block;
-}
-
-.asset-sub, .asset-sub-amt {
-    font-size: 0.75rem;
-    color: #8b949e;
-    margin: 2px 0 0 0;
-}
-
-.asset-right {
-    text-align: right;
-}
-
-.asset-amount {
-    font-size: 0.95rem;
-    font-weight: bold;
-}
-
-/* Promo Cards */
-.promo-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.promo-card.savings-card {
-    background: linear-gradient(135deg, #161b22, #1f242c);
-}
-
-.promo-text strong {
-    font-size: 0.95rem;
-    display: block;
-    margin-bottom: 4px;
-}
-
-.promo-text p {
-    font-size: 0.78rem;
-    color: #8b949e;
-    margin: 0;
-    max-width: 230px;
-}
-
-.promo-btn {
-    background: #238636;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 0.85rem;
-    cursor: pointer;
-}
-
-.savings-icon {
-    font-size: 1.4rem;
-    color: #3fb950;
-    background: rgba(63, 185, 80, 0.15);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.info-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 15px;
-}
-
-.info-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #8b949e;
-    font-size: 0.8rem;
-    margin-bottom: 12px;
-}
-
-.view-all {
-    color: #58a6ff;
-    cursor: pointer;
-}
-
-.tx-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.tx-left-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tx-icon-bullet {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(247, 147, 26, 0.15);
-    color: #f7931a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-}
-
-.tx-item strong {
-    font-size: 0.9rem;
-    display: block;
-}
-
-.tx-date {
-    font-size: 0.72rem;
-    color: #8b949e;
-    margin: 2px 0 0 0;
-}
-
-.tx-amount {
-    color: #3fb950;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-/* Bottom Nav */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
-    background: #0d1117;
-    display: flex;
-    justify-content: space-around;
-    padding: 12px 0;
-    border-top: 1px solid #30363d;
-    z-index: 99;
-}
-
-.nav-item {
-    background: none;
-    border: none;
-    color: #8b949e;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    font-size: 0.75rem;
-}
-
-.nav-item.active {
-    color: #58a6ff;
-}
-
-.nav-item i {
-    font-size: 1.1rem;
-}
-
-/* Modals */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-content {
-    background: #161b22;
-    border: 1px solid #30363d;
-    width: 100%;
-    max-width: 400px;
-    border-radius: 16px;
-    padding: 20px;
-    box-sizing: border-box;
-    max-height: 85vh;
-    overflow-y: auto;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-.modal-header i {
-    cursor: pointer;
-    color: #8b949e;
-    font-size: 1.1rem;
-}
-
-.modal-desc {
-    color: #8b949e;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
-
-.modal-input-group,
-.profile-edit-section input,
-.sub-modal-body input,
-.sub-modal-body select {
-    width: 100%;
-    padding: 12px;
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    color: #fff;
-    margin-bottom: 12px;
-    box-sizing: border-box;
-    font-size: 0.95rem;
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.modal-btn {
-    flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.modal-btn.cancel {
-    background: #21262d;
-    color: #c9d1d9;
-}
-
-.modal-btn.confirm {
-    background: #238636;
-    color: white;
-}
-
-.settings-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.setting-item {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    padding: 14px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.setting-item:hover {
-    background: #1f242c;
-}
-
-.logout-btn {
-    width: 100%;
-    background: rgba(248, 81, 73, 0.15);
-    color: #f85149;
-    border: 1px solid rgba(248, 81, 73, 0.4);
-    padding: 12px;
-    border-radius: 10px;
-    margin-top: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.virtual-card {
-    background: linear-gradient(135deg, #238636, #2ea043);
-    padding: 25px;
-    border-radius: 16px;
-    margin-top: 20px;
-    color: white;
-}
-
-.card-type {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.8;
-}
-
-.card-number-display {
-    margin-top: 25px;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    font-family: monospace;
-}
-
-.card-holder-name {
-    margin-top: 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.card-balance {
-    margin-top: 10px;
-    font-size: 0.9rem;
-}
-
-.section-sub {
-    color: #8b949e;
-}
-
-.sub-option-card {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 10px;
-}
-
-.sub-option-card strong {
-    display: block;
-    font-size: 0.9rem;
-    margin-bottom: 4px;
-}
-
-.sub-option-card p {
-    margin: 0;
-    font-size: 0.78rem;
-    color: #8b949e;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body { background-color: #0b0e14; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.app-container { width: 100%; max-width: 420px; height: 100vh; background-color: #0b0e14; display: flex; flex-direction: column; padding: 20px; position: relative; overflow: hidden; }
+
+.tab-content { display: none; flex-direction: column; height: calc(100vh - 80px); overflow-y: auto; }
+.tab-content.active { display: flex; }
+
+.sub-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #0b0e14; z-index: 100; flex-direction: column; padding: 20px; overflow-y: auto; }
+.sub-screen.active { display: flex; }
+
+.bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; background-color: #12161f; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #21262d; z-index: 50; }
+.nav-item { display: flex; flex-direction: column; align-items: center; color: #888; cursor: pointer; font-size: 12px; }
+.nav-item.active { color: #3b82f6; }
+.nav-item i { font-size: 20px; margin-bottom: 4px; }
+
+/* Header & Cards */
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.logo { font-size: 22px; font-weight: bold; font-style: italic; color: #fff; }
+.header-icons i { margin-left: 15px; font-size: 20px; color: #fff; cursor: pointer; }
+.profile-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #a855f7, #ec4899); display: flex; justify-content: center; align-items: center; }
+
+.balance-card { background-color: #161b22; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 20px; }
+.balance-label { color: #888; font-size: 14px; margin-bottom: 8px; }
+.balance-amount { font-size: 32px; font-weight: bold; color: #fff; }
+
+.action-row { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+.action-btn { flex: 1; background-color: #161b22; border: none; padding: 15px 10px; border-radius: 16px; color: #fff; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+.icon-circle { background-color: #21262d; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 8px; }
+.action-btn span { font-size: 14px; font-weight: 500; }
+
+.nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.nav-header i { font-size: 20px; cursor: pointer; color: #fff; }
+.screen-title { font-size: 20px; font-weight: bold; }
+
+.section-header { color: #888; font-size: 14px; margin-bottom: 12px; margin-top: 10px; }
+.card-item { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; color: #fff; }
+.flag { font-size: 26px; margin-right: 15px; }
+.card-title { font-size: 16px; font-weight: bold; }
+.card-sub { font-size: 13px; color: #888; margin-top: 2px; }
+
+.input-box { background-color: #161b22; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
+.input-label { color: #888; font-size: 13px; margin-bottom: 10px; display: block; }
+.input-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
+.text-input { background: transparent; border: none; color: #fff; font-size: 24px; width: 100%; outline: none; }
+.currency-badge { color: #22c55e; font-size: 18px; font-weight: bold; white-space: nowrap; }
+.available-text { color: #888; font-size: 12px; margin-top: 10px; display: block; }
+
+.form-input { background-color: #161b22; border: 1px solid #30363d; color: #fff; padding: 15px; border-radius: 12px; font-size: 15px; width: 100%; margin-bottom: 15px; outline: none; }
+.field-label { color: #888; font-size: 13px; margin-bottom: 6px; display: block; }
+
+.primary-btn { background-color: #22c55e; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; margin-top: auto; text-align: center; }
+.add-recipient-card { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 20px; cursor: pointer; color: #22c55e; font-weight: bold; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #30363d; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: bold; margin-right: 15px; }
+
+.virtual-card { background: linear-gradient(135deg, #15803d, #22c55e); padding: 20px; border-radius: 16px; color: #fff; margin-top: 20px; height: 180px; display: flex; flex-direction: column; justify-content: space-between; }
+.card-top { font-size: 12px; font-weight: bold; letter-spacing: 1px; }
+.card-number { font-size: 20px; letter-spacing: 2px; }
+.card-holder { font-size: 14px; font-weight: bold; }
+.card-balance { font-size: 13px; }
