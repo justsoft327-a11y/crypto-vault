@@ -623,18 +623,74 @@
                 alert('Spending limit updated to $' + spendingLimit);
             }
         });
-
-        function updateUI() {
-            if (hidden) return;
-            const formatted = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2});
-            document.getElementById('display-balance').innerText = formatted;
-            document.getElementById('usd-sub-balance').innerText = formatted;
-            document.getElementById('card-page-balance').innerText = formatted;
-            const btcVal = btcHeld * 65420;
-            document.getElementById('crypto-total-display').innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2});
-            document.getElementById('btc-amount-held').innerText = btcHeld.toFixed(6) + ' BTC';
-            document.getElementById('btc-usd-val').innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2});
+        function logCryptoTransaction(title, amountStr, isPositive) {
+            const feed = document.getElementById('crypto-transaction-feed');
+            if(!feed) return;
+            const timeStr = 'Just now';
+            const color = isPositive ? '#26a17b' : '#ff5c5c';
+            const sign = isPositive ? '+' : '-';
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'tx-item';
+            newItem.innerHTML = `
+                <div>
+                    <div class='tx-title'>${title}</div>
+                    <div class='tx-time'>${timeStr}</div>
+                </div>
+                <div style='color: ${color}; font-weight: 600;'>${sign}${amountStr}</div>
+            `;
+            feed.prepend(newItem);
         }
+
+        // Buy Bitcoin from Cash Balance
+        document.getElementById('buy-crypto-btn').addEventListener('click', () => {
+            const amountStr = prompt('Enter USD amount from your cash balance to buy Bitcoin:', '100');
+            if(!amountStr) return;
+            const usdSpend = Number(amountStr);
+            if(usdSpend <= 0 || usdSpend > currentBalance) { alert('Invalid amount or insufficient cash balance.'); return; }
+            currentBalance -= usdSpend;
+            const btcBought = usdSpend / 65420;
+            btcHeld += btcBought;
+            updateUI();
+            alert('Successfully purchased ' + btcBought.toFixed(6) + ' BTC!');
+            logTransaction('Bitcoin Purchase', usdSpend.toLocaleString(), false);
+            logCryptoTransaction('Bought BTC', btcBought.toFixed(6) + ' BTC', true);
+        });
+
+        // Receive Modal Handlers
+        document.getElementById('receive-btn').addEventListener('click', () => {
+            document.getElementById('receive-modal').style.display = 'flex';
+        });
+        document.getElementById('receive-close-btn').addEventListener('click', () => {
+            document.getElementById('receive-modal').style.display = 'none';
+        });
+        document.getElementById('close-receive-secondary').addEventListener('click', () => {
+            document.getElementById('receive-modal').style.display = 'none';
+        });
+        document.getElementById('copy-address-btn').addEventListener('click', () => {
+            const addr = document.getElementById('wallet-address-text').innerText.trim();
+            navigator.clipboard.writeText(addr).then(() => {
+                alert('Wallet address copied to clipboard!');
+            }).catch(() => {
+                alert('Address: ' + addr);
+            });
+        });
+
+        // Send Crypto to Outer Wallet
+        document.getElementById('send-btn').addEventListener('click', () => {
+            const recipientAddr = prompt('Enter recipient Bitcoin wallet address:');
+            if(!recipientAddr) return;
+            const btcAmountStr = prompt('Enter BTC amount to send (You hold ' + btcHeld.toFixed(6) + ' BTC):');
+            if(!btcAmountStr) return;
+            const btcToSend = Number(btcAmountStr);
+            if(btcToSend <= 0 || btcToSend > btcHeld) { alert('Invalid amount or insufficient BTC balance.'); return; }
+            
+            btcHeld -= btcToSend;
+            updateUI();
+            alert('Successfully sent ' + btcToSend.toFixed(6) + ' BTC to ' + recipientAddr.substring(0, 8) + '...');
+            logCryptoTransaction('Sent BTC', btcToSend.toFixed(6) + ' BTC', false);
+        });
+                                 
     </script>
 </body>
 </html>
