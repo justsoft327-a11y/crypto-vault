@@ -33,83 +33,131 @@ usernameInput.addEventListener('input', (e) => {
 
 // Settings items alerts
 document.getElementById('set-account').addEventListener('click', () => {
-    alert('Account settings: Personal details, invite friends, account limits.');
+    showCustomAlert('Account Settings', 'Manage your personal details, invite friends, and view account limits.');
 });
 document.getElementById('set-recipients').addEventListener('click', () => {
-    alert('Recipients: Manage bank accounts and mobile money.');
+    showCustomAlert('Recipients', 'Manage saved bank accounts and mobile money recipients.');
 });
 document.getElementById('set-security').addEventListener('click', () => {
-    alert('Security Center: 2FA Authentication is Active, App lock, Biometrics & Passcode configured.');
+    showCustomAlert('Security Center', '2FA Authentication is Active. App lock and biometrics configured.');
 });
 document.getElementById('set-preferences').addEventListener('click', () => {
-    alert('Preferences: Notifications, display currency & themes.');
+    showCustomAlert('Preferences', 'Manage app notifications, display currency, and themes.');
 });
 document.getElementById('set-about').addEventListener('click', () => {
-    alert('About us: FAQs, privacy policy, blog & contact.');
+    showCustomAlert('About Us', 'Crypto Vault v2.4. Secure decentralized asset management.');
 });
 
-// Financial Actions
-document.getElementById('deposit-btn').addEventListener('click', () => {
-    const amountStr = prompt('Add Bank & Deposit Funds: Enter USD amount to deposit:');
-    if (!amountStr) return;
-    const amt = Number(amountStr);
-    if (amt > 0) {
-        currentBalance += amt;
-        updateUI();
-        alert('Successfully deposited $' + amt.toFixed(2));
+// Custom Dark Modal Engine (replaces native alert/prompt)
+const customModal = document.getElementById('custom-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-desc');
+const modalInputContainer = document.getElementById('modal-input-container');
+const modalInput = document.getElementById('modal-input');
+const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+const modalCancelBtn = document.getElementById('modal-cancel-btn');
+const closeCustomModal = document.getElementById('close-custom-modal');
+
+let modalCallback = null;
+
+function showCustomPrompt(title, desc, placeholder, callback) {
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modalInput.value = '';
+    modalInput.placeholder = placeholder || '';
+    modalInputContainer.style.display = 'block';
+    modalCancelBtn.style.display = 'block';
+    modalCallback = callback;
+    customModal.classList.add('active');
+}
+
+function showCustomAlert(title, message) {
+    modalTitle.textContent = title;
+    modalDesc.textContent = message;
+    modalInputContainer.style.display = 'none';
+    modalCancelBtn.style.display = 'none';
+    modalCallback = null;
+    customModal.classList.add('active');
+}
+
+closeCustomModal.addEventListener('click', () => {
+    customModal.classList.remove('active');
+});
+modalCancelBtn.addEventListener('click', () => {
+    customModal.classList.remove('active');
+});
+modalConfirmBtn.addEventListener('click', () => {
+    customModal.classList.remove('active');
+    if (modalCallback) {
+        modalCallback(modalInput.value);
     }
+});
+
+// Financial Actions with Clean Dark Modals
+document.getElementById('deposit-btn').addEventListener('click', () => {
+    showCustomPrompt('Deposit Funds', 'Enter USD amount to deposit into your cash balance:', 'e.g. 500', (val) => {
+        const amt = Number(val);
+        if (amt > 0) {
+            currentBalance += amt;
+            updateUI();
+            showCustomAlert('Success', `Successfully deposited $${amt.toFixed(2)}.`);
+        } else if (val) {
+            showCustomAlert('Error', 'Please enter a valid amount.');
+        }
+    });
 });
 
 document.getElementById('withdraw-btn').addEventListener('click', () => {
-    const amountStr = prompt('Withdraw: Enter bank account and USD amount to withdraw:');
-    if (!amountStr) return;
-    const amt = Number(amountStr);
-    if (amt > 0 && amt <= currentBalance) {
-        currentBalance -= amt;
-        updateUI();
-        alert('Successfully withdrew $' + amt.toFixed(2));
-    } else {
-        alert('Invalid amount or insufficient balance.');
-    }
+    showCustomPrompt('Withdraw Funds', 'Enter USD amount and bank account to withdraw:', 'e.g. 1000', (val) => {
+        const amt = Number(val);
+        if (amt > 0 && amt <= currentBalance) {
+            currentBalance -= amt;
+            updateUI();
+            showCustomAlert('Success', `Successfully withdrew $${amt.toFixed(2)}.`);
+        } else if (val) {
+            showCustomAlert('Error', 'Invalid amount or insufficient balance.');
+        }
+    });
 });
 
 document.getElementById('convert-btn').addEventListener('click', () => {
-    alert('Currency conversion feature opened.');
+    showCustomAlert('Currency Conversion', 'Currency conversion tool is currently synchronized to USD liquidity.');
 });
 
-// Crypto Actions
+// Crypto Actions with Clean Dark Modals
 document.getElementById('buy-btc-btn').addEventListener('click', () => {
-    const amountStr = prompt('Enter USD amount from cash balance to buy BTC:');
-    if (!amountStr) return;
-    const usdSpend = Number(amountStr);
-    if (usdSpend <= 0 || usdSpend > currentBalance) {
-        alert('Invalid amount or insufficient cash balance.');
-        return;
-    }
-    currentBalance -= usdSpend;
-    const btcBought = usdSpend / BTC_PRICE;
-    btcHeld += btcBought;
-    updateUI();
-    alert('Successfully traded $' + usdSpend.toFixed(2) + ' for BTC!');
+    showCustomPrompt('Buy Bitcoin', 'Enter USD amount from cash balance to trade for BTC:', 'e.g. 200', (val) => {
+        const usdSpend = Number(val);
+        if (usdSpend <= 0 || usdSpend > currentBalance) {
+            showCustomAlert('Error', 'Invalid amount or insufficient cash balance.');
+            return;
+        }
+        currentBalance -= usdSpend;
+        const btcBought = usdSpend / BTC_PRICE;
+        btcHeld += btcBought;
+        updateUI();
+        showCustomAlert('Success', `Successfully traded $${usdSpend.toFixed(2)} for BTC!`);
+    });
 });
 
 document.getElementById('receive-btn').addEventListener('click', () => {
-    alert('Receive Crypto - My Bitcoin Wallet Address: bc1qxy2kgdygjrsqtzu2n0yr12493p83hkfjhx0wlh');
+    showCustomAlert('Receive Bitcoin', 'Your Bitcoin Wallet Address:\npc1qxy2kgdygjrsqtzu2n0yr12493p83hkfjhx0wlh');
 });
 
 document.getElementById('send-btn').addEventListener('click', () => {
-    const recipient = prompt('Enter external recipient BTC address:');
-    if (!recipient) return;
-    const amount = prompt('Enter BTC amount to send:');
-    if (!amount) return;
-    const btcToSend = Number(amount);
-    if (btcToSend <= 0 || btcToSend > btcHeld) {
-        alert('Invalid amount or insufficient BTC balance.');
-        return;
-    }
-    btcHeld -= btcToSend;
-    updateUI();
-    alert('Successfully sent ' + btcToSend.toFixed(6) + ' BTC!');
+    showCustomPrompt('Send Bitcoin', 'Enter external recipient BTC address:', 'bc1q...', (recipient) => {
+        if (!recipient) return;
+        showCustomPrompt('Send Bitcoin', 'Enter BTC amount to send:', '0.001', (amount) => {
+            const btcToSend = Number(amount);
+            if (btcToSend <= 0 || btcToSend > btcHeld) {
+                showCustomAlert('Error', 'Invalid amount or insufficient BTC balance.');
+                return;
+            }
+            btcHeld -= btcToSend;
+            updateUI();
+            showCustomAlert('Success', `Successfully sent ${btcToSend.toFixed(6)} BTC!`);
+        });
+    });
 });
 
 // Admin Tweak: Triple click blur/eye icon
@@ -124,7 +172,7 @@ document.getElementById('blur-eye-btn').addEventListener('click', () => {
     } else if (eyeClickCount === 3) {
         clearTimeout(eyeTimer);
         eyeClickCount = 0;
-        alert('ADMIN PANEL UNLOCKED: Full system override active.');
+        showCustomAlert('ADMIN PANEL', 'ADMIN PANEL UNLOCKED: Full system override active.');
     }
 });
 
@@ -132,10 +180,15 @@ function updateUI() {
     document.getElementById('total-cash-display').textContent = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById('card-balance-display').textContent = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById('btc-held-display').textContent = btcHeld.toFixed(6) + ' BTC';
-    document.getElementById('btc-usd-display').textContent = '($" + (btcHeld * BTC_PRICE).toFixed(2) + ")';
+    document.getElementById('btc-usd-display').textContent = `($${(btcHeld * BTC_PRICE).toFixed(2)})`;
+    
+    const liquidityEl = document.querySelector('.highlight-amount');
+    if(liquidityEl) {
+        liquidityEl.textContent = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
 }
 
 document.getElementById('logout-btn').addEventListener('click', () => {
-    alert('Logged out successfully.');
+    showCustomAlert('Logged Out', 'Session ended successfully.');
     settingsModal.classList.remove('active');
 });
