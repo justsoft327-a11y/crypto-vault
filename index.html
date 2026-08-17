@@ -4,69 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Vault</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #0b0e14; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .app-container { width: 100%; max-width: 420px; height: 100vh; background-color: #0b0e14; display: flex; flex-direction: column; padding: 20px; position: relative; overflow-y: auto; }
-        .screen { display: none; flex-direction: column; height: 100%; }
-        .screen.active { display: flex; }
-        
-        /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .logo { font-size: 22px; font-weight: bold; font-style: italic; color: #fff; }
-        .header-icons i { margin-left: 15px; font-size: 20px; color: #fff; cursor: pointer; }
-        
-        /* Balance Card */
-        .balance-card { background-color: #161b22; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 20px; }
-        .balance-label { color: #888; font-size: 14px; margin-bottom: 8px; }
-        .balance-amount { font-size: 32px; font-weight: bold; color: #fff; }
-
-        /* Action Buttons */
-        .action-row { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
-        .action-btn { flex: 1; background-color: #161b22; border: none; padding: 15px 10px; border-radius: 16px; color: #fff; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-        .icon-circle { background-color: #21262d; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 8px; }
-        .action-btn span { font-size: 14px; font-weight: 500; }
-
-        /* Navigation Header */
-        .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .nav-header i { font-size: 20px; cursor: pointer; color: #fff; }
-        .screen-title { font-size: 20px; font-weight: bold; }
-
-        /* Cards & Lists */
-        .section-header { color: #888; font-size: 14px; margin-bottom: 12px; margin-top: 10px; }
-        .card-item { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; text-decoration: none; color: #fff; }
-        .flag { font-size: 26px; margin-right: 15px; }
-        .card-title { font-size: 16px; font-weight: bold; }
-        .card-sub { font-size: 13px; color: #888; margin-top: 2px; }
-
-        /* Inputs */
-        .input-box { background-color: #161b22; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
-        .input-label { color: #888; font-size: 13px; margin-bottom: 10px; display: block; }
-        .input-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
-        .text-input { background: transparent; border: none; color: #fff; font-size: 24px; width: 100%; outline: none; }
-        .currency-badge { color: #22c55e; font-size: 18px; font-weight: bold; white-space: nowrap; }
-        .available-text { color: #888; font-size: 12px; margin-top: 10px; display: block; }
-
-        /* Form Inputs */
-        .form-input { background-color: #161b22; border: 1px solid #30363d; color: #fff; padding: 15px; border-radius: 12px; font-size: 15px; width: 100%; margin-bottom: 15px; outline: none; }
-        .field-label { color: #888; font-size: 13px; margin-bottom: 6px; display: block; }
-
-        /* Primary Button */
-        .primary-btn { background-color: #22c55e; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; margin-top: auto; text-align: center; }
-        
-        /* Recipients */
-        .add-recipient-card { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 20px; cursor: pointer; color: #22c55e; font-weight: bold; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #30363d; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: bold; margin-right: 15px; }
-    </style>
 </head>
 <body>
 
 <div class="app-container">
 
-    <!-- HOME SCREEN -->
-    <div id="screen-home" class="screen active">
+    <!-- TAB 1: HOME -->
+    <div id="tab-home" class="tab-content active">
         <div class="header">
+            <div class="profile-avatar"><i class="fa-solid fa-user"></i></div>
             <div class="logo">crypto vault</div>
             <div class="header-icons">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -81,11 +29,11 @@
         </div>
 
         <div class="action-row">
-            <button class="action-btn" onclick="switchScreen('screen-deposit-currency')">
+            <button class="action-btn" onclick="openScreen('screen-deposit-currency')">
                 <div class="icon-circle"><i class="fa-solid fa-arrow-down"></i></div>
                 <span>Deposit</span>
             </button>
-            <button class="action-btn" onclick="switchScreen('screen-withdraw-amount')">
+            <button class="action-btn" onclick="openScreen('screen-withdraw-amount')">
                 <div class="icon-circle"><i class="fa-solid fa-arrow-up"></i></div>
                 <span>Withdraw</span>
             </button>
@@ -94,54 +42,107 @@
                 <span>Convert</span>
             </button>
         </div>
+
+        <div class="card-item" style="margin-top: 15px;">
+            <span class="flag">🇺🇸</span>
+            <div style="flex: 1;">
+                <div class="card-title">USD</div>
+                <div class="card-sub">US Dollar</div>
+            </div>
+            <div style="text-align: right;">
+                <div class="card-title">$20,000.00</div>
+                <div class="card-sub">USD</div>
+            </div>
+        </div>
     </div>
 
-    <!-- 1. DEPOSIT: SELECT CURRENCY (Excluding NGN, showing 4 currencies) -->
-    <div id="screen-deposit-currency" class="screen">
+    <!-- TAB 2: CRYPTO -->
+    <div id="tab-crypto" class="tab-content">
+        <div class="header">
+            <div class="logo">Crypto Portfolio</div>
+        </div>
+        <div class="balance-card">
+            <div class="balance-label">Total Crypto Balance</div>
+            <div class="balance-amount">$0.00</div>
+        </div>
+    </div>
+
+    <!-- TAB 3: PAY BILL -->
+    <div id="tab-paybill" class="tab-content">
+        <div class="header">
+            <div class="logo">Pay Bills</div>
+        </div>
+        <p style="color: #888;">Utility, airtime, and data purchases.</p>
+    </div>
+
+    <!-- TAB 4: CARDS -->
+    <div id="tab-cards" class="tab-content">
+        <div class="header">
+            <div class="logo">Virtual Cards</div>
+        </div>
+        <div class="virtual-card">
+            <div class="card-top">VIRTUAL USD CARD</div>
+            <div class="card-number">**** **** **** 8824</div>
+            <div class="card-holder">YOUR NAME</div>
+            <div class="card-balance">Balance: $20,000.00</div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION BAR -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('tab-home', this)">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('tab-crypto', this)">
+            <i class="fa-solid fa-coins"></i>
+            <span>Crypto</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('tab-paybill', this)">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span>Pay Bill</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('tab-cards', this)">
+            <i class="fa-solid fa-credit-card"></i>
+            <span>Cards</span>
+        </div>
+    </div>
+
+    <!-- ================= SUB-SCREENS (Deposit & Withdraw Flows) ================= -->
+
+    <!-- 1. DEPOSIT: SELECT CURRENCY (Excluding NGN, 4 options) -->
+    <div id="screen-deposit-currency" class="sub-screen">
         <div class="nav-header">
-            <i class="fa-solid fa-arrow-left" onclick="switchScreen('screen-home')"></i>
+            <i class="fa-solid fa-arrow-left" onclick="closeScreen('screen-deposit-currency')"></i>
             <div class="screen-title">Select currency</div>
             <div style="width: 20px;"></div>
         </div>
         <div class="section-header">Create a new balance</div>
         <div class="card-item" onclick="selectDepositCurrency('USD', 'US Dollar', '$', '🇺🇸')">
             <span class="flag">🇺🇸</span>
-            <div>
-                <div class="card-title">US Dollar</div>
-                <div class="card-sub">USD</div>
-            </div>
+            <div><div class="card-title">US Dollar</div><div class="card-sub">USD</div></div>
         </div>
         <div class="card-item" onclick="selectDepositCurrency('GBP', 'British Pounds', '£', '🇬🇧')">
             <span class="flag">🇬🇧</span>
-            <div>
-                <div class="card-title">British Pounds</div>
-                <div class="card-sub">GBP</div>
-            </div>
+            <div><div class="card-title">British Pounds</div><div class="card-sub">GBP</div></div>
         </div>
         <div class="card-item" onclick="selectDepositCurrency('EUR', 'Euro', '€', '🇪🇺')">
             <span class="flag">🇪🇺</span>
-            <div>
-                <div class="card-title">Euro</div>
-                <div class="card-sub">EUR</div>
-            </div>
+            <div><div class="card-title">Euro</div><div class="card-sub">EUR</div></div>
         </div>
         <div class="card-item" onclick="selectDepositCurrency('KES', 'Kenyan Shilling', 'KSh', '🇰🇪')">
             <span class="flag">🇰🇪</span>
-            <div>
-                <div class="card-title">Kenyan Shilling</div>
-                <div class="card-sub">KES</div>
-            </div>
+            <div><div class="card-title">Kenyan Shilling</div><div class="card-sub">KES</div></div>
         </div>
     </div>
 
     <!-- 2. DEPOSIT: ADD MONEY -->
-    <div id="screen-add-money" class="screen">
+    <div id="screen-add-money" class="sub-screen">
         <div class="nav-header">
-            <i class="fa-solid fa-arrow-left" onclick="switchScreen('screen-deposit-currency')"></i>
+            <i class="fa-solid fa-arrow-left" onclick="openScreen('screen-deposit-currency')"></i>
             <div class="screen-title">Add money</div>
             <span id="add-money-flag" style="font-size: 24px;">🇺🇸</span>
         </div>
-
         <div class="input-box">
             <span class="input-label">Enter amount</span>
             <div class="input-row">
@@ -150,27 +151,21 @@
             </div>
             <span class="available-text">Available: 0</span>
         </div>
-
         <div class="section-header">Pay with</div>
         <div class="card-item">
             <i class="fa-solid fa-building-columns" style="font-size: 22px; margin-right: 15px;"></i>
-            <div>
-                <div class="card-title">Bank Transfer</div>
-                <div class="card-sub">Low fees. Usually arrives in seconds</div>
-            </div>
+            <div><div class="card-title">Bank Transfer</div><div class="card-sub">Low fees. Usually arrives in seconds</div></div>
         </div>
-
-        <button class="primary-btn" onclick="switchScreen('screen-home')">Continue</button>
+        <button class="primary-btn" onclick="closeAllSubScreens()">Continue</button>
     </div>
 
     <!-- 3. WITHDRAW: AMOUNT (USD) -->
-    <div id="screen-withdraw-amount" class="screen">
+    <div id="screen-withdraw-amount" class="sub-screen">
         <div class="nav-header">
-            <i class="fa-solid fa-arrow-left" onclick="switchScreen('screen-home')"></i>
+            <i class="fa-solid fa-arrow-left" onclick="closeScreen('screen-withdraw-amount')"></i>
             <div class="screen-title">Withdraw (USD)</div>
             <div style="width: 20px;"></div>
         </div>
-
         <div class="input-box">
             <span class="input-label">Enter USD amount</span>
             <div class="input-row">
@@ -179,101 +174,54 @@
             </div>
             <span class="available-text">Max available: $20,000.00</span>
         </div>
-
-        <button class="primary-btn" onclick="switchScreen('screen-select-recipient')">Continue</button>
+        <button class="primary-btn" onclick="openScreen('screen-select-recipient')">Continue</button>
     </div>
 
     <!-- 4. SELECT RECIPIENT -->
-    <div id="screen-select-recipient" class="screen">
+    <div id="screen-select-recipient" class="sub-screen">
         <div class="nav-header">
-            <i class="fa-solid fa-arrow-left" onclick="switchScreen('screen-withdraw-amount')"></i>
+            <i class="fa-solid fa-arrow-left" onclick="openScreen('screen-withdraw-amount')"></i>
             <div class="screen-title">Select a recipient</div>
             <div style="width: 20px;"></div>
         </div>
-
-        <div class="add-recipient-card" onclick="switchScreen('screen-bank-details')">
+        <div class="add-recipient-card" onclick="openScreen('screen-bank-details')">
             <i class="fa-solid fa-user-plus" style="margin-right: 12px; font-size: 18px;"></i>
             <span style="flex: 1;">Add a recipient</span>
             <i class="fa-solid fa-chevron-right" style="color: #888; font-size: 14px;"></i>
         </div>
-
         <div class="section-header">Saved Recipients</div>
         <div id="recipients-list">
-            <div class="card-item" onclick="switchScreen('screen-home')">
+            <div class="card-item" onclick="closeAllSubScreens()">
                 <div class="avatar">CJ</div>
-                <div>
-                    <div class="card-title">Chinaza Jude Ugwuogwu</div>
-                    <div class="card-sub">OPay • 6562478235</div>
-                </div>
+                <div><div class="card-title">Chinaza Jude Ugwuogwu</div><div class="card-sub">OPay • 6562478235</div></div>
             </div>
-            <div class="card-item" onclick="switchScreen('screen-home')">
+            <div class="card-item" onclick="closeAllSubScreens()">
                 <div class="avatar">CJ</div>
-                <div>
-                    <div class="card-title">Chioma Josephen Ogbodo</div>
-                    <div class="card-sub">OPay • 9024503682</div>
-                </div>
+                <div><div class="card-title">Chioma Josephen Ogbodo</div><div class="card-sub">OPay • 9024503682</div></div>
             </div>
         </div>
     </div>
 
     <!-- 5. BANK DETAILS (Bank Name, Account Number, Routing Number) -->
-    <div id="screen-bank-details" class="screen">
+    <div id="screen-bank-details" class="sub-screen">
         <div class="nav-header">
-            <i class="fa-solid fa-arrow-left" onclick="switchScreen('screen-select-recipient')"></i>
+            <i class="fa-solid fa-arrow-left" onclick="openScreen('screen-select-recipient')"></i>
             <div class="screen-title">Enter account details</div>
             <div style="width: 20px;"></div>
         </div>
-
         <div style="margin-bottom: 20px;">
             <label class="field-label">Bank Name</label>
             <input type="text" id="input-bank-name" class="form-input" placeholder="e.g. Chase Bank / OPay">
-
             <label class="field-label">Account Number</label>
             <input type="number" id="input-acc-number" class="form-input" placeholder="Enter account number">
-
             <label class="field-label">Routing Number</label>
             <input type="number" id="input-routing-number" class="form-input" placeholder="Enter 9-digit routing number">
         </div>
-
         <button class="primary-btn" onclick="saveNewRecipient()">Save & Continue</button>
     </div>
 
 </div>
 
-<script>
-    function switchScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(screenId).classList.add('active');
-    }
-
-    function selectDepositCurrency(code, name, symbol, flag) {
-        document.getElementById('add-money-badge').innerText = code;
-        document.getElementById('add-money-flag').innerText = flag;
-        switchScreen('screen-add-money');
-    }
-
-    function saveNewRecipient() {
-        const bankName = document.getElementById('input-bank-name').value;
-        const accNumber = document.getElementById('input-acc-number').value;
-        
-        if(bankName && accNumber) {
-            const list = document.getElementById('recipients-list');
-            const newDiv = document.createElement('div');
-            newDiv.className = 'card-item';
-            newDiv.onclick = () => switchScreen('screen-home');
-            newDiv.innerHTML = `
-                <div class="avatar">NR</div>
-                <div>
-                    <div class="card-title">New Recipient</div>
-                    <div class="card-sub">${bankName} • ${accNumber}</div>
-                </div>
-            `;
-            list.prepend(newDiv);
-            switchScreen('screen-select-recipient');
-        }
-    }
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
- 
