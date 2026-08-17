@@ -21,24 +21,26 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 16px 20px;
 }
 
 .logo {
     font-size: 1.25rem;
     font-style: italic;
     font-weight: bold;
+    margin: 0;
 }
 
-.header-icons i {
+.header-right-icons i {
     margin-left: 15px;
     font-size: 1.1rem;
     cursor: pointer;
+    color: #9ca3af;
 }
 
 .main-content {
     flex: 1;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
 }
 
 .view-content {
@@ -49,46 +51,153 @@ body {
     display: block;
 }
 
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar-small {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 0.9rem;
+}
+
 .balance-card {
     text-align: center;
-    margin: 40px 0;
+    margin: 20px 0 25px 0;
 }
 
 .balance-title {
     color: #9ca3af;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin: 0;
 }
 
 .balance-card h2 {
-    font-size: 2.5rem;
-    margin-top: 5px;
+    font-size: 2.2rem;
+    margin: 5px 0 0 0;
 }
 
 .action-buttons {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     justify-content: center;
-    margin-top: 20px;
+    margin-bottom: 25px;
 }
 
 .action-btn {
-    background: #1f2937;
-    border: none;
+    background: #161b22;
+    border: 1px solid #30363d;
     color: #f3f4f6;
-    padding: 15px;
+    padding: 14px 10px;
     border-radius: 12px;
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     cursor: pointer;
+    font-size: 0.85rem;
 }
 
 .action-btn i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
+.info-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.info-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #8b949e;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.info-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.highlight-amount {
+    color: #58a6ff;
+    font-weight: bold;
+}
+
+.view-all {
+    color: #58a6ff;
+    cursor: pointer;
+}
+
+.tx-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.tx-item strong {
+    font-size: 0.95rem;
+}
+
+.tx-date {
+    font-size: 0.75rem;
+    color: #8b949e;
+    margin: 2px 0 0 0;
+}
+
+.tx-amount {
+    color: #3fb950;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.crypto-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.crypto-card h3 {
+    margin: 0 0 10px 0;
+    color: #8b949e;
+    font-size: 0.9rem;
+}
+
+#btc-held-display {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+#btc-usd-display {
+    color: #8b949e;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Bottom Nav */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -96,17 +205,18 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 480px;
-    background: #111827;
+    background: #0d1117;
     display: flex;
     justify-content: space-around;
     padding: 12px 0;
-    border-top: 1px solid #1f2937;
+    border-top: 1px solid #30363d;
+    z-index: 99;
 }
 
 .nav-item {
     background: none;
     border: none;
-    color: #9ca3af;
+    color: #8b949e;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -116,14 +226,14 @@ body {
 }
 
 .nav-item.active {
-    color: #10b981;
+    color: #58a6ff;
 }
 
 .nav-item i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
-/* Modal Styles */
+/* Custom Modals */
 .modal {
     display: none;
     position: fixed;
@@ -131,10 +241,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.75);
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .modal.active {
@@ -142,77 +254,127 @@ body {
 }
 
 .modal-content {
-    background: #111827;
+    background: #161b22;
+    border: 1px solid #30363d;
     width: 100%;
-    max-width: 480px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    padding: 25px;
+    max-width: 400px;
+    border-radius: 16px;
+    padding: 20px;
     box-sizing: border-box;
-    max-height: 80vh;
-    overflow-y: auto;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.modal-header i {
+    cursor: pointer;
+    color: #8b949e;
+    font-size: 1.1rem;
+}
+
+.modal-desc {
+    color: #8b949e;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+#modal-input-container input,
 .profile-edit-section input {
     width: 100%;
     padding: 12px;
-    background: #1f2937;
-    border: 1px solid #374151;
+    background: #0d1117;
+    border: 1px solid #30363d;
     border-radius: 8px;
     color: #fff;
     margin-bottom: 20px;
     box-sizing: border-box;
+    font-size: 0.95rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.modal-btn.cancel {
+    background: #21262d;
+    color: #c9d1d9;
+}
+
+.modal-btn.confirm {
+    background: #238636;
+    color: white;
 }
 
 .settings-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .setting-item {
-    background: #1f2937;
-    padding: 15px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    padding: 14px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .logout-btn {
     width: 100%;
-    background: #7f1d1d;
-    color: #fca5a5;
-    border: none;
-    padding: 15px;
+    background: rgba(248, 81, 73, 0.15);
+    color: #f85149;
+    border: 1px solid rgba(248, 81, 73, 0.4);
+    padding: 12px;
     border-radius: 10px;
-    margin-top: 25px;
+    margin-top: 20px;
     font-weight: bold;
     cursor: pointer;
 }
 
 .virtual-card {
-    background: linear-gradient(135deg, #059669, #10b981);
+    background: linear-gradient(135deg, #238636, #2ea043);
     padding: 25px;
     border-radius: 15px;
     margin-top: 20px;
     color: white;
 }
+
 .card-holder-name {
     margin-top: 30px;
     font-size: 1.1rem;
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 .card-balance {
     margin-top: 15px;
     font-size: 0.9rem;
+}
+
+.section-sub {
+    color: #8b949e;
 }
