@@ -212,7 +212,7 @@
         }
 
         .nav-item.active {
-            color: #10b981;
+            color: #3b82f6; /* Blue highlight */
         }
 
         .nav-item svg {
@@ -276,7 +276,7 @@
         .modal-btn {
             width: 100%;
             padding: 12px;
-            background-color: #10b981;
+            background-color: #3b82f6;
             color: white;
             border: none;
             border-radius: 8px;
@@ -285,7 +285,7 @@
         }
 
         .modal-btn:hover {
-            background-color: #059669;
+            background-color: #2563eb;
         }
     </style>
 </head>
@@ -329,7 +329,7 @@
             <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">Quick Overview</div>
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span style="font-weight: 600;">Available Liquidity</span>
-                <span id="usd-sub-balance" style="color: #10b981; font-weight: 600;">$20,000.00</span>
+                <span id="usd-sub-balance" style="color: #3b82f6; font-weight: 600;">$20,000.00</span>
             </div>
         </div>
     </div>
@@ -407,7 +407,7 @@
             <div class="balance-title">Virtual Card Balance</div>
             <div class="balance-amount" id="card-page-balance">$20,000.00</div>
         </div>
-        <div class="card-box" style="background: linear-gradient(135deg, #059669, #10b981); color: white;">
+        <div class="card-box" style="background: linear-gradient(135deg, #2563eb, #3b82f6); color: white;">
             <div style="font-size: 14px; opacity: 0.8;">Crypto Vault Virtual</div>
             <div style="font-size: 22px; font-weight: bold; margin: 20px 0;">**** **** **** 8832</div>
             <div style="display: flex; justify-content: space-between; font-size: 13px;">
@@ -570,5 +570,4 @@
             } else if(currentActionType === 'convert') {
                 if(val > currentBalance) {
                     alert('Insufficient funds for conversion.');
-                    return;
-     
+            
