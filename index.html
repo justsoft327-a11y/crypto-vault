@@ -13,33 +13,57 @@
         .top-icon-btn { background: none; border: none; color: #8c96a5; font-size: 20px; cursor: pointer; }
         .page-section { display: none; padding: 0 20px; }
         .active-page { display: block; }
-        .balance-container { text-align: center; padding: 24px 0; }
-        .balance-title { color: #8c96a5; font-size: 14px; margin-bottom: 8px; }
-        .balance-amount { font-size: 32px; font-weight: 700; color: #ffffff; }
-        .action-buttons { display: flex; justify-content: space-around; margin: 20px 0; }
-        .action-btn-item { display: flex; flex-direction: column; align-items: center; gap: 8px; background: none; border: none; color: #c9d1d9; cursor: pointer; }
-        .action-circle { width: 56px; height: 56px; border-radius: 50%; background-color: #161b22; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #ffffff; border: 1px solid #30363d; }
-        .action-label { font-size: 13px; font-weight: 500; }
+        .balance-container { text-align: center; padding: 20px 0; }
+        .balance-title { color: #8c96a5; font-size: 14px; margin-bottom: 6px; }
+        .balance-amount { font-size: 30px; font-weight: 700; color: #ffffff; }
+        .action-buttons { display: flex; justify-content: space-around; margin: 16px 0; }
+        .action-btn-item { display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: none; color: #c9d1d9; cursor: pointer; }
+        .action-circle { width: 50px; height: 50px; border-radius: 50%; background-color: #161b22; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #ffffff; border: 1px solid #30363d; }
+        .action-label { font-size: 12px; font-weight: 500; }
         .card-box { background-color: #161b22; border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 1px solid #30363d; }
         .asset-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #21262d; cursor: pointer; }
         .asset-row:last-child { border-bottom: none; }
         .asset-left { display: flex; align-items: center; gap: 12px; }
-        .crypto-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
+        .crypto-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
         .btc-bg { background-color: #f7931a; }
         .usdt-bg { background-color: #26a17b; }
-        .asset-name { font-weight: 600; font-size: 15px; color: #ffffff; }
-        .asset-sub { font-size: 12px; color: #8c96a5; }
+        .asset-name { font-weight: 600; font-size: 14px; color: #ffffff; }
+        .asset-sub { font-size: 11px; color: #8c96a5; }
         .asset-right { text-align: right; }
+        
+        /* Transaction Feed Styles */
+        .tx-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+        .tx-item:last-child { border-bottom: none; }
+        .tx-title { font-weight: 600; color: #fff; }
+        .tx-time { font-size: 11px; color: #8c96a5; }
+        
+        /* Sparkline trend styles */
+        .sparkline { width: 60px; height: 24px; }
+
+        /* Card quick controls grid */
+        .card-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+        .card-ctrl-btn { background-color: #21262d; border: 1px solid #30363d; border-radius: 10px; color: #c9d1d9; padding: 10px 4px; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+        .card-ctrl-btn:hover { background-color: #30363d; }
+
+        /* Settings Toggle Rows */
+        .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; border-bottom: 1px solid #21262d; }
+        .setting-row:last-child { border-bottom: none; }
+        
+        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0d1117; border-top: 1px solid #21262d; display: flex; justify-content: space-around; padding: 10px 0; z-index: 100; }
         .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; color: #8c96a5; font-size: 11px; cursor: pointer; gap: 4px; }
         .nav-item.active { color: #3b82f6; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
-        .modal-content { background-color: #161b22; border: 1px solid #30363d; border-radius: 20px; width: 100%; max-width: 360px; padding: 24px; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+
+        /* Modals */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .modal-content { background-color: #161b22; border: 1px solid #30363d; border-radius: 20px; width: 100%; max-width: 360px; padding: 22px; max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .modal-close { background: none; border: none; color: #8c96a5; font-size: 20px; cursor: pointer; }
-        .modal-input { width: 100%; padding: 12px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; font-size: 15px; margin-bottom: 16px; }
+        .modal-input { width: 100%; padding: 12px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; font-size: 15px; margin-bottom: 14px; }
         .modal-btn { width: 100%; padding: 12px; background-color: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        
+        .kyc-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(38, 161, 123, 0.15); color: #26a17b; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(38, 161, 123, 0.3); }
     </style>
 </head>
 <body>
@@ -48,12 +72,13 @@
             <span id="profile-initials">👤</span>
         </div>
         <div class="top-icons">
-            <button class="top-icon-btn">🔍</button>
+            <button class="top-icon-btn" onclick="alert('QR Scanner active!')">📷</button>
             <button class="top-icon-btn" id="eye-toggle">👁️</button>
-            <button class="top-icon-btn">🔔</button>
+            <button class="top-icon-btn" onclick="alert('No new notifications')">🔔</button>
         </div>
     </div>
 
+    <!-- ================= HOME PAGE ================= -->
     <div id="page-home" class="page-section active-page">
         <div class="balance-container">
             <div class="balance-title">Total Cash Balance</div>
@@ -71,8 +96,26 @@
                 <span id="usd-sub-balance" style="color: #3b82f6; font-weight: 600;">$20,000.00</span>
             </div>
         </div>
+
+        <!-- Recent Activity Feed -->
+        <div class="card-box">
+            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px; display: flex; justify-content: space-between;">
+                <span>Recent Transactions</span>
+                <span style="color: #3b82f6; cursor: pointer;" onclick="alert('Viewing full transaction history log.')">View All</span>
+            </div>
+            <div id="transaction-feed">
+                <div class="tx-item">
+                    <div>
+                        <div class="tx-title">Initial Deposit</div>
+                        <div class="tx-time">Today, 12:00 AM</div>
+                    </div>
+                    <div style="color: #26a17b; font-weight: 600;">+$20,000.00</div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- ================= CRYPTO PAGE ================= -->
     <div id="page-crypto" class="page-section">
         <div class="balance-container">
             <div class="balance-title">Total Crypto Balance</div>
@@ -80,25 +123,39 @@
         </div>
         <div class="action-buttons">
             <button class="action-btn-item" onclick="switchPage('home')"><div class="action-circle">📈</div><span class="action-label">Trade</span></button>
-            <button class="action-btn-item" onclick="alert('Receive address copied!')"><div class="action-circle">↓</div><span class="action-label">Receive</span></button>
-            <button class="action-btn-item" onclick="alert('Enter recipient address.')"><div class="action-circle">↑</div><span class="action-label">Send</span></button>
+            <button class="action-btn-item" onclick="alert('Scan QR code or copy address below to receive funds.')"><div class="action-circle">⬇</div><span class="action-label">Receive</span></button>
+            <button class="action-btn-item" onclick="alert('Scan recipient QR code or enter address to send.')"><div class="action-circle">⬆</div><span class="action-label">Send</span></button>
         </div>
         <div class="card-box">
-            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">My Cryptocurrencies</div>
+            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">My Cryptocurrencies (24h Trend)</div>
+            
             <div class="asset-row" onclick="buyBitcoin()">
                 <div class="asset-left">
                     <div class="crypto-icon btc-bg">₿</div>
                     <div><div class="asset-name">Bitcoin</div><div class="asset-sub">BTC</div></div>
+                </div>
+                <div>
+                    <!-- Mini Sparkline Trend Chart (Upward green trend) -->
+                    <svg class="sparkline" viewBox="0 0 60 24">
+                        <path d="M 0 20 L 15 14 L 30 18 L 45 8 L 60 4" fill="none" stroke="#26a17b" stroke-width="2"/>
+                    </svg>
                 </div>
                 <div class="asset-right">
                     <div class="asset-name" id="btc-amount-held">0.000000 BTC</div>
                     <div class="asset-sub" id="btc-usd-val">$0.00</div>
                 </div>
             </div>
+
             <div class="asset-row">
                 <div class="asset-left">
                     <div class="crypto-icon usdt-bg">₮</div>
                     <div><div class="asset-name">Tether</div><div class="asset-sub">USDT</div></div>
+                </div>
+                <div>
+                    <!-- Mini Sparkline Trend Chart (Stable horizontal trend) -->
+                    <svg class="sparkline" viewBox="0 0 60 24">
+                        <path d="M 0 12 L 15 13 L 30 11 L 45 13 L 60 12" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                    </svg>
                 </div>
                 <div class="asset-right">
                     <div class="asset-name">0.00 USDT</div>
@@ -108,6 +165,7 @@
         </div>
     </div>
 
+    <!-- ================= PAY BILL PAGE ================= -->
     <div id="page-bills" class="page-section">
         <div class="balance-container">
             <div class="balance-title">Bill Payments</div>
@@ -118,27 +176,76 @@
         </div>
     </div>
 
+    <!-- ================= CARDS PAGE ================= -->
     <div id="page-cards" class="page-section">
         <div class="balance-container">
             <div class="balance-title">Virtual Card Balance</div>
             <div class="balance-amount" id="card-page-balance">$20,000.00</div>
         </div>
-        <div class="card-box" style="background: linear-gradient(135deg, #2563eb, #3b82f6); color: white;">
-            <div style="font-size: 14px; opacity: 0.8;">Crypto Vault Virtual</div>
-            <div style="font-size: 22px; font-weight: bold; margin: 20px 0;">**** **** **** 8832</div>
-            <div style="display: flex; justify-content: space-between; font-size: 13px;"><span>Exp: 12/28</span><span>CVV: ***</span></div>
+        <div class="card-box" id="virtual-card-box" style="background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; transition: all 0.3s;">
+            <div style="font-size: 14px; opacity: 0.8; display: flex; justify-content: space-between;">
+                <span>Crypto Vault Virtual</span>
+                <span id="card-status-label" style="font-size: 11px; background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px;">Active</span>
+            </div>
+            <div style="font-size: 22px; font-weight: bold; margin: 20px 0;" id="card-number-display">**** **** **** 8832</div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;"><span>Exp: 12/28</span><span id="card-cvv-display">CVV: ***</span></div>
+        </div>
+
+        <!-- Quick Card Controls -->
+        <div class="card-controls">
+            <button class="card-ctrl-btn" onclick="toggleFreezeCard()">
+                <span style="font-size: 16px;" id="freeze-icon">❄️</span>
+                <span id="freeze-text">Freeze</span>
+            </button>
+            <button class="card-ctrl-btn" onclick="toggleCardDetails()">
+                <span style="font-size: 16px;">👁️</span>
+                <span>Details</span>
+            </button>
+            <button class="card-ctrl-btn" onclick="openModal('deposit')">
+                <span style="font-size: 16px;">➕</span>
+                <span>Top Up</span>
+            </button>
+            <button class="card-ctrl-btn" onclick="setSpendingLimit()">
+                <span style="font-size: 16px;">⚙️</span>
+                <span>Limit</span>
+            </button>
         </div>
     </div>
 
+    <!-- ================= PROFILE MODAL ================= -->
     <div class="modal-overlay" id="profile-modal">
         <div class="modal-content">
-            <div class="modal-header"><h3 style="font-size: 16px;">Account Profile</h3><button class="modal-close" onclick="closeModals()">×</button></div>
+            <div class="modal-header">
+                <h3 style="font-size: 16px;">Account Profile</h3>
+                <button class="modal-close" onclick="closeModals()">×</button>
+            </div>
+            
+            <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+                <span class="kyc-badge">✓ KYC Verified</span>
+                <span style="font-size: 11px; color: #8c96a5;">Tier 2 Account</span>
+            </div>
+
+            <p style="color: #8c96a5; font-size: 12px; margin-bottom: 6px;">Profile Name / Tag:</p>
             <input type="text" id="profile-name-input" class="modal-input" placeholder="Enter name">
-            <button class="modal-btn" onclick="saveProfileName()" style="margin-bottom: 10px;">Save Profile</button>
+            
+            <div style="margin-top: 10px; margin-bottom: 16px;">
+                <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 8px;">Security & Biometrics</div>
+                <div class="setting-row">
+                    <span>Face ID / Fingerprint Login</span>
+                    <input type="checkbox" id="toggle-biometric" checked onchange="saveSettings()">
+                </div>
+                <div class="setting-row">
+                    <span>Two-Factor Auth (2FA)</span>
+                    <input type="checkbox" id="toggle-2fa" checked onchange="saveSettings()">
+                </div>
+            </div>
+
+            <button class="modal-btn" onclick="saveProfileName()" style="margin-bottom: 8px;">Save Profile</button>
             <button class="modal-btn" onclick="closeModals()" style="background: #21262d;">Close</button>
         </div>
     </div>
 
+    <!-- ================= ACTION MODAL ================= -->
     <div class="modal-overlay" id="action-modal">
         <div class="modal-content">
             <div class="modal-header"><h3 id="modal-title" style="font-size: 16px;">Action</h3><button class="modal-close" onclick="closeModals()">×</button></div>
@@ -160,6 +267,9 @@
         let btcHeld = 0;
         let currentActionType = '';
         let customProfileName = localStorage.getItem('cryptoVaultName') || '';
+        let cardFrozen = false;
+        let cardDetailsShown = false;
+        let spendingLimit = localStorage.getItem('cryptoVaultLimit') || '5,000';
 
         function updateProfileDisplay() {
             const initialsEl = document.getElementById('profile-initials');
@@ -177,7 +287,11 @@
             localStorage.setItem('cryptoVaultName', customProfileName);
             updateProfileDisplay();
             closeModals();
-            alert('Profile updated successfully!');
+            alert('Profile and security preferences updated successfully!');
+        }
+
+        function saveSettings() {
+            alert('Security settings updated.');
         }
 
         function switchPage(pageName) {
@@ -210,52 +324,4 @@
             modal.style.display = 'flex';
             document.getElementById('modal-input-val').value = '';
             if(type === 'deposit') { title.innerText = 'Deposit Funds'; desc.innerText = 'Enter amount in USD to add:'; }
-            else if(type === 'withdraw') { title.innerText = 'Withdraw Funds'; desc.innerText = 'Enter amount in USD to withdraw:'; }
-            else if(type === 'convert') { title.innerText = 'Convert Currency'; desc.innerText = 'Enter USD amount to convert to EUR (Rate: 1 USD = 0.92 EUR):'; }
-        }
-
-        function closeModals() {
-            document.getElementById('profile-modal').style.display = 'none';
-            document.getElementById('action-modal').style.display = 'none';
-        }
-
-        function executeAction() {
-            const val = Number(document.getElementById('modal-input-val').value);
-            if(!val || val <= 0) { alert('Please enter a valid amount.'); return; }
-            if(currentActionType === 'deposit') { currentBalance += val; alert('Successfully deposited $' + val.toLocaleString()); }
-            else if(currentActionType === 'withdraw') {
-                if(val > currentBalance) { alert('Insufficient funds.'); return; }
-                currentBalance -= val; alert('Successfully withdrew $' + val.toLocaleString());
-            } else if(currentActionType === 'convert') {
-                if(val > currentBalance) { alert('Insufficient funds.'); return; }
-                currentBalance -= val; alert('Converted $' + val.toLocaleString() + ' to ' + (val * 0.92).toFixed(2) + ' EUR');
-            }
-            updateUI();
-            closeModals();
-        }
-
-        function buyBitcoin() {
-            const amountStr = prompt('Enter USD amount to spend on Bitcoin:', '100');
-            if(!amountStr) return;
-            const usdSpend = Number(amountStr);
-            if(usdSpend <= 0 || usdSpend > currentBalance) { alert('Invalid amount or balance.'); return; }
-            currentBalance -= usdSpend;
-            btcHeld += usdSpend / 65420;
-            updateUI();
-            alert('Successfully purchased Bitcoin!');
-        }
-
-        function updateUI() {
-            if (hidden) return;
-            const formatted = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2});
-            document.getElementById('display-balance').innerText = formatted;
-            document.getElementById('usd-sub-balance').innerText = formatted;
-            document.getElementById('card-page-balance').innerText = formatted;
-            const btcVal = btcHeld * 65420;
-            document.getElementById('crypto-total-display').innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2});
-            document.getElementById('btc-amount-held').innerText = btcHeld.toFixed(6) + ' BTC';
-            document.getElementById('btc-usd-val').innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2});
-        }
-    </script>
-</body>
-</html>
+            else if(type === 'withd
