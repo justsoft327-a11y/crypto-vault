@@ -3,64 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Vault</title>
+    <title>Crypto Vault - Busha Edition</title>
     <style>
-        body { background-color: #0b0e14; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 16px; padding-bottom: 80px; }
-        .page-section { display: block; }
-        .balance-container { text-align: center; margin: 24px 0; }
+        body { background-color: #0b0e14; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 16px; padding-bottom: 90px; }
+        
+        /* Top Navigation Header */
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .profile-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ff007a, #7a00ff); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; border: 2px solid #30363d; overflow: hidden; }
+        .header-icons { display: flex; gap: 12px; align-items: center; }
+        .header-icon-btn { background: #161b22; border: 1px solid #30363d; color: #fff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; }
+
+        /* Balance Section */
+        .balance-container { text-align: center; margin: 20px 0 24px 0; }
         .balance-title { font-size: 13px; color: #8c96a5; margin-bottom: 6px; }
-        .balance-amount { font-size: 32px; font-weight: 700; color: #ffffff; }
-        .action-buttons { display: flex; justify-content: center; gap: 20px; margin-bottom: 24px; }
+        .balance-amount { font-size: 32px; font-weight: 700; color: #ffffff; letter-spacing: 1px; }
+
+        /* Action Buttons */
+        .action-buttons { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
         .action-btn-item { background: none; border: none; color: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
-        .action-circle { width: 48px; height: 48px; background-color: #161b22; border: 1px solid #30363d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 6px; }
-        .action-label { font-size: 12px; color: #8c96a5; }
+        .action-circle { width: 52px; height: 52px; background-color: #161b22; border: 1px solid #30363d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 6px; }
+        .action-label { font-size: 13px; color: #fff; font-weight: 500; }
+
+        /* Cards & Assets */
         .card-box { background-color: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 16px; margin-bottom: 16px; }
-        .asset-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #21262d; }
+        .asset-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #21262d; }
         .asset-row:last-child { border-bottom: none; }
         .asset-left { display: flex; align-items: center; gap: 12px; }
         .crypto-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; }
         .btc-bg { background-color: #f7931a; }
         .usdt-bg { background-color: #26a17b; }
+        .usdc-bg { background-color: #2775ca; }
         .asset-name { font-size: 14px; font-weight: 600; color: #fff; }
         .asset-sub { font-size: 12px; color: #8c96a5; }
         .asset-right { text-align: right; }
-        .sparkline { width: 60px; height: 24px; }
+
+        /* Auto Buy Promo */
+        .auto-buy-box { display: flex; align-items: center; justify-content: space-between; }
+        .explore-btn { background-color: #21262d; border: 1px solid #30363d; color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+        /* Transactions */
         .tx-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
         .tx-item:last-child { border-bottom: none; }
         .tx-title { font-weight: 600; color: #fff; }
         .tx-time { font-size: 11px; color: #8c96a5; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; box-sizing: border-box; }
-        .modal-content { background-color: #161b22; border: 1px solid #30363d; border-radius: 16px; width: 100%; max-width: 340px; padding: 20px; box-sizing: border-box; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .modal-close { background: none; border: none; color: #8c96a5; font-size: 20px; cursor: pointer; }
-        .primary-btn { width: 100%; background-color: #238636; color: #fff; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer; font-size: 14px; }
-        .secondary-btn { width: 100%; background-color: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 8px; padding: 10px; font-weight: 600; cursor: pointer; font-size: 14px; }
+
+        /* Bottom Nav Bar */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0b0e14; border-top: 1px solid #21262d; display: flex; justify-content: space-around; padding: 10px 0; z-index: 99; box-sizing: border-box; }
+        .nav-item { background: none; border: none; color: #8c96a5; display: flex; flex-direction: column; align-items: center; font-size: 11px; cursor: pointer; gap: 4px; }
+        .nav-item.active { color: #26a17b; font-weight: 600; }
+        .nav-icon { font-size: 18px; }
+
+        /* Profile Modal */
+        .profile-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0e14; display: none; z-index: 1000; overflow-y: auto; padding: 16px; box-sizing: border-box; }
+        .modal-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .close-modal-btn { background: #161b22; border: 1px solid #30363d; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .user-profile-info { text-align: center; margin-bottom: 24px; }
+        .user-avatar-large { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #ff007a, #7a00ff); margin: 0 auto 12px auto; display: flex; align-items: center; justify-content: center; font-size: 32px; border: 2px solid #30363d; }
+        .menu-list-card { background-color: #161b22; border: 1px solid #30363d; border-radius: 16px; margin-bottom: 12px; overflow: hidden; }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #21262d; color: #fff; text-decoration: none; cursor: pointer; }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+        .menu-sub { font-size: 12px; color: #8c96a5; }
+        .logout-item { color: #ff5c5c; text-align: center; display: block; padding: 16px; font-weight: 600; background-color: #161b22; border: 1px solid #30363d; border-radius: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- CRYPTO PAGE -->
+    <!-- TOP HEADER -->
+    <div class="top-header">
+        <div class="profile-avatar" id="open-profile-btn">👨‍🎤</div>
+        <div class="header-icons">
+            <button class="header-icon-btn" id="search-btn">🔍</button>
+            <button class="header-icon-btn" id="toggle-balance-btn">👁</button>
+            <button class="header-icon-btn" id="notifications-btn">🔔</button>
+        </div>
+    </div>
+
+    <!-- MAIN APP VIEWS -->
+    <div id="page-home" class="page-section" style="display: none;">
+        <div class="balance-container">
+            <div class="balance-title">Total Portfolio Balance</div>
+            <div class="balance-amount" id="home-total-display">$20,000.00</div>
+        </div>
+        <div class="card-box">
+            <div style="font-weight: 600; margin-bottom: 8px;">Welcome back, Isaac!</div>
+            <div style="font-size: 13px; color: #8c96a5;">Your account is fully secured and verified. Explore your crypto assets below.</div>
+        </div>
+    </div>
+
     <div id="page-crypto" class="page-section">
         <div class="balance-container">
             <div class="balance-title">Total Crypto Balance</div>
             <div class="balance-amount" id="crypto-total-display">$0.00</div>
         </div>
+        
         <div class="action-buttons">
-            <button class="action-btn-item" id="buy-crypto-btn"><div class="action-circle">🛒</div><span class="action-label">Buy</span></button>
+            <button class="action-btn-item" id="trade-btn"><div class="action-circle">📈</div><span class="action-label">Trade</span></button>
             <button class="action-btn-item" id="receive-btn"><div class="action-circle">⬇</div><span class="action-label">Receive</span></button>
             <button class="action-btn-item" id="send-btn"><div class="action-circle">⬆</div><span class="action-label">Send</span></button>
         </div>
+
         <div class="card-box">
-            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">My Cryptocurrencies (24h Trend)</div>
-            <div class="asset-row" id="btc-row">
+            <div class="asset-row">
                 <div class="asset-left">
                     <div class="crypto-icon btc-bg">₿</div>
-                    <div><div class="asset-name">Bitcoin</div><div class="asset-sub">BTC</div></div>
-                </div>
-                <div>
-                    <svg class="sparkline" viewBox="0 0 60 24">
-                        <path d="M 0 20 L 15 14 L 30 18 L 45 8 L 60 4" fill="none" stroke="#26a17b" stroke-width="2"/>
-                    </svg>
+                    <div><div class="asset-name">BTC</div><div class="asset-sub">Bitcoin</div></div>
                 </div>
                 <div class="asset-right">
                     <div class="asset-name" id="btc-amount-held">0.000000 BTC</div>
@@ -70,21 +117,37 @@
             <div class="asset-row">
                 <div class="asset-left">
                     <div class="crypto-icon usdt-bg">₮</div>
-                    <div><div class="asset-name">Tether</div><div class="asset-sub">USDT</div></div>
-                </div>
-                <div>
-                    <svg class="sparkline" viewBox="0 0 60 24">
-                        <path d="M 0 12 L 15 13 L 30 11 L 45 13 L 60 12" fill="none" stroke="#3b82f6" stroke-width="2"/>
-                    </svg>
+                    <div><div class="asset-name">USDT</div><div class="asset-sub">Tether</div></div>
                 </div>
                 <div class="asset-right">
                     <div class="asset-name">0.00 USDT</div>
                     <div class="asset-sub">$0.00</div>
                 </div>
             </div>
+            <div class="asset-row">
+                <div class="asset-left">
+                    <div class="crypto-icon usdc-bg">S</div>
+                    <div><div class="asset-name">USDC</div><div class="asset-sub">USD Coin</div></div>
+                </div>
+                <div class="asset-right">
+                    <div class="asset-name">1.004 USDC</div>
+                    <div class="asset-sub">$1.00</div>
+                </div>
+            </div>
         </div>
+
+        <div class="card-box auto-buy-box">
+            <div>
+                <div class="asset-name" style="margin-bottom: 4px;">Start auto buy</div>
+                <div class="asset-sub">Grow your portfolio on a recurring schedule.</div>
+            </div>
+            <button class="explore-btn" id="explore-auto-buy">Explore</button>
+        </div>
+
         <div class="card-box">
-            <div style="font-size: 13px; color: #8c96a5; margin-bottom: 10px;">Crypto Transaction History</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <div style="font-weight: 600; color: #26a17b;">Transactions</div>
+            </div>
             <div id="crypto-transaction-feed">
                 <div class="tx-item">
                     <div>
@@ -97,58 +160,148 @@
         </div>
     </div>
 
-    <!-- RECEIVE MODAL -->
-    <div class="modal-overlay" id="receive-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="font-size: 16px; margin: 0;">Receive Bitcoin</h3>
-                <button class="modal-close" id="receive-close-btn">×</button>
-            </div>
-            <p style="color: #8c96a5; font-size: 13px; margin-bottom: 12px;">Send only Bitcoin (BTC) to this address:</p>
-            <div style="background-color: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid #30363d; word-break: break-all; font-family: monospace; font-size: 13px; color: #fff; margin-bottom: 14px;" id="wallet-address-text">
-                bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
-            </div>
-            <button class="primary-btn" id="copy-address-btn" style="margin-bottom: 8px;">Copy Wallet Address</button>
-            <button class="secondary-btn" id="close-receive-secondary">Close</button>
+    <div id="page-paybill" class="page-section" style="display: none;">
+        <div class="balance-container">
+            <div class="balance-title">Pay Bills & Utilities</div>
+            <div class="balance-amount">Airtime & Data</div>
+        </div>
+        <div class="card-box" style="text-align: center; padding: 30px;">
+            <div style="font-size: 24px; margin-bottom: 10px;">⚡</div>
+            <div style="font-weight: 600; margin-bottom: 6px;">Coming Soon</div>
+            <div style="font-size: 13px; color: #8c96a5;">Electricity, cable TV, and internet top-ups directly from your wallet balance.</div>
         </div>
     </div>
+
+    <div id="page-cards" class="page-section" style="display: none;">
+        <div class="balance-container">
+            <div class="balance-title">Virtual Crypto Cards</div>
+            <div class="balance-amount">Spend Globally</div>
+        </div>
+        <div class="card-box" style="text-align: center; padding: 30px;">
+            <div style="font-size: 24px; margin-bottom: 10px;">💳</div>
+            <div style="font-weight: 600; margin-bottom: 6px;">Virtual Dollar Card</div>
+            <div style="font-size: 13px; color: #8c96a5;">Create USD virtual cards instantly for online subscriptions and shopping.</div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav">
+        <button class="nav-item" onclick="switchTab('home', this)">
+            <span class="nav-icon">🏠</span><span>Home</span>
+        </button>
+        <button class="nav-item active" onclick="switchTab('crypto', this)">
+            <span class="nav-icon">₿</span><span>Crypto</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('paybill', this)">
+            <span class="nav-icon">💡</span><span>Pay Bill</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('cards', this)">
+            <span class="nav-icon">💳</span><span>Cards</span>
+        </button>
+    </div>
+
+    <!-- PROFILE / SETTINGS MODAL -->
+    <div class="profile-modal" id="profile-modal">
+        <div class="modal-header-bar">
+            <button class="close-modal-btn" id="close-profile-btn">✕</button>
+            <div style="font-weight: 600;">Settings & Profile</div>
+            <div style="width: 36px;"></div>
+        </div>
+        <div class="user-profile-info">
+            <div class="user-avatar-large">👨‍🎤</div>
+            <div class="asset-name" style="font-size: 18px;">Isaac Victor</div>
+            <div class="asset-sub">@vicsworld</div>
+        </div>
+
+        <div class="menu-list-card">
+            <div class="menu-item" onclick="alert('Account settings: Personal details, invite friends, account limits.')">
+                <div><div class="menu-title">Account</div><div class="menu-sub">Personal details, invite friends, limits</div></div>
+                <div style="color: #8c96a5;">›</div>
+            </div>
+            <div class="menu-item" onclick="alert('Recipients: Manage bank accounts and mobile money.')">
+                <div><div class="menu-title">Recipients</div><div class="menu-sub">Bank accounts, Mobile money</div></div>
+                <div style="color: #8c96a5;">›</div>
+            </div>
+            <div class="menu-item" onclick="alert('Connected bank accounts management.')">
+                <div><div class="menu-title">Connected bank accounts</div><div class="menu-sub">Manage your payment accounts</div></div>
+                <div style="color: #8c96a5;">›</div>
+            </div>
+            <div class="menu-item" onclick="alert('Security Center: 2FA Authentication is Active, App lock, Biometrics & Passcode configured.')">
+                <div><div class="menu-title" style="color: #26a17b;">Security & 2FA Authentication</div><div class="menu-sub">2FA, app lock, passcode, biometrics</div></div>
+                <div style="color: #8c96a5;">›</div>
+            </div>
+            <div class="menu-item" onclick="alert('Report a bug or send feedback.')">
+                <div><div class="menu-title">Report a bug</div><div class="menu-sub">Let us know so we can fix it</div></div>
+                <div style="color: #8c96a5;">›</div>
+            </div>
+            <div class="menu-item" onclick="alert('Preferences: Notifications, display currency & app themes.')">
+                <div><div class="menu-title">Preferences</div><div class="menu-sub">Notifications, display currency & themes</div></div>
+                <div style="color: #8c96a5;">›</div>
+            </div>
+            <div class="menu-item" onclick="alert('About us: FAQs, privacy policy, blog & contact.')">
+                <div><div class="menu-title">About us</div><div class="menu-sub">FAQs, privacy policy, our blog</div></div>
+                <div style="color: #8c96a5;">›</div>
+            </div>
+        </div>
+
+        <div class="logout-item" onclick="alert('Logged out successfully.')">Log out</div>
+    </div>
+
     <script>
         let currentBalance = 20000;
         let btcHeld = 0;
+        let isBalanceHidden = false;
 
         function updateUI() {
             const btcVal = btcHeld * 65420;
             const totalDisplay = document.getElementById('crypto-total-display');
-            if(totalDisplay) totalDisplay.innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            const homeDisplay = document.getElementById('home-total-display');
+            
+            if(isBalanceHidden) {
+                if(totalDisplay) totalDisplay.innerText = '********';
+                if(homeDisplay) homeDisplay.innerText = '********';
+            } else {
+                if(totalDisplay) totalDisplay.innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                if(homeDisplay) homeDisplay.innerText = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            }
             
             const btcAmountHeld = document.getElementById('btc-amount-held');
             if(btcAmountHeld) btcAmountHeld.innerText = btcHeld.toFixed(6) + ' BTC';
 
             const btcUsdVal = document.getElementById('btc-usd-val');
-            if(btcUsdVal) btcUsdVal.innerText = '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            if(btcUsdVal) btcUsdVal.innerText = isBalanceHidden ? '********' : '$' + btcVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
 
-        function logCryptoTransaction(title, amountStr, isPositive) {
-            const feed = document.getElementById('crypto-transaction-feed');
-            if(!feed) return;
-            const timeStr = 'Just now';
-            const color = isPositive ? '#26a17b' : '#ff5c5c';
-            const sign = isPositive ? '+' : '-';
-            
-            const newItem = document.createElement('div');
-            newItem.className = 'tx-item';
-            newItem.innerHTML = `
-                <div>
-                    <div class='tx-title'>${title}</div>
-                    <div class='tx-time'>${timeStr}</div>
-                </div>
-                <div style='color: ${color}; font-weight: 600;'>${sign}${amountStr}</div>
-            `;
-            feed.prepend(newItem);
+        function switchTab(tabName, btnElement) {
+            document.querySelectorAll('.page-section').forEach(el => el.style.display = 'none');
+            document.getElementById('page-' + tabName).style.display = 'block';
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            btnElement.classList.add('active');
         }
 
-        document.getElementById('buy-crypto-btn').addEventListener('click', () => {
-            const amountStr = prompt('Enter USD amount from your cash balance to buy Bitcoin:', '100');
+        document.getElementById('open-profile-btn').addEventListener('click', () => {
+            document.getElementById('profile-modal').style.display = 'block';
+        });
+        document.getElementById('close-profile-btn').addEventListener('click', () => {
+            document.getElementById('profile-modal').style.display = 'none';
+        });
+
+        document.getElementById('toggle-balance-btn').addEventListener('click', () => {
+            isBalanceHidden = !isBalanceHidden;
+            updateUI();
+        });
+
+        document.getElementById('search-btn').addEventListener('click', () => {
+            const query = prompt('Search assets, transactions, or settings:');
+            if(query) alert('Searching for: ' + query);
+        });
+
+        document.getElementById('notifications-btn').addEventListener('click', () => {
+            alert('No new notifications. Your 2FA security status is active and secure.');
+        });
+
+        document.getElementById('trade-btn').addEventListener('click', () => {
+            const amountStr = prompt('Enter USD amount to buy Bitcoin:', '100');
             if(!amountStr) return;
             const usdSpend = Number(amountStr);
             if(usdSpend <= 0 || usdSpend > currentBalance) { alert('Invalid amount or insufficient cash balance.'); return; }
@@ -156,41 +309,30 @@
             const btcBought = usdSpend / 65420;
             btcHeld += btcBought;
             updateUI();
-            alert('Successfully purchased ' + btcBought.toFixed(6) + ' BTC!');
-            logCryptoTransaction('Bought BTC', btcBought.toFixed(6) + ' BTC', true);
+            alert('Successfully traded ' + usdSpend + ' USD for ' + btcBought.toFixed(6) + ' BTC!');
         });
 
         document.getElementById('receive-btn').addEventListener('click', () => {
-            document.getElementById('receive-modal').style.display = 'flex';
-        });
-        document.getElementById('receive-close-btn').addEventListener('click', () => {
-            document.getElementById('receive-modal').style.display = 'none';
-        });
-        document.getElementById('close-receive-secondary').addEventListener('click', () => {
-            document.getElementById('receive-modal').style.display = 'none';
-        });
-        document.getElementById('copy-address-btn').addEventListener('click', () => {
-            const addr = document.getElementById('wallet-address-text').innerText.trim();
-            navigator.clipboard.writeText(addr).then(() => {
-                alert('Wallet address copied to clipboard!');
-            }).catch(() => {
-                alert('Address: ' + addr);
-            });
+            alert('Receive Crypto:\nYour Bitcoin Address: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh');
         });
 
         document.getElementById('send-btn').addEventListener('click', () => {
-            const recipientAddr = prompt('Enter recipient Bitcoin wallet address:');
-            if(!recipientAddr) return;
-            const btcAmountStr = prompt('Enter BTC amount to send (You hold ' + btcHeld.toFixed(6) + ' BTC):');
-            if(!btcAmountStr) return;
-            const btcToSend = Number(btcAmountStr);
-            if(btcToSend <= 0 || btcToSend > btcHeld) { alert('Invalid amount or insufficient BTC balance.'); return; }
-            
+            const recipient = prompt('Enter recipient Bitcoin wallet address:');
+            if(!recipient) return;
+            const amount = prompt('Enter BTC amount to send (You hold ' + btcHeld.toFixed(6) + ' BTC):');
+            if(!amount) return;
+            const btcToSend = Number(amount);
+            if(btcToSend <= 0 || btcToSend > btcHeld) { alert('Invalid amount or balance.'); return; }
             btcHeld -= btcToSend;
             updateUI();
-            alert('Successfully sent ' + btcToSend.toFixed(6) + ' BTC to ' + recipientAddr.substring(0, 8) + '...');
-            logCryptoTransaction('Sent BTC', btcToSend.toFixed(6) + ' BTC', false);
+            alert('Successfully sent ' + btcToSend.toFixed(6) + ' BTC!');
         });
+
+        document.getElementById('explore-auto-buy').addEventListener('click', () => {
+            alert('Auto-Buy set up successfully! Recurring purchases enabled.');
+        });
+
+        updateUI();
     </script>
 </body>
 </html>
