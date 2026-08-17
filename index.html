@@ -40,6 +40,7 @@
             cursor: pointer;
             overflow: hidden;
             border: 2px solid #ec4899;
+            font-size: 18px;
         }
 
         .top-icons {
@@ -218,6 +219,7 @@
             width: 22px;
             height: 22px;
             fill: currentColor;
+            pointer-events: none;
         }
 
         /* Modals */
@@ -292,7 +294,7 @@
     <!-- Top Navigation Header -->
     <div class="top-bar">
         <div class="profile-avatar" id="profile-trigger" onclick="openProfileModal()">
-            <span id="profile-initials">IO</span>
+            <span id="profile-initials">👤</span>
         </div>
         <div class="top-icons">
             <button class="top-icon-btn">🔍</button>
@@ -340,7 +342,7 @@
         </div>
 
         <div class="action-buttons">
-            <button class="action-btn-item" onclick="switchPage('home', event)">
+            <button class="action-btn-item" onclick="switchPage('home')">
                 <div class="action-circle">📈</div>
                 <span class="action-label">Trade</span>
             </button>
@@ -415,16 +417,16 @@
         </div>
     </div>
 
-    <!-- ================= PROFILE MODAL (Fully Editable Name) ================= -->
+    <!-- ================= PROFILE MODAL ================= -->
     <div class="modal-overlay" id="profile-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 style="font-size: 16px; color: #ffffff;">Account Profile</h3>
                 <button class="modal-close" onclick="closeModals()">×</button>
             </div>
-            <p style="color: #8c96a5; font-size: 13px; margin-bottom: 12px;">Edit your profile name below:</p>
-            <input type="text" id="profile-name-input" class="modal-input" placeholder="Enter custom name">
-            <button class="modal-btn" onclick="saveProfileName()" style="margin-bottom: 10px;">Save Profile Name</button>
+            <p style="color: #8c96a5; font-size: 13px; margin-bottom: 8px;">Profile Name / Tag:</p>
+            <input type="text" id="profile-name-input" class="modal-input" placeholder="Leave empty or enter any name">
+            <button class="modal-btn" onclick="saveProfileName()" style="margin-bottom: 10px;">Save Profile</button>
             <button class="modal-btn" onclick="closeModals()" style="background: #21262d; color: #c9d1d9;">Close</button>
         </div>
     </div>
@@ -444,19 +446,19 @@
 
     <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchPage('home', event)">
+        <button class="nav-item active" onclick="switchPage('home')">
             <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             Home
         </button>
-        <button class="nav-item" onclick="switchPage('crypto', event)">
+        <button class="nav-item" onclick="switchPage('crypto')">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z"/></svg>
             Crypto
         </button>
-        <button class="nav-item" onclick="switchPage('bills', event)">
+        <button class="nav-item" onclick="switchPage('bills')">
             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z"/></svg>
             Pay Bill
         </button>
-        <button class="nav-item" onclick="switchPage('cards', event)">
+        <button class="nav-item" onclick="switchPage('cards')">
             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
             Cards
         </button>
@@ -471,14 +473,9 @@
         function updateProfileDisplay() {
             const initialsEl = document.getElementById('profile-initials');
             if (customProfileName.trim() === '') {
-                initialsEl.innerText = 'CV';
+                initialsEl.innerText = '👤';
             } else {
-                const parts = customProfileName.trim().split('es');
-                let initials = customProfileName.charAt(0).toUpperCase();
-                if (parts.length > 1) {
-                    initials += parts[1].charAt(0).toUpperCase();
-                }
-                initialsEl.innerText = initials;
+                initialsEl.innerText = customProfileName.charAt(0).toUpperCase();
             }
         }
         updateProfileDisplay();
@@ -493,14 +490,19 @@
             localStorage.setItem('cryptoVaultName', customProfileName);
             updateProfileDisplay();
             closeModals();
-            alert('Profile name updated successfully!');
+            alert('Profile updated successfully!');
         }
 
-        function switchPage(pageName, evt) {
+        function switchPage(pageName) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
             document.getElementById('page-' + pageName).classList.add('active-page');
-            evt.currentTarget.classList.add('active');
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            if (pageName === 'home') navItems[0].classList.add('active');
+            if (pageName === 'crypto') navItems[1].classList.add('active');
+            if (pageName === 'bills') navItems[2].classList.add('active');
+            if (pageName === 'cards') navItems[3].classList.add('active');
         }
 
         let hidden = false;
@@ -569,6 +571,4 @@
                 if(val > currentBalance) {
                     alert('Insufficient funds for conversion.');
                     return;
-                }
-                currentBalance -= val;
-                const converted = 
+     
