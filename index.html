@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+i<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -577,3 +577,214 @@
                 <p style="color: #8c96a5; font-size: 12px;">Verified Vault Member</p>
             </div>
             <div style="background: #0d1117; padding: 12px; border-radius:
+<div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="color: #8c96a5;">Account Status:</span>
+                    <span style="color: #10b981; font-weight: 600;">Active</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #8c96a5;">Base Currency:</span>
+                    <span>USD ($)</span>
+                </div>
+            </div>
+            <button class="modal-btn" onclick="closeModals()">Close Profile</button>
+        </div>
+    </div>
+
+    <!-- ================= ADMIN PANEL MODAL ================= -->
+    <div class="modal-overlay" id="admin-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 16px; color: #10b981;">⚙️ Admin Panel</h3>
+                <button class="modal-close" onclick="closeModals()">×</button>
+            </div>
+            <p style="color: #8c96a5; font-size: 13px; margin-bottom: 15px;">Manage global user balance and system overrides:</p>
+            <input type="number" id="admin-balance-input" class="modal-input" placeholder="Set custom balance amount">
+            <button class="modal-btn" onclick="updateAdminBalance()" style="margin-bottom: 10px;">Update Balance</button>
+            <button class="modal-btn" onclick="closeModals()" style="background: #21262d; color: #c9d1d9;">Close Panel</button>
+        </div>
+    </div>
+
+    <!-- ================= ACTION MODAL (Deposit/Withdraw/Convert) ================= -->
+    <div class="modal-overlay" id="action-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title" style="font-size: 16px;">Action</h3>
+                <button class="modal-close" onclick="closeModals()">×</button>
+            </div>
+            <p id="modal-desc" style="color: #8c96a5; font-size: 13px; margin-bottom: 12px;"></p>
+            <input type="number" id="modal-input-val" class="modal-input" placeholder="Enter amount">
+            <button class="modal-btn" id="modal-submit-btn" onclick="executeAction()">Confirm</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="switchPage('home', event)">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+        </button>
+        <button class="nav-item" onclick="switchPage('crypto', event)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z"/></svg>
+            Crypto
+        </button>
+        <button class="nav-item" onclick="switchPage('bills', event)">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z"/></svg>
+            Pay Bill
+        </button>
+        <button class="nav-item" onclick="switchPage('cards', event)">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+            Cards
+        </button>
+    </div>
+
+    <script>
+        let currentBalance = 20000;
+        let btcHeld = 0;
+        let currentActionType = '';
+
+        function switchPage(pageName, evt) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.getElementById('page-' + pageName).classList.add('active-page');
+            evt.currentTarget.classList.add('active');
+        }
+
+        let hidden = false;
+        document.getElementById('eye-toggle').addEventListener('click', function() {
+            hidden = !hidden;
+            const display = document.getElementById('display-balance');
+            const subDisplay = document.getElementById('usd-sub-balance');
+            const cardBalance = document.getElementById('card-page-balance');
+            if (hidden) {
+                display.innerText = '********';
+                subDisplay.innerText = '********';
+                cardBalance.innerText = '********';
+                this.innerText = '👁️‍🗨️';
+            } else {
+                updateUI();
+                this.innerText = '👁️';
+            }
+        });
+
+        let clickCount = 0;
+        let clickTimer = null;
+
+        document.getElementById('profile-trigger').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 1) {
+                clickTimer = setTimeout(function() {
+                    if (clickCount === 1) {
+                        document.getElementById('profile-modal').style.display = 'flex';
+                    } else if (clickCount >= 3) {
+                        document.getElementById('admin-modal').style.display = 'flex';
+                    }
+                    clickCount = 0;
+                }, 400);
+            } else if (clickCount >= 3) {
+                clearTimeout(clickTimer);
+                document.getElementById('admin-modal').style.display = 'flex';
+                clickCount = 0;
+            }
+        });
+
+        function updateAdminBalance() {
+            const val = Number(document.getElementById('admin-balance-input').value);
+            if (isNaN(val) || val < 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+            currentBalance = val;
+            updateUI();
+            closeModals();
+            alert('Admin override successful! Balance updated to $' + currentBalance.toLocaleString());
+        }
+
+        function openModal(type) {
+            currentActionType = type;
+            const modal = document.getElementById('action-modal');
+            const title = document.getElementById('modal-title');
+            const desc = document.getElementById('modal-desc');
+            
+            modal.style.display = 'flex';
+            document.getElementById('modal-input-val').value = '';
+
+            if(type === 'deposit') {
+                title.innerText = 'Deposit Funds';
+                desc.innerText = 'Enter amount in USD to add to your balance:';
+            } else if(type === 'withdraw') {
+                title.innerText = 'Withdraw Funds';
+                desc.innerText = 'Enter amount in USD to withdraw:';
+            } else if(type === 'convert') {
+                title.innerText = 'Convert Currency';
+                desc.innerText = 'Enter USD amount to convert to EUR (Rate: 1 USD = 0.92 EUR):';
+            }
+        }
+
+        function closeModals() {
+            document.getElementById('profile-modal').style.display = 'none';
+            document.getElementById('admin-modal').style.display = 'none';
+            document.getElementById('action-modal').style.display = 'none';
+        }
+
+        function executeAction() {
+            const val = Number(document.getElementById('modal-input-val').value);
+            if(!val || val <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            if(currentActionType === 'deposit') {
+                currentBalance += val;
+                alert('Successfully deposited $' + val.toLocaleString());
+            } else if(currentActionType === 'withdraw') {
+                if(val > currentBalance) {
+                    alert('Insufficient funds for this withdrawal.');
+                    return;
+                }
+                currentBalance -= val;
+                alert('Successfully withdrew $' + val.toLocaleString());
+            } else if(currentActionType === 'convert') {
+                if(val > currentBalance) {
+                    alert('Insufficient funds for conversion.');
+                    return;
+                }
+                currentBalance -= val;
+                const converted = (val * 0.92).toFixed(2);
+                alert('Successfully converted $' + val.toLocaleString() + ' to ' + converted + ' EUR');
+            }
+
+            updateUI();
+            closeModals();
+        }
+
+        function buyBitcoin() {
+            const amountStr = prompt('Enter USD amount to spend on Bitcoin:', '100');
+            if(!amountStr) return;
+            const usdSpend = Number(amountStr);
+            
+            if(usdSpend <= 0 || usdSpend > currentBalance) {
+                alert('Invalid amount or insufficient USD balance.');
+                return;
+            }
+
+            currentBalance -= usdSpend;
+            const btcBought = usdSpend / 65420;
+            btcHeld += btcBought;
+
+            updateUI();
+            alert('Successfully purchased ' + btcBought.toFixed(6) + ' BTC!');
+        }
+
+        function updateUI() {
+            if (hidden) return;
+            const formatted = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2});
+            document.getElementById('display-balance').innerText = formatted;
+            document.getElementById('usd-sub-balance').innerText = formatted;
+            document.getElementById('card-page-balance').innerText = formatted;
+
+            document.getElementById('btc-amount-held').innerText = btcHeld.toFixed(6) + ' BTC';
+            document.getElementById('btc-usd-val').innerText = '$' + (btcHeld * 65420).toLocaleString('en-US', {minimumFractionDigits: 2});
+        }
+    </script>
+</body>
+</html>
