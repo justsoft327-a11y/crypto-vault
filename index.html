@@ -1,74 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto Dashboard</title>
-  <link rel="stylesheet" href="./style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Vault</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #0b0e14;
+            color: #ffffff;
+            padding-bottom: 90px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff007f, #7f00ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            color: #a0aec0;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .balance-section {
+            text-align: center;
+            padding: 10px 20px 25px 20px;
+        }
+        .balance-title {
+            color: #8c96a5;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 0 20px 25px 20px;
+        }
+        .action-btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .action-circle {
+            width: 56px;
+            height: 56px;
+            background-color: #1a202c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #ffffff;
+            transition: background 0.2s;
+        }
+        .action-circle:active {
+            background-color: #2d3748;
+        }
+        .action-label {
+            font-size: 13px;
+            color: #cbd5e0;
+        }
+        .container {
+            padding: 0 16px;
+        }
+        .card {
+            background-color: #161b22;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 14px;
+            border: 1px solid #21262d;
+        }
+        .card-title {
+            color: #8c96a5;
+            font-size: 13px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .currency-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .currency-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .flag-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 13px;
+            color: #34d399;
+        }
+        .currency-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .currency-sub {
+            font-size: 12px;
+            color: #8c96a5;
+        }
+        .promo-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .promo-text h3 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        .promo-text p {
+            font-size: 12px;
+            color: #8c96a5;
+            line-height: 1.4;
+        }
+        .explore-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .savings-content p {
+            font-size: 13px;
+            color: #8c96a5;
+            margin-top: 4px;
+        }
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #12161f;
+            border-top: 1px solid #21262d;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #8c96a5;
+            font-size: 11px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .nav-item.active {
+            color: #ffffff;
+        }
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+        /* Hidden Admin Panel Style */
+        #admin-panel {
+            display: none;
+            margin: 20px 0;
+            border: 1px dashed #10b981;
+            background-color: #0d1117;
+        }
+        .admin-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+        }
+        .update-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="app-container">
+
     <!-- Header -->
-    <header>
-      <h2>Crypto Vault</h2>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span class="status">Live</span>
-        <button onclick="toggleAdmin()" class="gear-btn">⚙️</button>
-      </div>
-    </header>
-
-    <!-- Main Balance -->
-    <section class="card balance-card">
-      <p class="label">Total Portfolio Value</p>
-      <h1 id="user-balance">$10,000.00</h1>
-      <p class="profit" id="user-yield">+ $250.00 (2.5% Today)</p>
-    </section>
-
-    <!-- Cash Flow Chart -->
-    <section class="card chart-card">
-      <h3>7-Day Cash Flow</h3>
-      <div style="margin-top: 15px;">
-        <canvas id="cashFlowChart"></canvas>
-      </div>
-    </section>
-
-    <!-- Recent Transactions -->
-    <section class="card tx-card">
-      <h3>Recent Transactions</h3>
-      <div class="tx-list" id="tx-list">
-        <div class="tx-item">
-          <div>
-            <p class="tx-title">Daily Yield Credit</p>
-            <p class="tx-date">Today, 08:00 AM</p>
-          </div>
-          <p class="tx-amount positive">+$250.00</p>
+    <div class="header">
+        <div class="profile-icon" id="secret-trigger">IO</div>
+        <div class="header-icons">
+            <span>🔍</span>
+            <span id="eye-toggle" style="cursor: pointer;">👁️</span>
+            <span>🔔</span>
         </div>
-        <div class="tx-item">
-          <div>
-            <p class="tx-title">Deposit (USDT)</p>
-            <p class="tx-date">Yesterday, 02:15 PM</p>
-          </div>
-          <p class="tx-amount positive">+$1,200.00</p>
+    </div>
+
+    <!-- Total Balance -->
+    <div class="balance-section">
+        <div class="balance-title">Total Cash Balance</div>
+        <div class="balance-amount" id="display-balance">$10,000.00</div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <div class="action-btn-container" onclick="alert('Deposit gateway initializing...')">
+            <div class="action-circle">↓</div>
+            <div class="action-label">Deposit</div>
         </div>
-      </div>
-    </section>
+        <div class="action-btn-container" onclick="alert('Withdrawal portal opening...')">
+            <div class="action-circle">↑</div>
+            <div class="action-label">Withdraw</div>
+        </div>
+        <div class="action-btn-container" onclick="alert('Currency converter ready.')">
+            <div class="action-circle">🔄</div>
+            <div class="action-label">Convert</div>
+        </div>
+    </div>
 
-    <!-- Admin Panel -->
-    <section class="card admin-card" id="admin-panel">
-      <h3>Admin Control Panel</h3>
-      <p class="admin-desc">Tweak balance in real-time:</p>
-      
-      <label for="balance-input">Set Balance ($):</label>
-      <input type="number" id="balance-input" value="10000">
+    <!-- Main Content Cards -->
+    <div class="container">
+        <!-- Cash Card -->
+        <div class="card">
+            <div class="card-title">Cash</div>
+            <div class="currency-row">
+                <div class="currency-info">
+                    <div class="flag-icon">$</div>
+                    <div>
+                        <div class="currency-name">USD</div>
+                        <div class="currency-sub">US Dollar</div>
+                    </div>
+                </div>
+                <div style="font-weight: 600;" id="usd-sub-balance">$10,000.00</div>
+            </div>
+        </div>
 
-      <label for="yield-input">Set Daily Yield ($):</label>
-      <input type="number" id="yield-input" value="250">
+        <!-- Instant Cash Promo Card -->
+        <div class="card promo-card">
+            <div class="promo-text">
+                <h3>Need instant cash?</h3>
+                <p>Use your BTC or USDT as collateral and get cash instantly</p>
+            </div>
+            <button class="explore-btn" onclick="alert('Collateral loan service coming soon!')">Explore</button>
+        </div>
 
-      <button onclick="updateDashboard()">Update Dashboard</button>
-    </section>
-  </div>
+        <!-- Savings Card -->
+        <div class="card savings-content">
+            <div class="card-title">Savings</div>
+            <div style="font-weight: 600; font-size: 15px;">Your money. Working daily</div>
+            <p>Daily returns in USD. Flexible or fixed savings.</p>
+        </div>
 
-  <script src="./script.js"></script>
+        <!-- Hidden Admin Control Panel (Tapped via Profile Icon 3 times) -->
+        <div class="card" id="admin-panel">
+            <div class="card-title" style="color: #10b981;">Admin Control Panel</div>
+            <label style="font-size: 12px; color: #8c96a5;">Set Total Balance ($):</label>
+            <input type="number" id="input-balance" class="admin-input" value="10000">
+            <button class="update-btn" onclick="updateBalance()">Update App Balance</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('home', event)">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+        </button>
+        <button class="nav-item" onclick="switchTab('crypto', event)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3v-2h-4V7h2V6h2v1h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-3v2h4v2h-2v1z"/></svg>
+            Crypto
+        </button>
+        <button class="nav-item" onclick="switchTab('bills', event)">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-2-6h-2v2h2v-2z"/></svg>
+            Pay Bill
+        </button>
+        <button class="nav-item" onclick="switchTab('cards', event)">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+            Cards
+        </button>
+    </div>
+
+    <script>
+        // Secret Admin Panel Toggle (Tap profile icon 3 times quickly)
+        let tapCount = 0;
+        document.getElementById('secret-trigger').addEventListener('click', function() {
+            tapCount++;
+            if (tapCount === 3) {
+                const panel = document.getElementById('admin-panel');
+                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+                tapCount = 0;
+            }
+            setTimeout(() => { tapCount = 0; }, 1000);
+        });
+
+        // Balance Visibility Toggle (Eye icon)
+        let hidden = false;
+        document.getElementById('eye-toggle').addEventListener('click', function() {
+            hidden = !hidden;
+            const display = document.getElementById('display-balance');
+            const subDisplay = document.getElementById('usd-sub-balance');
+            if (hidden) {
+                display.innerText = '********';
+                subDisplay.innerText = '********';
+                this.innerText = '👁️‍🗨️';
+            } else {
+                updateBalanceUI();
+                this.innerText = '👁️';
+            }
+        });
+
+        let currentVal = 10000;
+        function updateBalance() {
+            const val = document.getElementById('input-balance').value;
+            if(val) {
+                currentVal = Number(val);
+                updateBalanceUI();
+                document.getElementById('admin-panel').style.display = 'none';
+            }
+        }
+
+        function updateBalanceUI() {
+            const formatted = '$' + currentVal.toLocaleString('en-US', {minimumFractionDigits: 2});
+            document.getElementById('display-balance').innerText = formatted;
+            document.getElementById('usd-sub-balance').innerText = formatted;
+        }
+
+        function switchTab(tab, evt) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            evt.currentTarget.classList.add('active');
+            if(tab !== 'home') {
+                alert(tab.toUpperCase() + ' section coming soon!');
+            }
+        }
+    </script>
 </body>
 </html>
