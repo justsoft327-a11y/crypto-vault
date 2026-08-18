@@ -9,111 +9,191 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
+        <!-- Top App Header -->
         <header class="app-header">
-            <h1 class="logo">crypto vault</h1>
-            <div class="header-action">
-                <i class="fa-solid fa-star star-icon"></i>
+            <div class="user-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="header-actions">
+                <i class="fa-solid fa-search"></i>
+                <i class="fa-solid fa-bell"></i>
             </div>
         </header>
 
-        <!-- Main Content Tabs -->
+        <!-- Main Content Area -->
         <main class="content-area">
             <!-- Home Tab -->
             <section id="home-tab" class="tab-content">
-                <h2>Home Dashboard</h2>
-                <div class="card">
-                    <p>Welcome to your dashboard overview.</p>
-                </div>
-            </section>
-
-            <!-- Crypto Tab (Active by default) -->
-            <section id="crypto-tab" class="tab-content active">
-                <div class="portfolio-header">
-                    <div class="user-profile">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <span class="portfolio-title">Crypto Portfolio</span>
-                    <div class="header-icons">
-                        <i class="fa-solid fa-search"></i>
-                        <i class="fa-solid fa-bell"></i>
-                    </div>
-                </div>
-
-                <div class="balance-card">
-                    <span class="balance-label">Total Crypto Balance</span>
-                    <h2 class="balance-amount">$0.00</h2>
+                <div class="balance-section">
+                    <span class="balance-subtitle">Total Cash Balance</span>
+                    <h1 class="main-balance">$21.73</h1>
                 </div>
 
                 <div class="action-buttons">
                     <div class="action-btn">
-                        <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="icon-circle"><i class="fa-solid fa-arrow-down"></i></div>
+                        <span>Deposit</span>
+                    </div>
+                    <div class="action-btn">
+                        <div class="icon-circle"><i class="fa-solid fa-arrow-up"></i></div>
+                        <span>Withdraw</span>
+                    </div>
+                    <div class="action-btn">
+                        <div class="icon-circle"><i class="fa-solid fa-rotate"></i></div>
+                        <span>Convert</span>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <div class="asset-row">
+                        <div class="currency-flag usd-flag">USD</div>
+                        <div>
+                            <span class="bold-text">USD</span>
+                            <span class="sub-text">United States Dollar</span>
+                        </div>
+                        <div class="right-align">
+                            <span class="bold-text">$21.73 USD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="banner-card">
+                    <div class="banner-content">
+                        <h3>Need instant cash?</h3>
+                        <p>Use your BTC or USDT as collateral and get cash instantly</p>
+                    </div>
+                    <button class="explore-btn">Explore</button>
+                </div>
+            </section>
+
+            <!-- Crypto Tab -->
+            <section id="crypto-tab" class="tab-content active">
+                <div class="balance-section">
+                    <span class="balance-subtitle">Total Crypto Balance</span>
+                    <h1 class="main-balance">$0.00</h1>
+                </div>
+
+                <div class="action-buttons">
+                    <div class="action-btn">
+                        <div class="icon-circle"><i class="fa-solid fa-chart-line"></i></div>
                         <span>Trade</span>
                     </div>
                     <div class="action-btn">
-                        <div class="icon-box"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="icon-circle"><i class="fa-solid fa-arrow-down"></i></div>
                         <span>Receive</span>
                     </div>
                     <div class="action-btn">
-                        <div class="icon-box"><i class="fa-solid fa-arrow-up"></i></div>
+                        <div class="icon-circle"><i class="fa-solid fa-arrow-up"></i></div>
                         <span>Send</span>
                     </div>
                 </div>
 
-                <div class="asset-card">
-                    <div class="asset-info">
-                        <div class="btc-icon">₿</div>
+                <div class="card-box">
+                    <div class="asset-row" style="margin-bottom: 16px;">
+                        <div class="crypto-icon btc">₿</div>
                         <div>
-                            <span class="asset-symbol">BTC</span>
-                            <span class="asset-name">Bitcoin</span>
+                            <span class="bold-text">BTC</span>
+                            <span class="sub-text">Bitcoin</span>
+                        </div>
+                        <div class="right-align">
+                            <span class="bold-text">0 BTC</span>
+                            <span class="sub-text">$0 USD</span>
                         </div>
                     </div>
-                    <div class="asset-balance">
-                        <span class="crypto-amount">0.0000 BTC</span>
-                        <span class="fiat-value">$63,002.17</span>
+                    <div class="asset-row">
+                        <div class="crypto-icon usdt">₮</div>
+                        <div>
+                            <span class="bold-text">USDT</span>
+                            <span class="sub-text">Tether</span>
+                        </div>
+                        <div class="right-align">
+                            <span class="bold-text">0 USDT</span>
+                            <span class="sub-text">$0 USD</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="section-header">
-                    <h3>Transaction History</h3>
-                    <span class="see-all">See All</span>
+                <div class="banner-card">
+                    <div class="banner-content">
+                        <h3>Start auto buy</h3>
+                        <p>Grow your portfolio on a recurring schedule.</p>
+                    </div>
+                    <button class="explore-btn">Explore</button>
                 </div>
 
-                <div class="transaction-card">
-                    <div class="tx-icon"><i class="fa-solid fa-building-columns"></i></div>
-                    <div class="tx-details">
-                        <span class="tx-title">Deposit USD</span>
-                        <span class="tx-date">Yesterday • Completed</span>
+                <div class="section-title-row">
+                    <h3>Transactions</h3>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+
+                <div class="card-box">
+                    <div class="asset-row">
+                        <div class="crypto-icon btc">₿</div>
+                        <div>
+                            <span class="bold-text">Sold BTC</span>
+                            <span class="sub-text">Aug 17, 2026</span>
+                        </div>
+                        <div class="right-align">
+                            <span class="negative-amount">-0.00309889 BTC</span>
+                            <span class="sub-text">$200.00 USD</span>
+                        </div>
                     </div>
-                    <span class="tx-amount">+$500.00</span>
                 </div>
             </section>
 
             <!-- Pay Bill Tab -->
             <section id="pay-bill-tab" class="tab-content">
-                <h2>Pay Bill Utilities</h2>
-                <div class="card utility-card">
-                    <i class="fa-solid fa-bolt bolt-icon"></i>
-                    <div>
-                        <h3>Utilities & Airtime</h3>
-                        <p>Manage your monthly bills easily</p>
-                    </div>
+                <h2 class="section-heading">Quick payments</h2>
+                
+                <div class="services-grid">
+                    <div class="service-item"><i class="fa-solid fa-phone"></i><span>Airtime</span></div>
+                    <div class="service-item"><i class="fa-solid fa-wifi"></i><span>Data</span></div>
+                    <div class="service-item"><i class="fa-solid fa-futbol"></i><span>Betting</span></div>
+                    <div class="service-item"><i class="fa-solid fa-bolt"></i><span>Electricity</span></div>
+                    <div class="service-item"><i class="fa-solid fa-tv"></i><span>Cable TV</span></div>
+                    <div class="service-item"><i class="fa-solid fa-ticket"></i><span>Vouchers</span></div>
                 </div>
             </section>
 
             <!-- Cards Tab -->
             <section id="cards-tab" class="tab-content">
-                <h2>Cards Management</h2>
-                <div class="card">
-                    <p>Manage virtual and physical debit cards here.</p>
+                <div class="virtual-card-preview">
+                    <div class="card-logo-tag">V</div>
+                    <div class="virtual-badge">Virtual</div>
                 </div>
+
+                <div class="card-info-text">
+                    <h2>Spend anywhere in any currency</h2>
+                    <p>Create cards and start spending on Claude, Netflix, Shein, Amazon, Zara and many others.</p>
+                </div>
+
+                <div class="card-box">
+                    <div class="verify-row">
+                        <i class="fa-solid fa-passport verify-icon"></i>
+                        <div>
+                            <span class="bold-text">Document Upload</span>
+                            <span class="sub-text">You need to upload your Passport</span>
+                        </div>
+                        <span class="status-badge pending">Pending</span>
+                    </div>
+                    <div class="verify-row" style="margin-top: 16px;">
+                        <i class="fa-solid fa-id-card verify-icon"></i>
+                        <div>
+                            <span class="bold-text">Information Required</span>
+                            <span class="sub-text">Employment status & source of funds</span>
+                        </div>
+                        <span class="status-badge pending">Pending</span>
+                    </div>
+                </div>
+
+                <button class="primary-continue-btn">Continue</button>
             </section>
         </main>
 
-        <!-- Bottom Navigation -->
+        <!-- Bottom Navigation Bar -->
         <nav class="bottom-nav">
             <button class="nav-item" onclick="switchTab(0)">
-                <i class="fa-solid fa-home"></i>
+                <i class="fa-solid fa-house"></i>
                 <span>Home</span>
             </button>
             <button class="nav-item active" onclick="switchTab(1)">
@@ -121,7 +201,7 @@
                 <span>Crypto</span>
             </button>
             <button class="nav-item" onclick="switchTab(2)">
-                <i class="fa-solid fa-lightbulb"></i>
+                <i class="fa-solid fa-tags"></i>
                 <span>Pay Bill</span>
             </button>
             <button class="nav-item" onclick="switchTab(3)">
