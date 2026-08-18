@@ -11,34 +11,35 @@
     <div class="app-container">
         <!-- Top App Header -->
         <header class="app-header">
-            <div class="user-avatar">
+            <div class="user-avatar" onclick="openModal('profile-modal')">
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="header-actions">
+                <i class="fa-solid fa-eye" id="admin-eye" onclick="handleEyeTap()" title="Secret Admin Control"></i>
                 <i class="fa-solid fa-search"></i>
-                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-bell" onclick="showNotification('No new notifications')"></i>
             </div>
         </header>
 
         <!-- Main Content Area -->
         <main class="content-area">
-            <!-- Home Tab -->
-            <section id="home-tab" class="tab-content">
+            <!-- Home Tab (Default Active) -->
+            <section id="home-tab" class="tab-content active">
                 <div class="balance-section">
                     <span class="balance-subtitle">Total Cash Balance</span>
-                    <h1 class="main-balance">$21.73</h1>
+                    <h1 class="main-balance" id="display-balance">$0.00</h1>
                 </div>
 
                 <div class="action-buttons">
-                    <div class="action-btn">
+                    <div class="action-btn" onclick="openModal('deposit-method-modal')">
                         <div class="icon-circle"><i class="fa-solid fa-arrow-down"></i></div>
                         <span>Deposit</span>
                     </div>
-                    <div class="action-btn">
+                    <div class="action-btn" onclick="openModal('withdraw-modal')">
                         <div class="icon-circle"><i class="fa-solid fa-arrow-up"></i></div>
                         <span>Withdraw</span>
                     </div>
-                    <div class="action-btn">
+                    <div class="action-btn" onclick="openModal('convert-modal')">
                         <div class="icon-circle"><i class="fa-solid fa-rotate"></i></div>
                         <span>Convert</span>
                     </div>
@@ -52,7 +53,7 @@
                             <span class="sub-text">United States Dollar</span>
                         </div>
                         <div class="right-align">
-                            <span class="bold-text">$21.73 USD</span>
+                            <span class="bold-text" id="display-usd-asset">$0.00 USD</span>
                         </div>
                     </div>
                 </div>
@@ -62,27 +63,27 @@
                         <h3>Need instant cash?</h3>
                         <p>Use your BTC or USDT as collateral and get cash instantly</p>
                     </div>
-                    <button class="explore-btn">Explore</button>
+                    <button class="explore-btn" onclick="showNotification('Collateral loan feature coming soon')">Explore</button>
                 </div>
             </section>
 
             <!-- Crypto Tab -->
-            <section id="crypto-tab" class="tab-content active">
+            <section id="crypto-tab" class="tab-content">
                 <div class="balance-section">
                     <span class="balance-subtitle">Total Crypto Balance</span>
                     <h1 class="main-balance">$0.00</h1>
                 </div>
 
                 <div class="action-buttons">
-                    <div class="action-btn">
+                    <div class="action-btn" onclick="showNotification('Trading engine initializing...')">
                         <div class="icon-circle"><i class="fa-solid fa-chart-line"></i></div>
                         <span>Trade</span>
                     </div>
-                    <div class="action-btn">
+                    <div class="action-btn" onclick="openModal('receive-modal')">
                         <div class="icon-circle"><i class="fa-solid fa-arrow-down"></i></div>
                         <span>Receive</span>
                     </div>
-                    <div class="action-btn">
+                    <div class="action-btn" onclick="openModal('send-modal')">
                         <div class="icon-circle"><i class="fa-solid fa-arrow-up"></i></div>
                         <span>Send</span>
                     </div>
@@ -118,7 +119,7 @@
                         <h3>Start auto buy</h3>
                         <p>Grow your portfolio on a recurring schedule.</p>
                     </div>
-                    <button class="explore-btn">Explore</button>
+                    <button class="explore-btn" onclick="showNotification('Auto-buy setup opened')">Explore</button>
                 </div>
 
                 <div class="section-title-row">
@@ -146,12 +147,12 @@
                 <h2 class="section-heading">Quick payments</h2>
                 
                 <div class="services-grid">
-                    <div class="service-item"><i class="fa-solid fa-phone"></i><span>Airtime</span></div>
-                    <div class="service-item"><i class="fa-solid fa-wifi"></i><span>Data</span></div>
-                    <div class="service-item"><i class="fa-solid fa-futbol"></i><span>Betting</span></div>
-                    <div class="service-item"><i class="fa-solid fa-bolt"></i><span>Electricity</span></div>
-                    <div class="service-item"><i class="fa-solid fa-tv"></i><span>Cable TV</span></div>
-                    <div class="service-item"><i class="fa-solid fa-ticket"></i><span>Vouchers</span></div>
+                    <div class="service-item" onclick="openBillModal('Airtime')"><i class="fa-solid fa-phone"></i><span>Airtime</span></div>
+                    <div class="service-item" onclick="openBillModal('Data')"><i class="fa-solid fa-wifi"></i><span>Data</span></div>
+                    <div class="service-item" onclick="openBillModal('Betting')"><i class="fa-solid fa-futbol"></i><span>Betting</span></div>
+                    <div class="service-item" onclick="openBillModal('Electricity')"><i class="fa-solid fa-bolt"></i><span>Electricity</span></div>
+                    <div class="service-item" onclick="openBillModal('Cable TV')"><i class="fa-solid fa-tv"></i><span>Cable TV</span></div>
+                    <div class="service-item" onclick="openBillModal('Vouchers')"><i class="fa-solid fa-ticket"></i><span>Vouchers</span></div>
                 </div>
             </section>
 
@@ -186,17 +187,17 @@
                     </div>
                 </div>
 
-                <button class="primary-continue-btn">Continue</button>
+                <button class="primary-continue-btn" onclick="openModal('kyc-modal')">Continue</button>
             </section>
         </main>
 
         <!-- Bottom Navigation Bar -->
         <nav class="bottom-nav">
-            <button class="nav-item" onclick="switchTab(0)">
+            <button class="nav-item active" onclick="switchTab(0)">
                 <i class="fa-solid fa-house"></i>
                 <span>Home</span>
             </button>
-            <button class="nav-item active" onclick="switchTab(1)">
+            <button class="nav-item" onclick="switchTab(1)">
                 <i class="fa-solid fa-coins"></i>
                 <span>Crypto</span>
             </button>
@@ -210,6 +211,229 @@
             </button>
         </nav>
     </div>
+
+    <!-- MODALS -->
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Account Settings</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('profile-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="profile-info-box">
+                    <div class="large-avatar"><i class="fa-solid fa-user"></i></div>
+                    <h4>Verified Account</h4>
+                    <p class="sub-text">secure@cryptovault.com</p>
+                </div>
+                <ul class="settings-list">
+                    <li><i class="fa-solid fa-shield-halved"></i> Security & 2FA <i class="fa-solid fa-chevron-right"></i></li>
+                    <li><i class="fa-solid fa-globe"></i> Currency Display (USD) <i class="fa-solid fa-chevron-right"></i></li>
+                    <li><i class="fa-solid fa-headset"></i> Support & Help <i class="fa-solid fa-chevron-right"></i></li>
+                    <li><i class="fa-solid fa-right-from-bracket" style="color: #EF4444;"></i> <span style="color: #EF4444;">Log Out</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deposit Method Selection Modal -->
+    <div id="deposit-method-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Deposit Method</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('deposit-method-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="deposit-option-card" onclick="selectDepositMethod('plaid')">
+                    <i class="fa-solid fa-building-columns" style="color: #22C55E; font-size: 24px;"></i>
+                    <div>
+                        <span class="bold-text">Link Bank Account via Plaid</span>
+                        <span class="sub-text">Instant ACH transfer from your bank</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="margin-left: auto; color: #9ca3af;"></i>
+                </div>
+                <div class="deposit-option-card" onclick="selectDepositMethod('card')" style="margin-top: 12px;">
+                    <i class="fa-solid fa-credit-card" style="color: #22C55E; font-size: 24px;"></i>
+                    <div>
+                        <span class="bold-text">Debit / Credit Card</span>
+                        <span class="sub-text">Instant deposit with Visa or Mastercard</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="margin-left: auto; color: #9ca3af;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plaid Bank Link Simulator Modal -->
+    <div id="plaid-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Connect Your Bank</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('plaid-modal')"></i>
+            </div>
+            <div class="modal-body text-center">
+                <div class="plaid-logo-box">
+                    <span style="font-weight: bold; font-size: 22px; color: #fff;">Plaid</span>
+                </div>
+                <p class="sub-text" style="margin: 16px 0;">Securely connect your bank account to fund your wallet instantly.</p>
+                <div class="bank-selector-list">
+                    <div class="bank-item" onclick="triggerPlaidSuccess('Chase Bank')">Chase</div>
+                    <div class="bank-item" onclick="triggerPlaidSuccess('Bank of America')">Bank of America</div>
+                    <div class="bank-item" onclick="triggerPlaidSuccess('Wells Fargo')">Wells Fargo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deposit Amount Modal (Card / General) -->
+    <div id="deposit-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Deposit USD</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('deposit-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <p class="sub-text" style="margin-bottom: 16px;">Enter amount to add to your USD cash balance.</p>
+                <div class="input-group">
+                    <span>$</span>
+                    <input type="number" id="deposit-amount-input" placeholder="0.00" value="50.00">
+                </div>
+                <button class="primary-continue-btn" onclick="executeDeposit()">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdraw-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Withdraw USD</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('withdraw-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <p class="sub-text" style="margin-bottom: 16px;" id="withdraw-balance-label">Available Balance: $0.00</p>
+                <div class="input-group">
+                    <span>$</span>
+                    <input type="number" placeholder="0.00" value="0.00">
+                </div>
+                <button class="primary-continue-btn" onclick="submitAction('Withdrawal request submitted')">Confirm Withdrawal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Convert Modal -->
+    <div id="convert-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Convert Currencies</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('convert-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <p class="sub-text" style="margin-bottom: 16px;">Convert USD to Crypto instantly.</p>
+                <div class="input-group" style="margin-bottom: 12px;">
+                    <input type="number" placeholder="Amount USD" value="10.00">
+                </div>
+                <button class="primary-continue-btn" onclick="submitAction('Conversion complete!')">Convert Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receive Crypto Modal -->
+    <div id="receive-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Receive Crypto</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('receive-modal')"></i>
+            </div>
+            <div class="modal-body text-center">
+                <div class="qr-placeholder">
+                    <i class="fa-solid fa-qrcode" style="font-size: 80px; color: #22C55E;"></i>
+                </div>
+                <p class="sub-text" style="margin: 12px 0;">Scan QR code or copy address below</p>
+                <div class="address-box">
+                    <span>bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span>
+                    <i class="fa-solid fa-copy" onclick="showNotification('Address copied to clipboard!')" style="cursor: pointer; color: #22C55E;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Crypto Modal -->
+    <div id="send-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Send Crypto</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('send-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="input-group" style="margin-bottom: 12px;">
+                    <input type="text" placeholder="Recipient Wallet Address" style="background:transparent; border:none; color:#fff; width:100%; outline:none;">
+                </div>
+                <div class="input-group" style="margin-bottom: 12px;">
+                    <input type="number" placeholder="Amount in BTC/USDT" style="background:transparent; border:none; color:#fff; width:100%; outline:none;">
+                </div>
+                <button class="primary-continue-btn" onclick="submitAction('Transfer broadcasted successfully')">Send Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KYC Verification Modal -->
+    <div id="kyc-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Identity Verification</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('kyc-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <p class="sub-text" style="margin-bottom: 16px;">Please upload your international passport or government ID to unlock virtual card creation.</p>
+                <div class="upload-box" onclick="showNotification('File browser opened')">
+                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 32px; color: #22C55E; margin-bottom: 8px;"></i>
+                    <span>Tap to upload document file</span>
+                </div>
+                <button class="primary-continue-btn" style="margin-top: 16px;" onclick="submitAction('Documents submitted for review!')">Submit for Verification</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bill Payment Modal -->
+    <div id="bill-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="bill-modal-title">Pay Bill</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('bill-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="input-group" style="margin-bottom: 12px;">
+                    <input type="text" placeholder="Enter Account / Meter / Phone Number" style="background:transparent; border:none; color:#fff; width:100%; outline:none;">
+                </div>
+                <div class="input-group" style="margin-bottom: 12px;">
+                    <input type="number" placeholder="Amount ($ USD)" style="background:transparent; border:none; color:#fff; width:100%; outline:none;">
+                </div>
+                <button class="primary-continue-btn" onclick="submitAction('Payment successful!')">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Balance Tweak Modal (Secret Panel) -->
+    <div id="admin-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Admin Balance Tweak</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal('admin-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <p class="sub-text" style="margin-bottom: 16px;">Directly override the app balance (currently $0.00 until tweaked).</p>
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <span>$</span>
+                    <input type="number" id="admin-balance-input" placeholder="Enter custom balance" value="21.73">
+                </div>
+                <button class="primary-continue-btn" onclick="applyAdminBalance()">Apply Balance</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast-notification">Notification message</div>
 
     <script src="script.js"></script>
 </body>
