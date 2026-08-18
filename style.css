@@ -2,30 +2,32 @@
 body { background-color: #0b0e14; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 .app-container { width: 100%; max-width: 420px; height: 100vh; background-color: #0b0e14; display: flex; flex-direction: column; padding: 20px; position: relative; overflow: hidden; }
 
-.tab-content { display: none; flex-direction: column; height: calc(100vh - 80px); overflow-y: auto; }
+.tab-content { display: none; flex-direction: column; height: calc(100vh - 80px); overflow-y: auto; padding-bottom: 20px; }
 .tab-content.active { display: flex; }
 
-.sub-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #0b0e14; z-index: 100; flex-direction: column; padding: 20px; overflow-y: auto; }
+.sub-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #0b0e14; z-index: 200; flex-direction: column; padding: 20px; overflow-y: auto; }
 .sub-screen.active { display: flex; }
 
-.bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; background-color: #12161f; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #21262d; z-index: 50; }
+.bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; background-color: #12161f; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #21262d; z-index: 100; }
 .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; cursor: pointer; font-size: 12px; }
-.nav-item.active { color: #3b82f6; }
-.nav-item i { font-size: 20px; margin-bottom: 4px; }
+.nav-item.active { color: #22c55e; }
+.nav-item i { font-size: 20px; margin-bottom: 4px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.nav-item i span { font-size: 11px; }
 
-/* Header & Cards */
+/* Header & Profile Avatar */
 .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
 .logo { font-size: 22px; font-weight: bold; font-style: italic; color: #fff; }
 .header-icons i { margin-left: 15px; font-size: 20px; color: #fff; cursor: pointer; }
-.profile-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #a855f7, #ec4899); display: flex; justify-content: center; align-items: center; }
+.profile-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #a855f7, #ec4899); display: flex; justify-content: center; align-items: center; cursor: pointer; color: #fff; font-size: 16px; }
 
+/* Balance Card */
 .balance-card { background-color: #161b22; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 20px; }
 .balance-label { color: #888; font-size: 14px; margin-bottom: 8px; }
 .balance-amount { font-size: 32px; font-weight: bold; color: #fff; }
 
 .action-row { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
 .action-btn { flex: 1; background-color: #161b22; border: none; padding: 15px 10px; border-radius: 16px; color: #fff; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-.icon-circle { background-color: #21262d; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 8px; }
+.icon-circle { background-color: #21262d; width: 42px; height: 42px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 8px; color: #22c55e; font-size: 18px; }
 .action-btn span { font-size: 14px; font-weight: 500; }
 
 .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
@@ -37,6 +39,18 @@ body { background-color: #0b0e14; color: #fff; display: flex; justify-content: c
 .flag { font-size: 26px; margin-right: 15px; }
 .card-title { font-size: 16px; font-weight: bold; }
 .card-sub { font-size: 13px; color: #888; margin-top: 2px; }
+
+/* Pay Bill Grid */
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
+.service-card { background-color: #161b22; padding: 20px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; }
+.service-card i { font-size: 28px; }
+
+/* Profile Menu List */
+.profile-menu-list { display: flex; flex-direction: column; gap: 12px; }
+.menu-item { background-color: #161b22; padding: 18px; border-radius: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; font-weight: 500; color: #fff; }
+.menu-item i:first-child { font-size: 18px; color: #22c55e; width: 24px; text-align: center; }
+.logout-item { color: #ef4444; }
+.logout-item i { color: #ef4444 !important; }
 
 .input-box { background-color: #161b22; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
 .input-label { color: #888; font-size: 13px; margin-bottom: 10px; display: block; }
