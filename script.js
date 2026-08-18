@@ -1,6 +1,6 @@
 // App State Variables
 let currentBalance = 20000.00;
-let userName = "YOUR NAME";
+let userName = "impute name";
 let isMasked = false;
 let pendingWithdrawAmount = 0;
 
