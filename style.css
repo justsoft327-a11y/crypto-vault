@@ -1,85 +1,200 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-body { background-color: #0b0e14; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-.app-container { width: 100%; max-width: 420px; height: 100vh; background-color: #0b0e14; display: flex; flex-direction: column; padding: 20px; position: relative; overflow: hidden; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #0b0e11; color: #ffffff; font-family: system-ui, -apple-system, sans-serif; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        .sub-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0b0e11; z-index: 50; display: none; overflow-y: auto; padding: 1rem; }
+        .sub-screen.active { display: block; }
+    </style>
+</head>
+<body class="bg-[#0b0e11] text-white pb-28">
 
-.tab-content { display: none; flex-direction: column; height: calc(100vh - 80px); overflow-y: auto; padding-bottom: 20px; }
-.tab-content.active { display: flex; }
+    <header class="flex justify-between items-center p-4 border-b border-gray-800">
+        <h1 class="text-xl font-bold tracking-wider italic text-white">crypto vault</h1>
+        <div onclick="openScreen('screen-admin-tweak')" class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-black font-bold cursor-pointer">
+            <i class="fas fa-star text-sm"></i>
+        </div>
+    </header>
 
-.sub-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #0b0e14; z-index: 200; flex-direction: column; padding: 20px; overflow-y: auto; }
-.sub-screen.active { display: flex; }
+    <main class="p-4">
+        <div id="crypto-screen" class="screen active">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="text-xl font-bold">Crypto Portfolio</h2>
+                </div>
+                <div class="flex space-x-4 text-gray-400">
+                    <i class="fas fa-search cursor-pointer"></i>
+                    <i class="fas fa-bell cursor-pointer"></i>
+                </div>
+            </div>
 
-.bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; background-color: #12161f; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #21262d; z-index: 100; }
-.nav-item { display: flex; flex-direction: column; align-items: center; color: #888; cursor: pointer; font-size: 12px; }
-.nav-item.active { color: #22c55e; }
-.nav-item i { font-size: 20px; margin-bottom: 4px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.nav-item i span { font-size: 11px; }
+            <div class="bg-[#181a20] p-5 rounded-2xl border border-gray-800 text-center mb-6 shadow-lg">
+                <span class="text-gray-400 text-sm">Total Crypto Balance</span>
+                <h3 id="total-crypto-balance" class="text-3xl font-extrabold text-white mt-1">$0.00</h3>
+            </div>
 
-/* Header & Profile Avatar */
-.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-.logo { font-size: 22px; font-weight: bold; font-style: italic; color: #fff; }
-.header-icons i { margin-left: 15px; font-size: 20px; color: #fff; cursor: pointer; }
-.profile-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #a855f7, #ec4899); display: flex; justify-content: center; align-items: center; cursor: pointer; color: #fff; font-size: 16px; }
+            <div class="grid grid-cols-3 gap-3 mb-6">
+                <button onclick="openScreen('screen-crypto-trade')" class="bg-[#181a20] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center hover:bg-gray-800 transition">
+                    <div class="w-10 h-10 rounded-full bg-green-950 text-green-400 flex items-center justify-center mb-2">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span class="text-sm font-semibold">Trade</span>
+                </button>
+                <button onclick="openScreen('screen-crypto-receive')" class="bg-[#181a20] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center hover:bg-gray-800 transition">
+                    <div class="w-10 h-10 rounded-full bg-green-950 text-green-400 flex items-center justify-center mb-2">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <span class="text-sm font-semibold">Receive</span>
+                </button>
+                <button onclick="openScreen('screen-crypto-send')" class="bg-[#181a20] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center hover:bg-gray-800 transition">
+                    <div class="w-10 h-10 rounded-full bg-green-950 text-green-400 flex items-center justify-center mb-2">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <span class="text-sm font-semibold">Send</span>
+                </button>
+            </div>
 
-/* Balance Card */
-.balance-card { background-color: #161b22; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 20px; }
-.balance-label { color: #888; font-size: 14px; margin-bottom: 8px; }
-.balance-amount { font-size: 32px; font-weight: bold; color: #fff; }
+            <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center font-bold">
+                        <i class="fab fa-bitcoin text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">BTC</h4>
+                        <span class="text-gray-400 text-xs">Bitcoin</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span id="btc-amount-display" class="font-bold text-white block">0.00 BTC</span>
+                    <span class="text-gray-400 text-xs">$63,002.17</span>
+                </div>
+            </div>
 
-.action-row { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
-.action-btn { flex: 1; background-color: #161b22; border: none; padding: 15px 10px; border-radius: 16px; color: #fff; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-.icon-circle { background-color: #21262d; width: 42px; height: 42px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 8px; color: #22c55e; font-size: 18px; }
-.action-btn span { font-size: 14px; font-weight: 500; }
+            <div class="mt-6">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-white font-semibold text-base">Transaction History</h3>
+                    <span class="text-xs text-green-400 cursor-pointer">See All</span>
+                </div>
+                <div id="transaction-history-list"></div>
+            </div>
+        </div>
 
-.nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-.nav-header i { font-size: 20px; cursor: pointer; color: #fff; }
-.screen-title { font-size: 20px; font-weight: bold; }
+        <div id="home-screen" class="screen"><div class="p-4 text-center text-gray-400">Home Dashboard</div></div>
+        <div id="paybill-screen" class="screen"><div class="p-4 text-center text-gray-400">Pay Bill Utilities</div></div>
+        <div id="cards-screen" class="screen"><div class="p-4 text-center text-gray-400">Cards Management</div></div>
+    </main>
 
-.section-header { color: #888; font-size: 14px; margin-bottom: 12px; margin-top: 10px; }
-.card-item { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; color: #fff; }
-.flag { font-size: 26px; margin-right: 15px; }
-.card-title { font-size: 16px; font-weight: bold; }
-.card-sub { font-size: 13px; color: #888; margin-top: 2px; }
+    <div id="screen-crypto-trade" class="sub-screen">
+        <div class="flex items-center justify-between mb-6">
+            <i class="fas fa-arrow-left text-xl cursor-pointer" onclick="closeScreen('screen-crypto-trade')"></i>
+            <h2 class="text-lg font-bold">Buy BTC</h2>
+            <i class="fab fa-bitcoin text-orange-500 text-xl"></i>
+        </div>
+        <div class="text-xs text-gray-400 mb-4">1 BTC = $63,002.17 USD</div>
+        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-4">
+            <span class="text-xs text-gray-400 block mb-1">Enter amount</span>
+            <div class="flex justify-between items-center">
+                <input type="number" id="buy-amount" class="bg-transparent text-2xl font-bold text-white w-full outline-none" value="200">
+                <span class="text-green-500 font-bold">USD</span>
+            </div>
+            <span id="estimated-btc" class="text-xs text-gray-400 block mt-2">~ 0.0031 BTC</span>
+        </div>
+        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-6 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-6 h-4 bg-blue-600 rounded overflow-hidden flex items-center justify-center text-[8px] text-white font-bold">US</div>
+                <div>
+                    <span class="text-sm font-semibold block">USD</span>
+                    <span class="text-xs text-gray-400">Available: $20,000.00</span>
+                </div>
+            </div>
+            <span class="text-green-500 text-sm font-semibold cursor-pointer">Change</span>
+        </div>
+        <button id="buy-btc-continue" class="w-full bg-green-500 hover:bg-green-600 text-black font-bold p-4 rounded-2xl transition">Continue</button>
+    </div>
 
-/* Pay Bill Grid */
-.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
-.service-card { background-color: #161b22; padding: 20px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; }
-.service-card i { font-size: 28px; }
+    <div id="screen-crypto-receive" class="sub-screen">
+        <div class="flex items-center justify-between mb-6">
+            <i class="fas fa-arrow-left text-xl cursor-pointer" onclick="closeScreen('screen-crypto-receive')"></i>
+            <h2 class="text-lg font-bold">Receive crypto</h2>
+            <div></div>
+        </div>
+        <div class="bg-[#181a20] p-3 rounded-xl border border-gray-800 mb-4 flex items-center space-x-2">
+            <i class="fas fa-search text-gray-400"></i>
+            <input type="text" placeholder="Search" class="bg-transparent text-sm text-white w-full outline-none">
+        </div>
+        <span class="text-xs text-gray-400 block mb-3">All assets</span>
+        <div class="space-y-3">
+            <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-yellow-500/20 text-yellow-500 flex items-center justify-center font-bold">BNB</div>
+                    <div><h4 class="font-bold text-white">BNB</h4><span class="text-gray-400 text-xs">Binance</span></div>
+                </div>
+                <div class="text-right"><span class="font-bold text-white block">0 BNB</span><span class="text-gray-400 text-xs">$0 USD</span></div>
+            </div>
+            <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center font-bold"><i class="fab fa-bitcoin"></i></div>
+                    <div><h4 class="font-bold text-white">BTC</h4><span class="text-gray-400 text-xs">Bitcoin</span></div>
+                </div>
+                <div class="text-right"><span class="font-bold text-white block">0 BTC</span><span class="text-gray-400 text-xs">$0 USD</span></div>
+            </div>
+        </div>
+    </div>
 
-/* Cards Tab Matching Styles */
-.cards-stack-container { display: flex; justify-content: center; margin: 15px 0 25px 0; }
-.virtual-card-stack { width: 100%; height: 185px; position: relative; }
-.virtual-card-top-layer { position: absolute; top: 0; left: 5%; width: 90%; height: 30px; background: #fde047; border-radius: 16px 16px 0 0; opacity: 0.8; z-index: 1; }
-.virtual-card-main { position: absolute; top: 15px; left: 0; width: 100%; height: 170px; background: linear-gradient(135deg, #15803d, #22c55e); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; z-index: 2; box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3); }
-.card-top-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-.card-badge-virtual { background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+    <div id="screen-crypto-send" class="sub-screen">
+        <div class="flex items-center justify-between mb-6">
+            <i class="fas fa-arrow-left text-xl cursor-pointer" onclick="closeScreen('screen-crypto-send')"></i>
+            <h2 class="text-lg font-bold">Send Bitcoin</h2>
+            <div></div>
+        </div>
+        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-4">
+            <span class="text-xs text-gray-400 block mb-1">External Wallet Address</span>
+            <input type="text" id="send-wallet-input" placeholder="Paste BTC recipient address" class="bg-transparent text-sm text-white w-full outline-none">
+        </div>
+        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-6">
+            <span class="text-xs text-gray-400 block mb-1">Amount (BTC)</span>
+            <div class="flex justify-between items-center">
+                <input type="number" id="send-btc-amount" placeholder="0.00" class="bg-transparent text-xl font-bold text-white w-full outline-none">
+                <span class="text-green-500 font-bold">BTC</span>
+            </div>
+            <span class="text-xs text-gray-400 block mt-2">Network fee: 0.00001 BTC</span>
+        </div>
+        <button class="w-full bg-green-500 hover:bg-green-600 text-black font-bold p-4 rounded-2xl transition">Send Bitcoin</button>
+    </div>
 
-.cards-heading { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
-.cards-subtext { color: #888; font-size: 13px; margin-bottom: 20px; line-height: 1.4; }
-.verification-item { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.pending-badge { background-color: rgba(234, 179, 8, 0.15); color: #eab308; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+    <div id="screen-admin-tweak" class="sub-screen">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-bold text-green-500">Admin Balance Tweak</h2>
+            <i class="fas fa-times text-xl cursor-pointer" onclick="closeScreen('screen-admin-tweak')"></i>
+        </div>
+        <div class="bg-[#181a20] p-4 rounded-2xl border border-green-500/50 mb-6">
+            <span class="text-xs text-gray-400 block mb-1">Set Custom Balance Amount ($)</span>
+            <div class="flex justify-between items-center">
+                <input type="number" id="admin-custom-balance" placeholder="20000" class="bg-transparent text-xl font-bold text-white w-full outline-none">
+                <span class="text-green-500 font-bold">USD</span>
+            </div>
+            <span class="text-xs text-gray-400 block mt-2">Instantly overrides app display values</span>
+        </div>
+        <button onclick="applyAdminBalance()" class="w-full bg-green-500 hover:bg-green-600 text-black font-bold p-4 rounded-2xl transition">Apply Balance Tweak</button>
+    </div>
 
-/* Profile Menu List */
-.profile-menu-list { display: flex; flex-direction: column; gap: 12px; }
-.menu-item { background-color: #161b22; padding: 18px; border-radius: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; font-weight: 500; color: #fff; }
-.menu-item i:first-child { font-size: 18px; color: #22c55e; width: 24px; text-align: center; }
-.logout-item { color: #ef4444; }
-.logout-item i { color: #ef4444 !important; }
+    <nav class="fixed bottom-0 left-0 w-full bg-[#121418] border-t border-gray-800 flex justify-around py-3 z-40">
+        <button onclick="switchTab('home-screen')" class="flex flex-col items-center text-gray-400 hover:text-white"><i class="fas fa-home text-lg mb-1"></i><span class="text-xs">Home</span></button>
+        <button onclick="switchTab('crypto-screen')" class="flex flex-col items-center text-green-400"><i class="fas fa-coins text-lg mb-1"></i><span class="text-xs">Crypto</span></button>
+        <button onclick="switchTab('paybill-screen')" class="flex flex-col items-center text-gray-400 hover:text-white"><i class="fas fa-lightbulb text-lg mb-1"></i><span class="text-xs">Pay Bill</span></button>
+        <button onclick="switchTab('cards-screen')" class="flex flex-col items-center text-gray-400 hover:text-white"><i class="fas fa-credit-card text-lg mb-1"></i><span class="text-xs">Cards</span></button>
+    </nav>
 
-.input-box { background-color: #161b22; padding: 20px; border-radius: 16px; margin-bottom: 20px; }
-.input-label { color: #888; font-size: 13px; margin-bottom: 10px; display: block; }
-.input-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
-.text-input { background: transparent; border: none; color: #fff; font-size: 24px; width: 100%; outline: none; }
-.currency-badge { color: #22c55e; font-size: 18px; font-weight: bold; white-space: nowrap; }
-.available-text { color: #888; font-size: 12px; margin-top: 10px; display: block; }
-
-.form-input { background-color: #161b22; border: 1px solid #30363d; color: #fff; padding: 15px; border-radius: 12px; font-size: 15px; width: 100%; margin-bottom: 15px; outline: none; }
-.field-label { color: #888; font-size: 13px; margin-bottom: 6px; display: block; }
-
-.primary-btn { background-color: #22c55e; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; text-align: center; }
-.add-recipient-card { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 20px; cursor: pointer; color: #22c55e; font-weight: bold; }
-.avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #30363d; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: bold; margin-right: 15px; }
-
-/* Loading Spinners */
-.spinner { width: 50px; height: 50px; border: 4px solid rgba(34, 197, 94, 0.2); border-top-color: #22c55e; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
-.spinner-small { width: 20px; height: 20px; border: 2px solid rgba(34, 197, 94, 0.2); border-top-color: #22c55e; border-radius: 50%; animation: spin 0.8s linear infinite; }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    <script src="script.js"></script>
+</body>
+</html>
