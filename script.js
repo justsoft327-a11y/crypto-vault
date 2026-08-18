@@ -21,23 +21,38 @@ function switchTab(screenId) {
     }
 }
 
-// Admin Balance Tweak Logic
-let userBalance = 0.00;
+// Portfolio State & Pricing
+let userCashBalance = 0.00;
 let btcHolding = 0.00;
+const btcPrice = 63002.17;
 
-function applyAdminBalance() {
-    const inputVal = document.getElementById('admin-custom-balance').value;
-    const customAmount = parseFloat(inputVal) || 0;
-    
-    userBalance = customAmount;
+function updatePortfolioDisplay() {
+    const totalVal = userCashBalance + (btcHolding * btcPrice);
     
     const totalBalElem = document.getElementById('total-crypto-balance');
     if (totalBalElem) {
-        totalBalElem.textContent = `$${userBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        totalBalElem.textContent = `$${totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
+
+    const btcDisplay = document.getElementById('btc-amount-display');
+    if (btcDisplay) {
+        btcDisplay.textContent = `${btcHolding.toFixed(4)} BTC`;
+    }
+
+    const usdDisplay = document.getElementById('available-usd-display');
+    if (usdDisplay) {
+        usdDisplay.textContent = `Available: $${userCashBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+}
+
+// Admin Balance Tweak Logic
+function applyAdminBalance() {
+    const inputVal = document.getElementById('admin-custom-balance').value;
+    userCashBalance = parseFloat(inputVal) || 0;
     
+    updatePortfolioDisplay();
     closeScreen('screen-admin-tweak');
-    alert(`Balance successfully updated to $${customAmount.toLocaleString()}`);
+    alert(`Cash balance successfully updated to $${userCashBalance.toLocaleString()}`);
 }
 
 // Dynamic Transaction History
@@ -73,10 +88,10 @@ function renderTransactions() {
 // Interactive Event Listeners & Flow Control
 document.addEventListener('DOMContentLoaded', () => {
     renderTransactions();
+    updatePortfolioDisplay();
 
     const buyAmountInput = document.getElementById('buy-amount');
     const estimatedBtcText = document.getElementById('estimated-btc');
-    const btcPrice = 63002.17;
 
     if (buyAmountInput && estimatedBtcText) {
         buyAmountInput.addEventListener('input', (e) => {
@@ -95,14 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const btcBought = (amount / btcPrice).toFixed(4);
-            btcHolding += parseFloat(btcBought);
+            const btcBought = amount / btcPrice;
+            btcHolding += btcBought;
 
-            const btcDisplay = document.getElementById('btc-amount-display');
-            if (btcDisplay) {
-                btcDisplay.textContent = `${btcHolding.toFixed(4)} BTC`;
-            }
-
+            // Add to transaction history
             transactions.unshift({
                 type: 'Buy BTC',
                 amount: `-$${amount.toFixed(2)}`,
@@ -112,9 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 color: 'text-orange-500'
             });
 
+            // Update UI
             renderTransactions();
+            updatePortfolioDisplay();
             closeScreen('screen-crypto-trade');
-            alert(`Successfully purchased ${btcBought} BTC!`);
+
+            // Populate and Show Receipt Screen
+            document.getElementById('receipt-usd-amount').textContent = `$${amount.toFixed(2)}`;
+            document.getElementById('receipt-btc-amount').textContent = `${btcBought.toFixed(4)} BTC`;
+            openScreen('screen-receipt');
         });
     }
 });
