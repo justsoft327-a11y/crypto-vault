@@ -9,7 +9,7 @@ body {
 }
 
 .screen.active {
-    display: block;
+    display: block !important;
 }
 
 .sub-screen {
@@ -26,5 +26,5 @@ body {
 }
 
 .sub-screen.active {
-    display: block;
+    display: block !important;
 }
