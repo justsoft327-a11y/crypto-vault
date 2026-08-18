@@ -4,235 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Vault</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-[#0b0e11] text-white pb-28">
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="logo">crypto vault</h1>
+            <div class="header-action">
+                <i class="fa-solid fa-star star-icon"></i>
+            </div>
+        </header>
 
-    <!-- Top Header -->
-    <header class="flex justify-between items-center p-4 border-b border-gray-800">
-        <h1 class="text-xl font-bold tracking-wider italic text-white">crypto vault</h1>
-        <div onclick="openScreen('screen-admin-tweak')" class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-black font-bold cursor-pointer shadow-lg">
-            <i class="fas fa-star text-sm"></i>
-        </div>
-    </header>
-
-    <main class="p-4">
-        <!-- Crypto Portfolio Screen -->
-        <div id="crypto-screen" class="screen active">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold shadow-md">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h2 class="text-xl font-bold">Crypto Portfolio</h2>
+        <!-- Main Content Tabs -->
+        <main class="content-area">
+            <!-- Home Tab -->
+            <section id="home-tab" class="tab-content">
+                <h2>Home Dashboard</h2>
+                <div class="card">
+                    <p>Welcome to your dashboard overview.</p>
                 </div>
-                <div class="flex space-x-4 text-gray-400">
-                    <i class="fas fa-search cursor-pointer hover:text-white transition"></i>
-                    <i class="fas fa-bell cursor-pointer hover:text-white transition"></i>
+            </section>
+
+            <!-- Crypto Tab (Active by default) -->
+            <section id="crypto-tab" class="tab-content active">
+                <div class="portfolio-header">
+                    <div class="user-profile">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <span class="portfolio-title">Crypto Portfolio</span>
+                    <div class="header-icons">
+                        <i class="fa-solid fa-search"></i>
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Total Balance Card -->
-            <div class="bg-[#181a20] p-5 rounded-2xl border border-gray-800 text-center mb-6 shadow-xl">
-                <span class="text-gray-400 text-sm">Total Crypto Balance</span>
-                <h3 id="total-crypto-balance" class="text-3xl font-extrabold text-white mt-1">$0.00</h3>
-            </div>
+                <div class="balance-card">
+                    <span class="balance-label">Total Crypto Balance</span>
+                    <h2 class="balance-amount">$0.00</h2>
+                </div>
 
-            <!-- Action Buttons -->
-            <div class="grid grid-cols-3 gap-3 mb-6">
-                <button onclick="openScreen('screen-crypto-trade')" class="bg-[#181a20] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center hover:bg-gray-800 transition">
-                    <div class="w-10 h-10 rounded-full bg-green-950 text-green-400 flex items-center justify-center mb-2">
-                        <i class="fas fa-chart-line"></i>
+                <div class="action-buttons">
+                    <div class="action-btn">
+                        <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                        <span>Trade</span>
                     </div>
-                    <span class="text-sm font-semibold">Trade</span>
-                </button>
-                <button onclick="openScreen('screen-crypto-receive')" class="bg-[#181a20] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center hover:bg-gray-800 transition">
-                    <div class="w-10 h-10 rounded-full bg-green-950 text-green-400 flex items-center justify-center mb-2">
-                        <i class="fas fa-arrow-down"></i>
+                    <div class="action-btn">
+                        <div class="icon-box"><i class="fa-solid fa-arrow-down"></i></div>
+                        <span>Receive</span>
                     </div>
-                    <span class="text-sm font-semibold">Receive</span>
-                </button>
-                <button onclick="openScreen('screen-crypto-send')" class="bg-[#181a20] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center hover:bg-gray-800 transition">
-                    <div class="w-10 h-10 rounded-full bg-green-950 text-green-400 flex items-center justify-center mb-2">
-                        <i class="fas fa-arrow-up"></i>
+                    <div class="action-btn">
+                        <div class="icon-box"><i class="fa-solid fa-arrow-up"></i></div>
+                        <span>Send</span>
                     </div>
-                    <span class="text-sm font-semibold">Send</span>
-                </button>
-            </div>
+                </div>
 
-            <!-- Asset Card -->
-            <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 flex items-center justify-between mb-6 shadow-md">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center font-bold">
-                        <i class="fab fa-bitcoin text-xl"></i>
+                <div class="asset-card">
+                    <div class="asset-info">
+                        <div class="btc-icon">₿</div>
+                        <div>
+                            <span class="asset-symbol">BTC</span>
+                            <span class="asset-name">Bitcoin</span>
+                        </div>
                     </div>
+                    <div class="asset-balance">
+                        <span class="crypto-amount">0.0000 BTC</span>
+                        <span class="fiat-value">$63,002.17</span>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3>Transaction History</h3>
+                    <span class="see-all">See All</span>
+                </div>
+
+                <div class="transaction-card">
+                    <div class="tx-icon"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="tx-details">
+                        <span class="tx-title">Deposit USD</span>
+                        <span class="tx-date">Yesterday • Completed</span>
+                    </div>
+                    <span class="tx-amount">+$500.00</span>
+                </div>
+            </section>
+
+            <!-- Pay Bill Tab -->
+            <section id="pay-bill-tab" class="tab-content">
+                <h2>Pay Bill Utilities</h2>
+                <div class="card utility-card">
+                    <i class="fa-solid fa-bolt bolt-icon"></i>
                     <div>
-                        <h4 class="font-bold text-white">BTC</h4>
-                        <span class="text-gray-400 text-xs">Bitcoin</span>
+                        <h3>Utilities & Airtime</h3>
+                        <p>Manage your monthly bills easily</p>
                     </div>
                 </div>
-                <div class="text-right">
-                    <span id="btc-amount-display" class="font-bold text-white block">0.00 BTC</span>
-                    <span class="text-gray-400 text-xs">$63,002.17</span>
-                </div>
-            </div>
+            </section>
 
-            <!-- Transaction History -->
-            <div class="mt-6">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-white font-semibold text-base">Transaction History</h3>
-                    <span class="text-xs text-green-400 cursor-pointer">See All</span>
+            <!-- Cards Tab -->
+            <section id="cards-tab" class="tab-content">
+                <h2>Cards Management</h2>
+                <div class="card">
+                    <p>Manage virtual and physical debit cards here.</p>
                 </div>
-                <div id="transaction-history-list"></div>
-            </div>
-        </div>
+            </section>
+        </main>
 
-        <div id="home-screen" class="screen"><div class="p-8 text-center text-gray-400">Home Dashboard</div></div>
-        <div id="paybill-screen" class="screen"><div class="p-8 text-center text-gray-400">Pay Bill Utilities</div></div>
-        <div id="cards-screen" class="screen"><div class="p-8 text-center text-gray-400">Cards Management</div></div>
-    </main>
-
-    <!-- Buy BTC Sub-Screen -->
-    <div id="screen-crypto-trade" class="sub-screen">
-        <div class="flex items-center justify-between mb-6">
-            <i class="fas fa-arrow-left text-xl cursor-pointer p-2" onclick="closeScreen('screen-crypto-trade')"></i>
-            <h2 class="text-lg font-bold">Buy BTC</h2>
-            <i class="fab fa-bitcoin text-orange-500 text-xl"></i>
-        </div>
-        <div class="text-xs text-gray-400 mb-4">1 BTC = $63,002.17 USD</div>
-        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-4">
-            <span class="text-xs text-gray-400 block mb-1">Enter amount</span>
-            <div class="flex justify-between items-center">
-                <input type="number" id="buy-amount" class="bg-transparent text-2xl font-bold text-white w-full outline-none" value="200">
-                <span class="text-green-500 font-bold">USD</span>
-            </div>
-            <span id="estimated-btc" class="text-xs text-gray-400 block mt-2">~ 0.0031 BTC</span>
-        </div>
-        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-6 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-6 h-4 bg-blue-600 rounded overflow-hidden flex items-center justify-center text-[8px] text-white font-bold">US</div>
-                <div>
-                    <span class="text-sm font-semibold block">USD Balance</span>
-                    <span id="available-usd-display" class="text-xs text-gray-400">Available: $0.00</span>
-                </div>
-            </div>
-        </div>
-        <button id="buy-btc-continue" class="w-full bg-green-500 hover:bg-green-600 text-black font-bold p-4 rounded-2xl transition shadow-lg">Continue</button>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="switchTab(0)">
+                <i class="fa-solid fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item active" onclick="switchTab(1)">
+                <i class="fa-solid fa-coins"></i>
+                <span>Crypto</span>
+            </button>
+            <button class="nav-item" onclick="switchTab(2)">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Pay Bill</span>
+            </button>
+            <button class="nav-item" onclick="switchTab(3)">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Cards</span>
+            </button>
+        </nav>
     </div>
-
-    <!-- Transaction Receipt Sub-Screen -->
-    <div id="screen-receipt" class="sub-screen">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg font-bold text-green-500">Transaction Receipt</h2>
-            <i class="fas fa-times text-xl cursor-pointer p-2" onclick="closeScreen('screen-receipt')"></i>
-        </div>
-        <div class="bg-[#181a20] p-6 rounded-2xl border border-gray-800 text-center mb-6 shadow-xl">
-            <div class="w-14 h-14 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
-                <i class="fas fa-check"></i>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-1">Purchase Successful</h3>
-            <span id="receipt-date" class="text-xs text-gray-400">Just now</span>
-            
-            <div class="border-t border-gray-800 my-4 pt-4 text-left space-y-3 text-sm">
-                <div class="flex justify-between">
-                    <span class="text-gray-400">Transaction Type</span>
-                    <span class="font-semibold text-white">Buy Bitcoin</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-400">Amount Paid</span>
-                    <span id="receipt-usd-amount" class="font-semibold text-white">$0.00</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-400">BTC Received</span>
-                    <span id="receipt-btc-amount" class="font-semibold text-orange-400">0.00 BTC</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-400">Status</span>
-                    <span class="font-semibold text-green-400">Completed</span>
-                </div>
-            </div>
-        </div>
-        <button onclick="closeScreen('screen-receipt')" class="w-full bg-green-500 hover:bg-green-600 text-black font-bold p-4 rounded-2xl transition shadow-lg">Done</button>
-    </div>
-
-    <!-- Receive Crypto Sub-Screen -->
-    <div id="screen-crypto-receive" class="sub-screen">
-        <div class="flex items-center justify-between mb-6">
-            <i class="fas fa-arrow-left text-xl cursor-pointer p-2" onclick="closeScreen('screen-crypto-receive')"></i>
-            <h2 class="text-lg font-bold">Receive crypto</h2>
-            <div></div>
-        </div>
-        <div class="bg-[#181a20] p-3 rounded-xl border border-gray-800 mb-4 flex items-center space-x-2">
-            <i class="fas fa-search text-gray-400"></i>
-            <input type="text" placeholder="Search" class="bg-transparent text-sm text-white w-full outline-none">
-        </div>
-        <span class="text-xs text-gray-400 block mb-3">All assets</span>
-        <div class="space-y-3">
-            <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full bg-yellow-500/20 text-yellow-500 flex items-center justify-center font-bold">BNB</div>
-                    <div><h4 class="font-bold text-white">BNB</h4><span class="text-gray-400 text-xs">Binance</span></div>
-                </div>
-                <div class="text-right"><span class="font-bold text-white block">0 BNB</span><span class="text-gray-400 text-xs">$0 USD</span></div>
-            </div>
-            <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center font-bold"><i class="fab fa-bitcoin"></i></div>
-                    <div><h4 class="font-bold text-white">BTC</h4><span class="text-gray-400 text-xs">Bitcoin</span></div>
-                </div>
-                <div class="text-right"><span class="font-bold text-white block">0 BTC</span><span class="text-gray-400 text-xs">$0 USD</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Send Crypto Sub-Screen -->
-    <div id="screen-crypto-send" class="sub-screen">
-        <div class="flex items-center justify-between mb-6">
-            <i class="fas fa-arrow-left text-xl cursor-pointer p-2" onclick="closeScreen('screen-crypto-send')"></i>
-            <h2 class="text-lg font-bold">Send Bitcoin</h2>
-            <div></div>
-        </div>
-        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-4">
-            <span class="text-xs text-gray-400 block mb-1">External Wallet Address</span>
-            <input type="text" id="send-wallet-input" placeholder="Paste BTC recipient address" class="bg-transparent text-sm text-white w-full outline-none">
-        </div>
-        <div class="bg-[#181a20] p-4 rounded-2xl border border-gray-800 mb-6">
-            <span class="text-xs text-gray-400 block mb-1">Amount (BTC)</span>
-            <div class="flex justify-between items-center">
-                <input type="number" id="send-btc-amount" placeholder="0.00" class="bg-transparent text-xl font-bold text-white w-full outline-none">
-                <span class="text-green-500 font-bold">BTC</span>
-            </div>
-            <span class="text-xs text-gray-400 block mt-2">Network fee: 0.00001 BTC</span>
-        </div>
-        <button class="w-full bg-green-500 hover:bg-green-600 text-black font-bold p-4 rounded-2xl transition shadow-lg">Send Bitcoin</button>
-    </div>
-
-    <!-- Admin Balance Tweak Sub-Screen -->
-    <div id="screen-admin-tweak" class="sub-screen">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg font-bold text-green-500">Admin Balance Tweak</h2>
-            <i class="fas fa-times text-xl cursor-pointer p-2" onclick="closeScreen('screen-admin-tweak')"></i>
-        </div>
-        <div class="bg-[#181a20] p-4 rounded-2xl border border-green-500/50 mb-6">
-            <span class="text-xs text-gray-400 block mb-1">Set Custom Balance Amount ($)</span>
-            <div class="flex justify-between items-center">
-                <input type="number" id="admin-custom-balance" placeholder="20000" class="bg-transparent text-xl font-bold text-white w-full outline-none">
-                <span class="text-green-500 font-bold">USD</span>
-            </div>
-            <span class="text-xs text-gray-400 block mt-2">Instantly overrides app cash balance</span>
-        </div>
-        <button onclick="applyAdminBalance()" class="w-full bg-green-500 hover:bg-green-600 text-black font-bold p-4 rounded-2xl transition shadow-lg">Apply Balance Tweak</button>
-    </div>
-
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 w-full bg-[#121418] border-t border-gray-800 flex justify-around py-3 z-40">
-        <button onclick="switchTab('home-screen'); updateNavHighlight(this);" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition" data-target="home-screen"><i class="fas fa-home text-lg mb-1"></i><span class="text-xs">Home</span></button>
-        <button onclick="switchTab('crypto-screen'); updateNavHighlight(this);" class="nav-btn flex flex-col items-center text-green-400 transition" data-target="crypto-screen"><i class="fas fa-coins text-lg mb-1"></i><span class="text-xs">Crypto</span></button>
-        <button onclick="switchTab('paybill-screen'); updateNavHighlight(this);" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition" data-target="paybill-screen"><i class="fas fa-lightbulb text-lg mb-1"></i><span class="text-xs">Pay Bill</span></button>
-        <button onclick="switchTab('cards-screen'); updateNavHighlight(this);" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition" data-target="cards-screen"><i class="fas fa-credit-card text-lg mb-1"></i><span class="text-xs">Cards</span></button>
-    </nav>
 
     <script src="script.js"></script>
 </body>
