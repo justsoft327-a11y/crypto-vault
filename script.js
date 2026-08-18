@@ -21,6 +21,15 @@ function switchTab(screenId) {
     }
 }
 
+function updateNavHighlight(btn) {
+    document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('text-green-400');
+        b.classList.add('text-gray-400');
+    });
+    btn.classList.remove('text-gray-400');
+    btn.classList.add('text-green-400');
+}
+
 // Portfolio State & Pricing
 let userCashBalance = 0.00;
 let btcHolding = 0.00;
@@ -70,7 +79,7 @@ function renderTransactions() {
     }
 
     container.innerHTML = transactions.map(tx => `
-        <div class="flex items-center justify-between p-3 bg-[#181a20] rounded-xl mb-2 border border-gray-800">
+        <div class="flex items-center justify-between p-3 bg-[#181a20] rounded-xl mb-2 border border-gray-800 shadow-sm">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center ${tx.color}">
                     <i class="fas ${tx.icon}"></i>
@@ -113,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const btcBought = amount / btcPrice;
             btcHolding += btcBought;
 
-            // Add to transaction history
             transactions.unshift({
                 type: 'Buy BTC',
                 amount: `-$${amount.toFixed(2)}`,
@@ -123,12 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 color: 'text-orange-500'
             });
 
-            // Update UI
             renderTransactions();
             updatePortfolioDisplay();
             closeScreen('screen-crypto-trade');
 
-            // Populate and Show Receipt Screen
             document.getElementById('receipt-usd-amount').textContent = `$${amount.toFixed(2)}`;
             document.getElementById('receipt-btc-amount').textContent = `${btcBought.toFixed(4)} BTC`;
             openScreen('screen-receipt');
