@@ -45,6 +45,19 @@ body { background-color: #0b0e14; color: #fff; display: flex; justify-content: c
 .service-card { background-color: #161b22; padding: 20px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; }
 .service-card i { font-size: 28px; }
 
+/* Cards Tab Matching Styles */
+.cards-stack-container { display: flex; justify-content: center; margin: 15px 0 25px 0; }
+.virtual-card-stack { width: 100%; height: 185px; position: relative; }
+.virtual-card-top-layer { position: absolute; top: 0; left: 5%; width: 90%; height: 30px; background: #fde047; border-radius: 16px 16px 0 0; opacity: 0.8; z-index: 1; }
+.virtual-card-main { position: absolute; top: 15px; left: 0; width: 100%; height: 170px; background: linear-gradient(135deg, #15803d, #22c55e); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; z-index: 2; box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3); }
+.card-top-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+.card-badge-virtual { background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
+.cards-heading { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+.cards-subtext { color: #888; font-size: 13px; margin-bottom: 20px; line-height: 1.4; }
+.verification-item { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.pending-badge { background-color: rgba(234, 179, 8, 0.15); color: #eab308; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
 /* Profile Menu List */
 .profile-menu-list { display: flex; flex-direction: column; gap: 12px; }
 .menu-item { background-color: #161b22; padding: 18px; border-radius: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; font-weight: 500; color: #fff; }
@@ -62,12 +75,11 @@ body { background-color: #0b0e14; color: #fff; display: flex; justify-content: c
 .form-input { background-color: #161b22; border: 1px solid #30363d; color: #fff; padding: 15px; border-radius: 12px; font-size: 15px; width: 100%; margin-bottom: 15px; outline: none; }
 .field-label { color: #888; font-size: 13px; margin-bottom: 6px; display: block; }
 
-.primary-btn { background-color: #22c55e; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; margin-top: auto; text-align: center; }
+.primary-btn { background-color: #22c55e; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; text-align: center; }
 .add-recipient-card { background-color: #161b22; padding: 16px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 20px; cursor: pointer; color: #22c55e; font-weight: bold; }
 .avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #30363d; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: bold; margin-right: 15px; }
 
-.virtual-card { background: linear-gradient(135deg, #15803d, #22c55e); padding: 20px; border-radius: 16px; color: #fff; margin-top: 20px; height: 180px; display: flex; flex-direction: column; justify-content: space-between; }
-.card-top { font-size: 12px; font-weight: bold; letter-spacing: 1px; }
-.card-number { font-size: 20px; letter-spacing: 2px; }
-.card-holder { font-size: 14px; font-weight: bold; }
-.card-balance { font-size: 13px; }
+/* Loading Spinners */
+.spinner { width: 50px; height: 50px; border: 4px solid rgba(34, 197, 94, 0.2); border-top-color: #22c55e; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
+.spinner-small { width: 20px; height: 20px; border: 2px solid rgba(34, 197, 94, 0.2); border-top-color: #22c55e; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
