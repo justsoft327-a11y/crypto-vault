@@ -53,10 +53,10 @@ body {
 .view-section {
     display: none;
     padding: 20px;
+}
 
-    &.active {
-        display: block;
-    }
+.view-section.active {
+    display: block;
 }
 
 /* Balance Card */
@@ -74,10 +74,10 @@ body {
 .balance-amount {
     font-size: 36px;
     font-weight: bold;
+}
 
-    &.blurred {
-        filter: blur(8px);
-    }
+.balance-amount.blurred {
+    filter: blur(8px);
 }
 
 /* Action Buttons Grid */
@@ -152,17 +152,17 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+}
 
-    h4 {
-        font-size: 15px;
-        margin-bottom: 4px;
-    }
+.promo-banner h4 {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
 
-    p {
-        font-size: 12px;
-        color: #9ca3af;
-        max-width: 200px;
-    }
+.promo-banner p {
+    font-size: 12px;
+    color: #9ca3af;
+    max-width: 200px;
 }
 
 .btn-explore {
@@ -181,10 +181,10 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
+}
 
-    h3 {
-        font-size: 16px;
-    }
+.section-header h3 {
+    font-size: 16px;
 }
 
 .tx-item {
@@ -198,9 +198,13 @@ body {
     cursor: pointer;
 }
 
-.tx-info {
-    h5 { font-size: 14px; }
-    span { font-size: 11px; color: #9ca3af; }
+.tx-info h5 { 
+    font-size: 14px; 
+}
+
+.tx-info span { 
+    font-size: 11px; 
+    color: #9ca3af; 
 }
 
 .tx-amount.negative {
@@ -224,11 +228,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
 
-    span {
-        font-size: 15px;
-        font-weight: 500;
-    }
+.quick-pay-card span {
+    font-size: 15px;
+    font-weight: 500;
 }
 
 /* Bottom Nav */
@@ -253,10 +257,10 @@ body {
     color: #6b7280;
     cursor: pointer;
     font-size: 11px;
+}
 
-    &.active {
-        color: #22c55e;
-    }
+.nav-item.active {
+    color: #22c55e;
 }
 
 /* Modals & Overlays */
@@ -304,27 +308,44 @@ body {
     padding: 16px 0;
     border-bottom: 1px solid #1f2937;
     cursor: pointer;
-
-    span { display: block; font-size: 15px; font-weight: 500; }
-    small { color: #9ca3af; font-size: 12px; }
 }
 
-.text-danger { color: #ef4444 !important; }
+.settings-item span { 
+    display: block; 
+    font-size: 15px; 
+    font-weight: 500; 
+}
+
+.settings-item small { 
+    color: #9ca3af; 
+    font-size: 12px; 
+}
+
+.text-danger { 
+    color: #ef4444 !important; 
+}
 
 /* Forms & Buttons inside modals */
 .form-group {
     margin-bottom: 16px;
+}
 
-    label { display: block; font-size: 12px; color: #9ca3af; margin-bottom: 6px; }
-    input, select {
-        width: 100%;
-        background: #1a202c;
-        border: 1px solid #2d3748;
-        padding: 12px;
-        border-radius: 10px;
-        color: #fff;
-        font-size: 14px;
-    }
+.form-group label { 
+    display: block; 
+    font-size: 12px; 
+    color: #9ca3af; 
+    margin-bottom: 6px; 
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    background: #1a202c;
+    border: 1px solid #2d3748;
+    padding: 12px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
 }
 
 .btn-primary {
